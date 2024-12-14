@@ -38,10 +38,11 @@ module.exports = withBundleAnalyzer({
         },
       };
       config.resolve.fallback = {
-        fs: false,
+        fs: false, // Disable fs in browser
         path: require.resolve('path-browserify'),
         os: require.resolve('os-browserify/browser'),
-        // add other necessary Node.js polyfills here
+        stream: require.resolve('stream-browserify'),
+        buffer: require.resolve('buffer'),
 
       };
     } else {
