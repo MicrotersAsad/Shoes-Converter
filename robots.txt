@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /dashboard/dashboard/
+User-agent: *
+Disallow: /dashboard/dashboard/
+Sitemap: https://ytubetools.com/sitemap.xml

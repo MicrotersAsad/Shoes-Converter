@@ -1,0 +1,393 @@
+import React, { Fragment, useState, useEffect } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useAuth } from '../contexts/AuthContext';
+import Image from 'next/image';
+import { useTranslation } from 'next-i18next';
+import 'flag-icons/css/flag-icons.min.css'; // Import flag-icons CSS
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+import logo from '../public/yt icon.png';
+import { FaBookmark } from 'react-icons/fa';
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
+const availableLanguages = [
+  { code: 'en', name: 'English', flag: 'us' },
+  { code: 'fr', name: 'Français', flag: 'fr' },
+  { code: 'zh-HANT', name: '中国传统的', flag: 'cn' },
+  { code: 'zh-HANS', name: '简体中文', flag: 'cn' },
+  { code: 'nl', name: 'Nederlands', flag: 'nl' },
+  { code: 'gu', name: 'ગુજરાતી', flag: 'in' },
+  { code: 'hi', name: 'हिंदी', flag: 'in' },
+  { code: 'it', name: 'Italiano', flag: 'it' },
+  { code: 'ja', name: '日本語', flag: 'jp' },
+  { code: 'ko', name: '한국어', flag: 'kr' },
+  { code: 'pl', name: 'Polski', flag: 'pl' },
+  { code: 'pt', name: 'Português', flag: 'pt' },
+  { code: 'ru', name: 'Русский', flag: 'ru' },
+  { code: 'es', name: 'Español', flag: 'es' },
+  { code: 'de', name: 'Deutsch', flag: 'de' },
+];
+
+function Navbar() {
+  const { user, logout } = useAuth();
+  const router = useRouter();
+  const { t, i18n } = useTranslation('navbar');
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+  const changeLanguage = async (lang) => {
+    if (availableLanguages.find((l) => l.code === lang)) {
+      setSelectedLanguage(lang);
+      await i18n?.changeLanguage(lang);
+      router.push(router.pathname, router.asPath, { locale: lang }).then(() => {
+        window.location.reload();
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (router) {
+      const handleRouteChange = () => NProgress.start();
+      const handleRouteComplete = () => NProgress.done();
+      router.events.on('routeChangeStart', handleRouteChange);
+      router.events.on('routeChangeComplete', handleRouteComplete);
+      router.events.on('routeChangeError', handleRouteComplete);
+      return () => {
+        router.events.off('routeChangeStart', handleRouteChange);
+        router.events.off('routeChangeComplete', handleRouteComplete);
+        router.events.off('routeChangeError', handleRouteComplete);
+      };
+    }
+  }, [router]);
+
+  const navigation = [
+    { key: 'Home', href: '/', dropdown: false },
+    {
+      key: 'Shoe Converter Tools',
+      href: '#',
+      dropdown: true,
+      children: [
+        {
+          heading: 'Normal Tools',
+          items: [
+            { key: 'Women Shoe Size Converter', href: '/women', icon: '👠' },
+            { key: 'Men Shoe Size Converter', href: '/men', icon: '👞' },
+            { key: 'Kids Shoe Size Calculator', href: '/kids', icon: '🍼' },
+            { key: 'Men to Women Shoe Size Converter', href: '/men-to-women', icon: '🔁' },
+          ],
+        },
+        {
+          heading: 'Country-Specific Tools',
+          items: [
+            { key: 'European Shoe Size Converter', href: '/country/european', icon: '🌍' },
+            { key: 'Brazilian Shoe Size Converter', href: '/country/brazilian', icon: '🇧🇷' },
+            { key: 'Mexican Shoe Size Converter', href: '/country/mexican', icon: '🇲🇽' },
+          ],
+        },
+        {
+          heading: 'Brand-Specific Tools',
+          items: [
+            { key: 'Clarks Shoe Size Converter', href: '/brand/clarks', icon: '🪶' },
+            { key: 'Nike Shoe Size Converter', href: '/brand/nike', icon: '✅' },
+            { key: 'Adidas Shoe Size Converter', href: '/brand/adidas', icon: 'ad' },
+          ],
+        },
+      ],
+    },
+    { key: 'Pricing', href: '/pricing', dropdown: false },
+    { key: 'Blog', href: '/blog', dropdown: false },
+    { key: 'Youtube', href: '/youtube', dropdown: false },
+    { key: 'About Us', href: '/about', dropdown: false },
+    { key: 'Contact Us', href: '/contact', dropdown: false },
+  ];
+
+  return (
+    <>
+      <Disclosure as="nav" className="bg-gray-800">
+        {({ open }) => (
+          <>
+            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+              <div className="relative flex h-16 items-center justify-between">
+                <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-red-500 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <span className="sr-only">Open main menu</span>
+                    {open ? <XMarkIcon className="block h-6 w-6" aria-hidden="true" /> : <Bars3Icon className="block h-6 w-6" aria-hidden="true" />}
+                  </Disclosure.Button>
+                </div>
+                <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                  <div className="flex-shrink-0 flex items-center">
+                    <Link href="/">
+                      <Image src={logo} alt="YouTube Tools Logo" height="70" width="150" priority />
+                    </Link>
+                  </div>
+                  <div className="hidden sm:block sm:ml-6 mx-auto">
+                    <div className="flex space-x-4">
+                      {navigation.map((item) =>
+                        item.dropdown ? (
+                          <Menu as="div" key={item.key} className="relative">
+                            <Menu.Button
+                              className={classNames(
+                                router.pathname.startsWith('/tools')
+                                  ? 'bg-gray-700 text-white'
+                                  : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
+                                'flex items-center px-3 py-2 rounded-md text-sm font-medium'
+                              )}
+                            >
+                              {t(item.key)} <ChevronDownIcon className="ml-2 h-5 w-5" aria-hidden="true" />
+                            </Menu.Button>
+                            <Transition
+                              as={Fragment}
+                              enter="transition ease-out duration-200"
+                              enterFrom="opacity-0 translate-y-1"
+                              enterTo="opacity-100 translate-y-0"
+                              leave="transition ease-in duration-150"
+                              leaveFrom="opacity-100 translate-y-0"
+                              leaveTo="opacity-0 translate-y-1"
+                            >
+                             <Menu.Items className="absolute z-50 p-3 w-[60rem] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none grid grid-cols-3 gap-4">
+  {item.children.map((section, idx) => (
+    <div key={idx} className="p-4 border rounded-md">
+      <h6 className="font-semibold text-gray-600 text-lg mb-3">{section.heading}</h6>
+      <div className="flex flex-wrap gap-4">
+        {section.items.map((subItem, subIdx) => (
+          <Menu.Item key={subIdx}>
+            {({ active }) => (
+              <Link
+                href={subItem.href}
+                className={classNames(
+                  active ? 'bg-gray-100' : '',
+                  'flex items-center p-2 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition w-full sm:w-auto'
+                )}
+              >
+                <span className="mr-3 text-blue-500 text-xl">{subItem.icon}</span>
+                <span className="text-gray-800 text-sm">{subItem.key}</span>
+              </Link>
+            )}
+          </Menu.Item>
+        ))}
+      </div>
+    </div>
+  ))}
+</Menu.Items>
+
+                            </Transition>
+                          </Menu>
+                        ) : (
+                          <Link
+                            key={item.key}
+                            href={item.href}
+                            className={classNames(
+                              router.pathname === item.href ? 'bg-gray-700 text-white' : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
+                              'px-3 py-2 rounded-md text-sm font-medium'
+                            )}
+                          >
+                            {t(item.key)}
+                          </Link>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <Link
+                  href="/saved-channels"
+                  className={classNames(
+                    router.pathname === '/saved-channels'
+                      ? 'bg-gray-700 text-white'
+                      : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
+                    'px-3 py-2 rounded-md text-sm font-medium flex items-center'
+                  )}
+                >
+                  <FaBookmark className="mr-2 fs-3 text-yellow-300" />
+                </Link>
+                {/* Language Selector */}
+                <div className="flex items-center inset-y-0 right-0 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  <Menu as="div" className="relative">
+                    <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-800 text-sm font-medium text-white hover:bg-gray-700">
+                      <span className={`fi fi-${availableLanguages.find((l) => l.code === selectedLanguage)?.flag}`} />
+                      <span className="ml-2">{availableLanguages.find((l) => l.code === selectedLanguage)?.name}</span>
+                      <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
+                    </Menu.Button>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-200"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="py-1">
+                          {availableLanguages.map((lang) => (
+                            <Menu.Item key={lang.code}>
+                              {({ active }) => (
+                                <button
+                                  onClick={() => changeLanguage(lang.code)}
+                                  className={classNames(
+                                    active ? 'bg-gray-100' : '',
+                                    'block w-full text-left px-4 py-2 text-sm'
+                                  )}
+                                >
+                                  <span className={`fi fi-${lang.flag} mr-2`}></span>
+                                  {lang.name}
+                                </button>
+                              )}
+                            </Menu.Item>
+                          ))}
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                  {/* User Menu */}
+                  {user ? (
+                    <Menu as="div" className="relative ml-3">
+                      <Menu.Button className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span className="sr-only">Open user menu</span>
+                        {user.profileImage ? (
+                          <Image
+                            src={user.profileImage}
+                            alt="User profile image"
+                            className="w-8 h-8 rounded-full"
+                            width={32}
+                            height={32}
+                            priority
+                          />
+                        ) : (
+                          <span className="text-gray-500">No Image</span>
+                        )}
+                      </Menu.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                      >
+                        <Menu.Items className="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                href="/user/profile"
+                                className={classNames(
+                                  active ? 'bg-gray-100' : '',
+                                  'block px-4 py-2 text-sm text-gray-700'
+                                )}
+                              >
+                                {t('Profile')}
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                href="/dashboard/dashboard"
+                                className={classNames(
+                                  active ? 'bg-gray-100' : '',
+                                  'block px-4 py-2 text-sm text-gray-700'
+                                )}
+                              >
+                                {t('Dashboard')}
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                onClick={logout}
+                                className={classNames(
+                                  active ? 'bg-gray-100' : '',
+                                  'block px-4 py-2 text-sm text-gray-700'
+                                )}
+                              >
+                                {t('Logout')}
+                              </button>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  ) : (
+                    <Link href="/login">
+                      <button className="text-gray-300 bg-red-700 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                        {t('Login')}
+                      </button>
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+            <Disclosure.Panel className="sm:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                {navigation.map((item) =>
+                  item.dropdown ? (
+                    <Menu as="div" key={item.key} className="px-2 py-3 space-y-1">
+                      <Menu.Button className="w-full text-left flex items-center text-gray-300 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">
+                        {t(item.key)} <ChevronDownIcon className="ml-auto h-5 w-5" aria-hidden="true" />
+                      </Menu.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                      >
+                        <Menu.Items className="flex flex-col pl-4 space-y-1">
+                          {item.children.map((section) => (
+                            <div key={section.heading}>
+                              <h4 className="font-semibold text-gray-400">{section.heading}</h4>
+                              {section.items.map((subItem) => (
+                                <Menu.Item key={subItem.key}>
+                                  {({ active }) => (
+                                    <Link
+                                      href={subItem.href}
+                                      className={classNames(
+                                        active
+                                          ? 'bg-gray-100 text-gray-700'
+                                          : 'text-gray-500 hover:bg-gray-200 hover:text-gray-700',
+                                        'block px-4 py-2 rounded-md'
+                                      )}
+                                    >
+                                      {subItem.icon} {t(subItem.key)}
+                                    </Link>
+                                  )}
+                                </Menu.Item>
+                              ))}
+                            </div>
+                          ))}
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  ) : (
+                    <Link
+                      key={item.key}
+                      href={item.href}
+                      className={classNames(
+                        router.pathname === item.href
+                          ? 'bg-gray-700 text-white'
+                          : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
+                        'block px-3 py-2 rounded-md text-base font-medium'
+                      )}
+                    >
+                      {t(item.key)}
+                    </Link>
+                  )
+                )}
+              </div>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    </>
+  );
+}
+
+export default Navbar;
