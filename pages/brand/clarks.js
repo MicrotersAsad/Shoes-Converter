@@ -175,7 +175,7 @@ export async function getStaticProps({ locale }) {
     const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
 
     // Fetch the content data with authorization header
-    const contentResponse = await fetch(`http://localhost:3000/api/content?category=tagGenerator&language=${locale}`, {
+    const contentResponse = await fetch(`https://shoes-converter.vercel.app/api/content?category=tagGenerator&language=${locale}`, {
       method: 'GET',  // You can also specify POST, PUT, etc. if needed
       headers: {
         'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
