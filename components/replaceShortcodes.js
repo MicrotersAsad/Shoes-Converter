@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 // ডাইনামিক কম্পোনেন্ট লোডিংয়ের জন্য ফাংশন
 const loadDynamicComponent = (componentName) => {
   try {
-    return dynamic(() => import(`../pages/${componentName}`), {
+    return dynamic(() => import(`../pages/tools/${componentName}`), {
       ssr: true,
     });
   } catch (error) {

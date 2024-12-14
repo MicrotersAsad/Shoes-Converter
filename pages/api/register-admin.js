@@ -1,5 +1,5 @@
 import multer from 'multer';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs';
 import { connectToDatabase } from '../../utils/mongodb';
 import { sendVerificationEmail } from '../../utils/sendVerificationEmail';
 import { v4 as uuidv4 } from 'uuid';

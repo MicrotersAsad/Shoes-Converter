@@ -70,6 +70,16 @@ const Footer = () => {
                     {t('Blog')}
                   </Link>
                 </li>
+                <li>
+                  <Link href="/ccpa" className="text-gray-300 hover:text-white">
+                    {t('CCPA')}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/gdpr" className="text-gray-300 hover:text-white">
+                    {t('GDPR')}
+                  </Link>
+                </li>
               </ul>
             </div>
             {/* <!-- Company Column --> */}
@@ -77,36 +87,40 @@ const Footer = () => {
               <h5 className="text-sm font-semibold uppercase text-white">Our Tools</h5>
               <ul className="mt-4 space-y-2">
                 <li>
-                  <Link href="/tools/men-to-women-shoe-size-converter" className="text-gray-300 hover:text-white">
-                    {t('Men to Women shoe size converter')}
+                  <Link href="/tools/title-generator" className="text-gray-300 hover:text-white">
+                    {t('YouTube Title Generator')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools/european-shoe-size-converter" className="text-gray-300 hover:text-white">
-                    {t('European shoe size converter')}
+                  <Link href="/tools/tag-extractor" className="text-gray-300 hover:text-white">
+                    {t('YouTube Tag Extractor')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools/kids-shoe-size-calculator" className="text-gray-300 hover:text-white">
-                    {t('Kids Shoe Size Calculator')}
+                  <Link href="/tools/description-generator" className="text-gray-300 hover:text-white">
+                    {t('YouTube Description Generator')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools/men-shoe-size-converter" className="text-gray-300 hover:text-white">
-                    {t('Men Shoe Size Converter')}
+                  <Link href="/tools/youtube-title-and-description-extractor" className="text-gray-300 hover:text-white">
+                    {t('YouTube Title and Description Extractor')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools/men-shoe-size-converter" className="text-gray-300 hover:text-white">
-                    {t('Men Shoe Size Converter')}
+                  <Link href="/tools/youtube-thumbnail" className="text-gray-300 hover:text-white">
+                    {t('YouTube Thumbnails')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="tools/women-shoe-size-converter" className="text-gray-300 hover:text-white">
-                    {t('Women Shoe Size Converter')}
+                  <Link href="tools/channel-id-finder" className="text-gray-300 hover:text-white">
+                    {t('YouTube Channel ID Finder')}
                   </Link>
                 </li>
-               
+                <li>
+                  <Link href="/tools/video-data-viewer" className="text-gray-300 hover:text-white">
+                    {t('YouTube Video Data Viewer')}
+                  </Link>
+                </li>
               </ul>
             </div>
             {/* <!-- Payment Section --> */}

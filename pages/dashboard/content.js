@@ -252,7 +252,7 @@ function Content() {
   const renderHeader = () => {
     switch(selectedCategory) {
       case 'tagGenerator':
-        return 'Shoe Size Conversation';
+        return 'Tag Generator';
       case 'tagExtractor':
         return 'Tag Extractor';
       case 'Titlegenerator':

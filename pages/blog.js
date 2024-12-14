@@ -3,6 +3,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { ClipLoader } from 'react-spinners';
 import { FaCalendar, FaSearch, FaUserCircle } from 'react-icons/fa';
 import { i18n } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';

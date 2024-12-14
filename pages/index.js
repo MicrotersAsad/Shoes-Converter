@@ -1,315 +1,655 @@
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { i18n, useTranslation } from "next-i18next";
+import axios from "axios";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Image from "next/image";
+import { FaCalendar, FaUserCircle } from "react-icons/fa";
+import CountUp from "react-countup";
+import Head from "next/head";
 
-import { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+const Home = ({ initialBlogs = [] }) => {
+  const { t, i18n } = useTranslation("home");
+  const [blogsData, setBlogsData] = useState(initialBlogs);
+  const [categories, setCategories] = useState([]);
+  const [searchQuery, setSearchQuery] = useState();
+  const [searchResults, setSearchResults] = useState([]); // Search results state
+  const stats = [
+    { value: "100K+", label: "Global Users" },
+    { value: "50+", label: "AI-Powered Tools" },
+    { value: "100%", label: "Forever Free" },
+    { value: "30+", label: "Languages Available" },
+  ];
 
-const ShoeSizeCalculator = () => {
-  const [category, setCategory] = useState('women'); // Default category
-  const [fromUnit, setFromUnit] = useState('US & Canada'); // Default input unit
-  const [toUnit, setToUnit] = useState('Europe'); // Default output unit
-  const [size, setSize] = useState(''); // Selected size
-  const [convertedSize, setConvertedSize] = useState('');
-  const [highlightIndex, setHighlightIndex] = useState(null); // Index to highlight
-
-  
-  const shoeSizeData = {
-    women: {
-      title: "Women's Shoe Size Conversion",
-      data: [
-        { unit: 'US & Canada', sizes: [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12] },
-        { unit: 'UK', sizes: [2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10] },
-        { unit: 'Europe', sizes: ['35', '35', '35-36', '36', '36-37', '37', '37-38', '38', '38-39', '39', '39-40', '40', '40-41', '41', '41-42', '42', '42-43'] },
-        { unit: 'Inches', sizes: [8.2, 8.3, 8.5, 8.8, 8.9, 9.1, 9.3, 9.4, 9.5, 9.7, 9.9, 10, 10.2, 10.3, 10.5, 10.7, 10.9] },
-        { unit: 'Centimeters', sizes: [20.8, 21.3, 21.6, 22.2, 22.5, 23, 23.5, 23.8, 24.1, 24.6, 25.1, 25.4, 25.9, 26.2, 26.7, 27.1, 27.6] },
-      ],
-    },
-    men: {
-      title: "Men's Shoe Size Conversion",
-      data: [
-        { unit: 'US & Canada', sizes: [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 13, 14, 15, 16] },
-        { unit: 'UK', sizes: [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12.5, 13.5, 14.5, 15.5] },
-        { unit: 'Europe', sizes: ['39', '39', '40', '40-41', '41', '41-42', '42', '42-43', '43', '43-44', '44', '44-45', '45', '46', '47', '48', '49'] },
-        { unit: 'Inches', sizes: [9.3, 9.5, 9.6, 9.8, 9.9, 10.1, 10.3, 10.4, 10.6, 10.8, 10.9, 11.1, 11.3, 11.6, 11.9, 12.2, 12.5] },
-        { unit: 'Centimeters', sizes: [23.5, 24.1, 24.4, 24.8, 25.4, 25.7, 26, 26.7, 27, 27.3, 27.9, 28.3, 28.6, 29.4, 30.2, 31, 31.8] },
-      ],
-    },
-    bigKids: {
-        title: "Big Kids' Shoe Size Conversion (7–12 Years)",
-        data: [
-          { unit: 'US & Canada', sizes: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7] },
-          { unit: 'UK', sizes: [2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6] },
-          { unit: 'Europe', sizes: ['35', '36', '36', '37', '37', '38', '38', '39'] },
-          { unit: 'Inches', sizes: [8.6, 8.8, 9, 9.1, 9.3, 9.5, 9.6, 9.8] },
-          { unit: 'Centimeters', sizes: [21.9, 22.2, 22.9, 23.2, 23.5, 24.1, 24.4, 24.8] },
-        ],
-      },
-      littleKids: {
-        title: "Little Kids' Shoe Size Conversion (4–7 Years)",
-        data: [
-          { unit: 'US & Canada', sizes: [10.5, 11, 11.5, 12, 12.5, 13, 13.5, 1, 1.5, 2, 2.5, 3] },
-          { unit: 'UK', sizes: [9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 14, 1, 1.5, 2] },
-          { unit: 'Europe', sizes: ['27', '28', '29', '30', '30', '31', '31', '32', '33', '33', '34', '34'] },
-          { unit: 'Inches', sizes: [6.6, 6.8, 7, 7.1, 7.3, 7.5, 7.6, 7.8, 8, 8.1, 8.3, 8.5] },
-          { unit: 'Centimeters', sizes: [16.8, 17.1, 17.8, 18.1, 18.4, 19.1, 19.4, 19.7, 20.3, 20.6, 21, 21.6] },
-        ],
-      },
-      toddlers: {
-        title: "Toddlers' Shoe Size Conversion (9 Months - 4 Years)",
-        data: [
-          { unit: 'US & Canada', sizes: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10] },
-          { unit: 'UK', sizes: [19, 19, 20, 20, 21, 22, 22, 23, 23, 24, 25, 25, 26, 27] },
-          { unit: 'Europe', sizes: ['2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9'] },
-          { unit: 'Inches', sizes: [4.3, 4.5, 4.6, 4.8, 5, 5.1, 5.3, 5.5, 5.6, 5.8, 6, 6.1, 6.3, 6.5] },
-          { unit: 'Centimeters', sizes: [10.8, 11.4, 11.7, 12.1, 12.7, 13, 13.3, 14, 14.3, 14.6, 15.2, 15.6, 15.9, 16.5] },
-        ],
-      },
-      infants: {
-        title: "Infants' Shoe Size Conversion (0–9 Months)",
-        data: [
-          { unit: 'US & Canada', sizes: [0, 1, 1.5, 2, 2.5, 3] },
-          { unit: 'UK', sizes: [0, 0.5, 1, 1, 1.5, 2] },
-          { unit: 'Europe', sizes: ['15', '16', '17', '17', '18', '18'] },
-          { unit: 'Inches', sizes: [3.1, 3.5, 3.6, 3.8, 4, 4.1] },
-          { unit: 'Centimeters', sizes: [7.9, 8.9, 9.2, 9.5, 10.2, 10.5] },
-        ],
-      },
-   
+  // Helper function to clean the numeric value (remove non-numeric characters)
+  const cleanValue = (value) => {
+    // Extracts the numeric part only
+    return value.replace(/[^0-9]/g, ""); // Remove all non-numeric characters (like '+', 'M', '%')
   };
-  const categoryNames = {
-    women: "Women's",
-    men: "Men's",
-    bigKids: "Big Kid's (7 - 12 years)",
-    littleKids: "Little Kid's (4 - 7 years)",
-    toddlers: "Toddlers' (9 months - 4 years)",
-    infants: "Infants' (0 - 9 months)"
-  };
-  
-  const handleConversion = () => {
-    const categoryData = shoeSizeData[category].data;
-    const fromRow = categoryData.find((row) => row.unit === fromUnit);
-    const fromIndex = fromRow.sizes.indexOf(Number(size));
 
-    if (fromIndex !== -1) {
-      setHighlightIndex(fromIndex); // Highlight the matching column
-      const toRow = categoryData.find((row) => row.unit === toUnit);
-      setConvertedSize(toRow.sizes[fromIndex]); // Display the conversion result
+  // Function to check if the value is purely numeric or contains other characters
+  const hasNonNumericChars = (value) => {
+    return /[^\d]/.test(value); // Check if there's any character other than digits
+  };
+  const allTools = [
+    {
+      name: "YouTube Tag Generator",
+      link: "https://ytubetools.com/tools/tag-generator",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733289894208-taggenerator.png",
+      description:
+        "Generate optimized YouTube tags to boost your video discoverability and SEO.",
+    },
+    {
+      name:"Youtube Tag Extractor",
+      link: "http://www.ytubetools.com/tools/tag-extractor",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/title-and-description-extractor.png",
+      description:
+        "Extract tags from any YouTube video for easy reference and analysis.",
+    },
+    {
+      name: "Youtube Title Generator",
+      link: "http://www.ytubetools.com/tools/title-generator",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/title-bar.png",
+      description:
+        "Generate attention-grabbing YouTube titles that increase click-through rates.",
+    },
+    {
+      name: "Youtube Description Generator",
+      link: "http://www.ytubetools.com/tools/description-generator",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Title-And-Description-Generator.png",
+      description:
+        "Create compelling video descriptions to improve your YouTube video SEO.",
+    },
+    {
+      name: "Youtube Title&Description Extractor",
+      link: "http://www.ytubetools.com/tools/youtube-title-and-description-extractor",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/title-and-description-extractor.png",
+      description:
+        "Extract YouTube video titles and descriptions for quick access and analysis.",
+    },
+    {
+      name: "YouTube Channel Banner Downloader",
+      link: "http://www.ytubetools.com/tools/youtube-channel-banner-downloader",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/youtube-channel-banner-download.png",
+      description:
+        "Download high-quality YouTube channel banners with just one click.",
+    },
+    {
+      name: "YouTube Hashtag Generator",
+      link: "http://www.ytubetools.com/tools/youtube-hashtag-generator",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/youtube-hastag-generator.png",
+      description:
+        "Generate relevant hashtags to boost the visibility of your YouTube videos.",
+    },
+    {
+      name: "YouTube Channel Logo Downloader",
+      link: "http://www.ytubetools.com/tools/youtube-channel-logo-downloader",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Youtube-channel-logo-downloader.png",
+      description: "Download high-resolution YouTube channel logos easily.",
+    },
+    {
+      name: "YouTube Thumbnail Downloader",
+      link: "http://www.ytubetools.com/tools/youtube-thumbnail",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Youtube-thumbnail-downloader.png",
+      description:
+        "Download the thumbnails of any YouTube video in high resolution.",
+    },
+    {
+      name: "YouTube Channel ID Finder",
+      link: "http://www.ytubetools.com/tools/channel-id-finder",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Channel-ID-Finder.png",
+      description:
+        "Find the YouTube channel ID for any given YouTube channel URL.",
+    },
+    {
+      name: "YouTube Video Data Viewer",
+      link: "http://www.ytubetools.com/tools/video-data-viewer",
+      logo: 'https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Video-Data-Viewer.png',
+      description: "View detailed data and stats about any YouTube video.",
+    },
+    {
+      name: "YouTube Monetization Checker",
+      link: "http://www.ytubetools.com/tools/monetization-checker",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Monetization-Checker.png",
+      description:
+        "Check if a YouTube channel or video is eligible for monetization.",
+    },
+    {
+      name: "YouTube Channel Search",
+      link: "http://www.ytubetools.com/tools/youtube-channel-search",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Youtube-channel-search.png",
+      description: "Search for YouTube channels based on keywords or names.",
+    },
+    {
+      name: "YouTube Video Summary Generator",
+      link: "http://www.ytubetools.com/tools/youtube-video-summary-generator",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Youtube-Video-Summary-generator.png",
+      description:
+        "Generate a concise summary of any YouTube video for quick insights.",
+    },
+    {
+      name: "YouTube Trending Videos",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/youtube-trending-videos.png",
+      description:
+        "Discover the latest trending YouTube videos from around the world.",
+    },
+    {
+      name: "YouTube Money Calculator",
+      link: "http://www.ytubetools.com/tools/youtube-money-calculator",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Youtube-Money-Calculator.png",
+      description:
+        "Estimate the potential earnings of YouTube videos based on views and engagement.",
+    },
+    {
+      name: "Youtube Comment Picker",
+      link: "http://www.ytubetools.com/tools/youtube-comment-picker",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/Comment-Picker-icon.png",
+      description:
+        "Pick random comments from any YouTube video for giveaways or contests.",
+    },
+    {
+      name: "YouTube Keyword Research",
+      link: "http://www.ytubetools.com/tools/keyword-research",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/youtube-keyword-research.png",
+      description:
+        "Conduct keyword research for YouTube to identify high-ranking search terms.",
+    },
+    {
+      name: "YouTube Embed Code Generator",
+      link: "http://www.ytubetools.com/tools/youtube-embed-code-generator",
+      logo: "https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/youtube-embad-code-generator.png",
+      description:
+        "Generate embed codes for YouTube videos for easy sharing on websites and blogs.",
+    },
+  ];
+
+  const currentLanguage = i18n.language || "en";
+
+
+
+  // Handle search input changes
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    if (query.length > 2) {
+      // Filter tools
+      const filteredTools = allTools.filter(
+        (tool) =>
+          tool.name.toLowerCase().includes(query.toLowerCase()) ||
+          tool.description.toLowerCase().includes(query.toLowerCase())
+      );
+
+      // Filter blogs
+      const filteredBlogs = processedBlogs.filter(
+        (blog) =>
+          blog.translations[currentLanguage]?.title
+            .toLowerCase()
+            .includes(query.toLowerCase()) ||
+          blog.translations[currentLanguage]?.slug
+            .toLowerCase()
+            .includes(query.toLowerCase())
+      );
+
+      // Combine results from both tools and blogs
+      const combinedResults = [
+        ...filteredTools.map((tool) => ({
+          title: tool?.name,
+          link: tool?.link, // Adjust the URL based on your routing
+          collectionName: "Tool",
+        })),
+        ...filteredBlogs.map((blog) => ({
+          title: blog.translations[currentLanguage]?.title,
+          link: `/youtube/${blog.translations[currentLanguage]?.slug}`, // Adjust the URL based on your routing
+          collectionName: "Blog",
+        })),
+      ];
+
+      setSearchResults(combinedResults);
     } else {
-      setHighlightIndex(null);
-      setConvertedSize('Invalid size');
+      // Clear results if search query is less than 3 characters
+      setSearchResults([]);
     }
   };
-  const handleReset = () => {
-    setCategory('women'); // Default category
-    setFromUnit('US & Canada'); // Default "From" unit
-    setToUnit('Europe'); // Default "To" unit
-    setSize(''); // Clear the size field
-    setConvertedSize(''); // Clear the converted result
-    setHighlightIndex(null); // Remove highlights
-  };
-  
+  const fetchCategories = useCallback(async () => {
+    try {
+      const response = await axios.get("/api/yt-categories");
+      const filteredCategories = response.data.map((category) => {
+        const translation = category.translations[currentLanguage];
+        return {
+          ...category,
+          name: translation ? translation.name : category.name,
+          slug: translation ? translation.slug : category.slug,
+        };
+      });
+      setCategories(filteredCategories);
+    } catch (error) {
+      console.error("Error fetching categories:", error.message);
+    }
+  }, [currentLanguage]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  const processedBlogs = useMemo(() => {
+    return blogsData
+      .map((blog) => {
+        const translation = blog.translations[currentLanguage];
+        if (!translation) return null;
+
+        const { title, category } = translation;
+
+        if (!translation.slug && title) {
+          translation.slug = createSlug(title);
+        }
+
+        if (!translation.image && translation.content) {
+          translation.image = extractFirstImage(translation.content);
+        }
+
+        return {
+          _id: blog._id,
+          createdAt: blog.createdAt,
+          author: blog.author,
+          ...blog,
+          translations: {
+            ...blog.translations,
+            [currentLanguage]: translation,
+          },
+        };
+      })
+      .filter((blog) => blog);
+  }, [blogsData, currentLanguage]);
+
   return (
+    <div className="">
+      <Head>
+          {/* SEO Meta Tags */}
+          <title>{t("Meta Title")}</title>
+          <meta name="description" content={t("Meta Description")} />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <meta name="robots" content="index, follow" />
 
-    <div className='max-w-7xl mx-auto pb-5'> 
+          {/* Canonical URL */}
+          <link rel="canonical" href="https://ytubetools.com/" />
 
-<div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
-  {/* Title */}
-  <h2 className="text-2xl font-bold text-gray-800 text-center">Shoe Size Calculator</h2>
+          {/* Open Graph Meta Tags */}
+          <meta property="og:type" content="website" />
+          <meta property="og:url"  content="https://ytubetools.com/"/>
+          <meta property="og:title" content={t("Meta Title")} />
+          <meta property="og:description" content={t("Meta Description")} />
+          <meta property="og:image" content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733308755615-ytubetools-homepage.png" />
+          <meta property="og:image:secure_url" content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733308755615-ytubetools-homepage.png" />
+          <meta property="og:site_name" content="Ytubetools" />
+          <meta property="og:locale" content="en_US" />
 
-  {/* Input Fields */}
-  <div className="flex flex-wrap gap-6">
-    {/* Category */}
-    <div className="flex-1 min-w-[200px]">
-      <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-700">
-        Category:
-      </label>
-      <select
-        id="category"
-        value={category}
-        onChange={(e) => {
-          setCategory(e.target.value);
-          setHighlightIndex(null); // Reset highlight
-          setConvertedSize(''); // Reset result
-          setSize(''); // Reset size
-        }}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
-        <option value="women">Women's</option>
-        <option value="men">Men's</option>
-        <option value="bigKids">Big Kid's (7 - 12 years)</option>
-        <option value="littleKids">Little Kid's (4 - 7 years)</option>
-        <option value="toddlers">Toddlers' (9 month - 4 years)</option>
-        <option value="infants">Infants' (0 - 9 months)</option>
-      </select>
-    </div>
+          {/* Twitter Meta Tags */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:domain" content="https://ytubetools.com/" />
+          <meta property="twitter:url" content="https://ytubetools.com/"/>
+          <meta name="twitter:title" content={t("Meta Title")} />
+          <meta name="twitter:description" content={t("Meta Description")} />
+          <meta name="twitter:image" content="" />
+          <meta name="twitter:site" content="@ytubetools" />
+          <meta name="twitter:image:alt" content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733308755615-ytubetools-homepage.png" />
+   {/* Hreflang Meta Tags (for multilingual SEO) */}
+   <link rel="alternate" hreflang="x-default" href="https://www.ytubetools.com"></link>
+   <link rel="alternate" href="https://www.ytubetools.com" hreflang="en" />
+        <link rel="alternate" href="https://www.ytubetools.com/fr" hreflang="fr" />
+        <link rel="alternate" href="https://www.ytubetools.com/es" hreflang="es" />
+        <link rel="alternate" href="https://www.ytubetools.com/zh-HANS" hreflang="zh-HANS" />
+        <link rel="alternate" href="https://www.ytubetools.com/zh-HANT" hreflang="zh-HANT" />
+        <link rel="alternate" href="https://www.ytubetools.com/de" hreflang="de" />
+        <link rel="alternate" href="https://www.ytubetools.com/gu" hreflang="gu" />
+        <link rel="alternate" href="https://www.ytubetools.com/hi" hreflang="hi" />
+        <link rel="alternate" href="https://www.ytubetools.com/it" hreflang="it" />
+        <link rel="alternate" href="https://www.ytubetools.com/ja" hreflang="ja" />
+        <link rel="alternate" href="https://www.ytubetools.com/ko" hreflang="ko" />
+        <link rel="alternate" href="https://www.ytubetools.com/nl" hreflang="nl" />
+        <link rel="alternate" href="https://www.ytubetools.com/pl" hreflang="pl" />
+        <link rel="alternate" href="https://www.ytubetools.com/ru" hreflang="ru" />
+          
+        </Head>
+      {/* Top Bar */}
+      <div className="topbar bg-indigo-600 py-2">
+        <p className="text-white text-center">
+        {t('Access 50+ free AI-powered YouTube tools | Unlimited | No Credit Card Required')}
+        </p>
+      </div>
 
-    {/* From Unit */}
-    <div className="flex-1 min-w-[200px]">
-      <label htmlFor="fromUnit" className="block mb-2 text-sm font-medium text-gray-700">
-        From:
-      </label>
-      <select
-        id="fromUnit"
-        value={fromUnit}
-        onChange={(e) => {
-          setFromUnit(e.target.value);
-          setSize(''); // Reset size
-        }}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
-        {shoeSizeData[category].data.map((row, index) => (
-          <option key={index} value={row.unit}>
-            {row.unit}
-          </option>
-        ))}
-      </select>
-    </div>
+      {/* Main Content */}
+      <div className="w-full py-12 text-center lg:px-8 lg:py-20">
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-zinc-900 md:text-5xl">
+        {t("YtubeTools | Free YouTube Tools For Creators,")}
+          <span className="bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
+            {t('100% Free')}
+          </span>
+        </h1>
+        <p className="mt-6 text-lg leading-8 text-neutral-500">
+        {t("Access 50+ free AI-powered YouTube tools for creators with unlimited usage—no credit card required!")}
+        </p>
+      </div>
 
-    {/* Size */}
-    <div className="flex-1 min-w-[200px]">
-      <label htmlFor="size" className="block mb-2 text-sm font-medium text-gray-700">
-        Size:
-      </label>
-      <select
-        id="size"
-        value={size}
-        onChange={(e) => setSize(e.target.value)}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
-        <option value="" disabled>
-          Select a size
-        </option>
-        {shoeSizeData[category]
-          .data.find((row) => row.unit === fromUnit)
-          .sizes.map((s, index) => (
-            <option key={index} value={s}>
-              {s}
-            </option>
-          ))}
-      </select>
-    </div>
-
-    {/* To Unit */}
-    <div className="flex-1 min-w-[200px]">
-      <label htmlFor="toUnit" className="block mb-2 text-sm font-medium text-gray-700">
-        To:
-      </label>
-      <select
-        id="toUnit"
-        value={toUnit}
-        onChange={(e) => setToUnit(e.target.value)}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
-        {shoeSizeData[category].data.map((row, index) => (
-          <option key={index} value={row.unit}>
-            {row.unit}
-          </option>
-        ))}
-      </select>
-    </div>
-  </div>
-
-  {/* Buttons */}
-  <div className="flex justify-center gap-4 border-b pb-2">
-    <button
-      onClick={handleConversion}
-      className="px-6 py-2 text-white bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-    >
-      Convert Size
-    </button>
-   
-  </div>
-{/* Result */}
-{/* Result */}
-{convertedSize && (
-  <div className="text-center">
-    <div className="text-2xl text-gray-800 border-b pb-2">
-      <span>
-        {`${categoryNames[category]} size `}
-      </span>
-      <span className="font-bold text-blue-600">
-        {`${size} ${fromUnit}`}
-      </span>
-      <span>
-        {` = ${categoryNames[category]} size `}
-      </span>
-      <span className="font-bold text-red-600">
-        {`${convertedSize} ${toUnit}`}
-      </span>
-    </div>
-    <button
-      onClick={() => {
-        navigator.clipboard.writeText(
-          `${categoryNames[category]} size ${size} ${fromUnit} = ${categoryNames[category]} size ${convertedSize} ${toUnit}`
-        );
-        toast.success('Copied to Clipboard!', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
-          progress: undefined,
-        });
-      }}
-      className="mt-4 px-4 py-2 text-white bg-green-500 rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-    >
-      Copy
-    </button>
-    <button
-      onClick={handleReset}
-      className="px-6 ms-3 py-2 text-white bg-red-500 rounded-lg shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-    >
-      Reset
-    </button>
-  </div>
-)}
-
-
-  <ToastContainer />
-</div>
-
-
-
-<h3 className="text-lg font-semibold mt-6 text-gray-700">{shoeSizeData[category].title}</h3>
-<div className="overflow-x-auto md:overflow-x-visible mt-4">
-  <table className="w-full min-w-[500px] border border-gray-200 rounded-lg shadow-sm">
-    <thead>
-      <tr className="bg-gray-50">
-        <th className="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">Unit</th>
-        {shoeSizeData[category].data[0].sizes.map((_, index) => (
-          <th
-            key={index}
-            className="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700"
-          >
-            Size {index + 1}
-          </th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      {shoeSizeData[category].data.map((row, index) => (
-        <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-          <td className="border border-gray-300 px-3 py-2 text-sm text-gray-600">{row.unit}</td>
-          {row.sizes.map((size, i) => (
-            <td
-              key={i}
-              className={`border border-gray-300 px-3 py-2 text-center text-sm text-gray-600 ${
-                highlightIndex === i ? 'bg-blue-100 font-bold' : ''
-              }`}
+      {/* Search Input for Desktop */}
+      <div>
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="relative mx-auto mb-6 max-w-2xl rounded-full border border-indigo-100 bg-gray-50 px-4 py-2 xl:mb-10">
+          <div className="relative mt-2">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                className="h-8 w-8 text-[#f86540]"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <input
+              className="block w-full border-0 bg-transparent py-1.5 pl-14 pr-24 text-gray-500 ring-0 placeholder:text-xl placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6 md:text-xl md:leading-7 lg:text-2xl lg:leading-7"
+              aria-label={t('Search')}
+              type="text"
+              placeholder={t('Search...')}
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+            <button
+              type="button"
+              className="absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-2 rounded-full bg-[#f86540] px-4 py-1.5 text-white hover:bg-[#f86540] disabled:cursor-not-allowed disabled:bg-indigo-300"
             >
-              {size}
-            </td>
-          ))}
-        </tr>
-      ))}
-    </tbody>
-  </table>
+              {t('Search')}
+            </button>
+          </div>
+
+          {/* Display search results when query matches tools or blogs */}
+          <div className="relative mt-2">
+            {searchResults?.length > 0 ? (
+              <ul className="absolute z-10 bg-white text-black w-full mt-1 max-h-60 overflow-auto shadow-lg rounded-lg border border-gray-200">
+                {searchResults?.map((result, index) => (
+                  <li
+                    key={index}
+                    className="p-3 hover:bg-indigo-100 cursor-pointer transition-colors duration-200"
+                  >
+                    <Link href={result.link}>
+                      <span className="text-[#f86540] font-medium">
+                        {result.title}
+                        <span className="text-sm text-gray-500">
+                          {" "}
+                          - {result.collectionName}
+                        </span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              searchQuery?.length > 2 && (
+                <div className="absolute z-10 bg-white text-gray-500 w-full mt-1 max-h-60 overflow-auto shadow-lg rounded-lg border border-gray-200 p-3">
+                  {t('No results found')}
+                </div>
+              )
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+      {/* Statistics Section */}
+      <div className="my-16">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:max-w-none">
+          <ul className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat, index) => (
+              <li
+                key={index}
+                className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                <div className="relative flex flex-col items-center justify-center">
+                  <span className="mb-2 text-6xl font-black tracking-tight text-[#f86540]">
+                    {/* If the value contains non-numeric characters, animate the count */}
+                    {hasNonNumericChars(stat.value) ? (
+                      <>
+                        <CountUp
+                          end={parseInt(cleanValue(stat.value), 10)} // Only animate the numeric part
+                          duration={2}
+                        />
+                        {stat.value.replace(cleanValue(stat.value), "")}{" "}
+                        {/* Add the non-numeric part (like M, +) */}
+                      </>
+                    ) : (
+                      // If the value contains only numbers, animate it normally
+                      <CountUp end={parseInt(stat.value, 10)} duration={2} />
+                    )}
+                  </span>
+                  <span className="text-lg font-medium text-zinc-600">
+                    {stat.label}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+      {/* AI Tools Section */}
+      <div className="mt-4 bg-indigo-50 py-4 md:mt-8 md:py-8 xl:mt-12">
+        <div className="mx-auto max-w-7xl px-4 py-4 lg:py-12">
+          <div className="mx-auto my-4 max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              {t("AI YouTube Tools That Work For You")}
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              {t("Exceptionally Useful, Completely Free — No Hidden Costs.")}
+            </p>
+          </div>
+          <div className="mb-8 flex items-center justify-between">
+            {/* Left Section: Icon + Title */}
+            <div className="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                className="mr-3 h-8 w-8 text-yellow-500"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                ></path>
+              </svg>
+              <h2 className="text-2xl font-semibold text-gray-900">
+                {t("Featured Tools")}
+              </h2>
+            </div>
+          </div>
+
+          <div className="mb-16">
+  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {allTools.map((tool, index) => (
+      <a key={tool?.id || index} href={tool?.link}>
+        <div className="group h-full cursor-pointer rounded-xl bg-white p-6 shadow-sm transition-all duration-200 hover:scale-[102%] hover:shadow-xl hover:ring-2 hover:ring-indigo-500 hover:border-2 hover:border-indigo-500 hover:bg-indigo-500 hover:bg-opacity-10 hover:backdrop-blur-md">
+          <div className="mb-4 flex items-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border bg-white shadow-sm group-hover:shadow-md">
+              <Image
+                alt={tool?.name}
+                className="rounded-full"
+                src={tool?.logo}
+                height={28}
+                width={28} // Add width for proper optimization
+                quality={50} // reduce quality if needed
+  loading="lazy" // lazy load
+              />
+            </div>
+            <h3 className="ml-4 text-lg font-bold text-gray-900 group-hover:text-indigo-600">
+              {tool?.name}
+            </h3>
+          </div>
+          <p className="text-sm leading-relaxed text-gray-600">
+            {tool?.description}
+          </p>
+        </div>
+      </a>
+    ))}
+  </div>
 </div>
 
+        </div>
+      </div>
 
+      {/* Blogs Grid */}
+      <div className="mx-auto max-w-7xl px-4 py-4 lg:py-12">
+  <div className="mx-auto max-w-3xl text-center px-4">
+    <h2 className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+      {t("YtubeTools Article")}
+    </h2>
+
+    <p className="mt-6 text-xs sm:text-sm font-medium leading-8 sm:leading-9 md:text-sm md:leading-10">
+      {t(
+        "Explore how AI enhances content creation, reshapes social media, and beyond. Dive in with us to discover AI's practical applications and its transformative impact on various industries."
+      )}
+    </p>
+  </div>
+
+  <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {processedBlogs.length === 0 ? (
+      <p>{t("No blogs found")}</p>
+    ) : (
+      processedBlogs.slice(0, 6).map((blog) => (
+        <div key={blog?.id} className="bg-white shadow-md rounded-lg overflow-hidden relative">
+          <div className="w-full" style={{ height: "260px" }}>
+            <Image
+              src={blog.translations[currentLanguage]?.image}
+              alt={blog.translations[currentLanguage]?.title}
+              width={400}
+              height={260}
+              className="blog-img"
+              quality={50} // Image quality reduced
+             
+  loading="lazy" // lazy load
+            />
+            <div className="absolute top-2 left-2 bg-blue-500 text-white text-sm rounded-full px-2 py-1">
+              <span className="mr-2">
+                {blog.translations[currentLanguage]?.category || "Unknown category"}
+              </span>
+            </div>
+          </div>
+
+          <div className="pe-3 ps-3 pt-2">
+            <h6 className="text-lg font-semibold">
+              <Link href={`/youtube/${blog.translations[currentLanguage]?.slug}`}>
+                <span className="text-blue-500 text-xl font-bold hover:underline">
+                  {blog.translations[currentLanguage]?.title}
+                </span>
+              </Link>
+            </h6>
+            <p className="text-xs mb-4">
+              {blog.translations[currentLanguage]?.description}
+            </p>
+          </div>
+          <div className="ps-3 pe-3 pb-2 d-flex">
+            <p className="text-sm text-gray-500">
+              <FaUserCircle className="text-center fs-6 text-red-400 inline" />{" "}
+              {blog.author}
+            </p>
+            <p className="text-sm text-gray-500 ms-auto">
+  <FaCalendar className="text-center text-red-400 inline me-2" />
+  <span className="text-xs">
+    {new Date(blog?.createdAt).toLocaleDateString('en-US')}
+  </span>
+</p>
+
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+
+  <div className="mt-10 flex justify-center">
+    <Link href="/youtube" style={{ cursor: "pointer" }} aria-label="View all blog posts">
+      <span className="group inline-flex items-center justify-center rounded-full bg-white/80 px-8 py-4 text-sm font-semibold text-indigo-600 shadow-sm ring-1 ring-indigo-200 backdrop-blur-sm transition-all duration-300 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 hover:shadow-md hover:shadow-indigo-100/40 hover:ring-indigo-300">
+        {t("View All Posts")}
+        <svg
+          className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M13 7l5 5m0 0l-5 5m5-5H6"
+          ></path>
+        </svg>
+      </span>
+    </Link>
+  </div>
+</div>
 
     </div>
   );
 };
+export async function getServerSideProps({ locale = "en", req, query }) {
+  const { page = 1, category = "" } = query;
 
-export default ShoeSizeCalculator;
+  // Get the base URL from the request header
+  const protocol =
+    req.headers["x-forwarded-proto"] === "https" ? "https" : "http";
+  const host = req.headers.host;
+  const baseUrl = `${protocol}://${host}`;
+
+  // Fetch the token securely (e.g., from cookies, environment variables)
+  const token = "AZ-fc905a5a5ae08609ba38b046ecc8ef00";  // Secure token retrieval
+
+  if (!token) {
+    throw new Error("No authorization token found");
+  }
+
+  try {
+    // Make the API request to fetch data
+    const { data } = await axios.get(`${baseUrl}/api/youtube`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Add the Bearer token
+      },
+      params: { page, limit: 9, category },
+    });
+
+    // Construct the meta URL (to avoid duplication and ensure correct locale)
+    const metaUrl = `${baseUrl}${req.url}`;
+
+    return {
+      props: {
+        initialBlogs: data.data || [], // Safely access `data`
+        meta: data.meta || { currentPage: 1, totalPages: 0 },
+        metaUrl,
+        ...(await serverSideTranslations(locale, ["home", "navbar", "footer"])), // Add translations
+      },
+    };
+  } catch (error) {
+    console.error("Error in getServerSideProps:", error);
+
+    return {
+      props: {
+        initialBlogs: [],
+        meta: { currentPage: 1, totalPages: 0 },
+        availableLanguages: [], // If error occurs, return an empty languages array
+        metaUrl: `${baseUrl}${req.url}`,
+      },
+    };
+  }
+}
+export default Home;
