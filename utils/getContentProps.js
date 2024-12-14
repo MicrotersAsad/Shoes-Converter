@@ -1,17 +1,17 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { fetchContent, fetchReviews } from '../contexts/ContentContext';
 
+// getContentProps ফাংশনটি কনটেন্ট ফেচের জন্য ব্যবহার করা হচ্ছে
 export const getContentProps = async (category, locale, req) => {
-  const host = req.headers.host;
-  const protocol = req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+  const host = "localhost:3000";  // এখানে localhost ব্যবহার করুন, প্রোটোকল হিসেবে http: ব্যবহার করতে পারেন
 
-  const contentProps = await fetchContent(category, locale, host, protocol, () => {});
-  const reviews = await fetchReviews(category, host, protocol, () => {});
+  const contentProps = await fetchContent(category, locale, host, "http");  // এখানে http প্রোটোকল ব্যবহার হচ্ছে
+  const reviews = await fetchReviews(category, host, "http");
 
   return {
     props: {
-      ...contentProps,
-      reviews,
+      ...contentProps,  // কনটেন্ট প্রপার্টিজ
+      reviews,          // রিভিউ ডেটা
       ...(await serverSideTranslations(locale, [
         'common',
         'tagextractor',

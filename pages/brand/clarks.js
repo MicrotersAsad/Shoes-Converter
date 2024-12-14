@@ -1,6 +1,7 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
 
-const ClarksShoeSizeConverter = () => {
+const ClarksShoeSizeConverter = ({ content, locale }) => {
   const [gender, setGender] = useState('Men'); // Default gender
   const [region, setRegion] = useState('US'); // Default region
   const [shoeSize, setShoeSize] = useState(''); // Selected shoe size
@@ -54,6 +55,8 @@ const ClarksShoeSizeConverter = () => {
   };
 
   return (
+    <div className="max-w-7xl mx-auto ">
+      
     <div className="max-w-4xl mx-auto p-6 mt-10 bg-gray-100 shadow-md rounded-lg">
       {/* Header */}
       <h1 className="text-3xl font-extrabold text-center text-indigo-700 mb-6">
@@ -157,7 +160,60 @@ const ClarksShoeSizeConverter = () => {
         </div>
       )}
     </div>
+    <div className="content pt-6 pb-5">
+        <article
+          dangerouslySetInnerHTML={{ __html: content?.content || "No content available." }}
+          style={{ listStyleType: "none" }}
+        ></article>
+      </div>
+    </div>
   );
 };
+export async function getStaticProps({ locale }) {
+  try {
+    // Define the authorization token (you can replace this with an actual token)
+    const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
 
+    // Fetch the content data with authorization header
+    const contentResponse = await fetch(`http://localhost:3000/api/content?category=tagGenerator&language=${locale}`, {
+      method: 'GET',  // You can also specify POST, PUT, etc. if needed
+      headers: {
+        'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
+        'Content-Type': 'application/json',       // Set Content-Type to JSON
+      },
+    });
+
+    // Check if the response is successful (status 200)
+    if (!contentResponse.ok) {
+      throw new Error('Failed to fetch content');
+    }
+
+    const contentData = await contentResponse.json();
+
+    // Fetch translations (static)
+    const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
+
+    return {
+      props: {
+        content: contentData?.translations?.[locale] || {},
+        ...translations,
+      },
+      revalidate: 60 * 60 * 24,  // 24 hours revalidation
+    };
+  } catch (error) {
+    console.error('Error fetching content:', error);
+
+    // Return default content in case of error
+    return {
+      props: {
+        content: {
+          categoryLabel: 'Shoe Size Converter',
+          sizeLabel: 'Select Shoe Size',
+          // Add default values for other fields...
+        },
+        translations: await serverSideTranslations(locale, ['common', 'shoeSizeConverter']),
+      },
+    };
+  }
+}
 export default ClarksShoeSizeConverter;

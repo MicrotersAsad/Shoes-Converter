@@ -6,8 +6,8 @@ const ContentContext = createContext();
 
 export const useContent = () => useContext(ContentContext);
 
-export const fetchContent = async (category, locale, host, protocol, setLoading) => {
-  setLoading(true);
+export const fetchContent = async (category, locale, host, protocol) => {
+
   const AUTH_TOKEN ="AZ-fc905a5a5ae08609ba38b046ecc8ef00"; // Authorization token from .env
 
   try {
@@ -80,13 +80,10 @@ export const fetchContent = async (category, locale, host, protocol, setLoading)
         { rel: "alternate", hreflang: "en", href: `${protocol}://${host}/tools/${category}` },
       ],
     };
-  } finally {
-    setLoading(false);
-  }
+  } 
 };
 
-export const fetchReviews = async (tool, host, protocol, setLoading) => {
-  setLoading(true);
+export const fetchReviews = async (tool, host, protocol) => {
   const AUTH_TOKEN ="AZ-fc905a5a5ae08609ba38b046ecc8ef00"; // Authorization token from .env
 
   try {
@@ -109,9 +106,7 @@ export const fetchReviews = async (tool, host, protocol, setLoading) => {
   } catch (error) {
     console.error('Failed to fetch reviews:', error);
     return [];
-  } finally {
-    setLoading(false);
-  }
+  } 
 };
 
 export const ContentProvider = ({ children }) => {
@@ -125,7 +120,6 @@ export const ContentProvider = ({ children }) => {
   });
   const [reviews, setReviews] = useState([]);
   const [reactions, setReactions] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [translations, setTranslations] = useState([]);
   const [hreflangs, setHreflangs] = useState([]);
 
@@ -138,9 +132,8 @@ export const ContentProvider = ({ children }) => {
         reactions,
         translations,
         reviews,
-        loading,
+        
         hreflangs,
-        setLoading,
         setContent,
         setFaqs,
         setMeta,
