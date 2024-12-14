@@ -42,6 +42,7 @@ module.exports = withBundleAnalyzer({
         path: require.resolve('path-browserify'),
         os: require.resolve('os-browserify/browser'),
         // add other necessary Node.js polyfills here
+
       };
     } else {
       config.cache = false;  // Disable caching for serverless environment to avoid issues
