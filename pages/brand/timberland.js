@@ -1,0 +1,269 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useState } from 'react';
+
+const TimberlandShoeSizeConverter = ({ content, locale }) => {
+  const [gender, setGender] = useState("Men");
+  const [shoeSize, setShoeSize] = useState("");
+  const [convertedSizes, setConvertedSizes] = useState({});
+  const [region, setRegion] = useState('US'); // New state for region
+  const timberlandSizeData = {
+    Men: {
+      US: [5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15],
+      EU: [37.5, 38, 39, 39.5, 40, 41, 41.5, 42, 43, 43.5, 44, 44.5, 45, 45.5, 46, 47, 47.5, 48, 49, 49.5, 50],
+      CM: [23.5, 24, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 29.5, 30, 30.5, 31, 31.5, 32, 32.5, 33],
+      UK: [4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5],
+      BZ: [35, 35.5, 36, 37, 37.5, 38, 39, 39.5, 40, 41, 41.5, 42, 43, 43.5, 44, 45, 45.5, 46, 47, 47.5, 48]
+    },
+    Women: {
+      US: [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 11, 11.5, 12],
+      EU: [34.5, 35, 35.5, 36, 37, 37.5, 38, 38.5, 39, 39.5, 40, 41, 41.5, 42, 44, 44.5],
+      CM: [21, 21.5, 22, 22.5, 23, 23.5, 24, 24.5, 25, 25.5, 26, 26.5, 27, 28, 28.5, 29],
+      UK: [2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 9, 9.5, 10],
+      BZ: [32, 33, 33.5, 34, 35, 35.5, 36, 37, 37.5, 38, 39, 39.5, 40, 41.5, 42, 43]
+    },
+    Infant: {
+      US: [0, 1, 2, 2.5, 3, 3.5, 4],
+      EU: [14.5, 16, 17, 18, 18.5, 19, 20],
+      CM: [8, 9, 9.5, 10, 10.5, 11, 12],
+      UK: [0, 0.5, 1.5, 2, 2.5, 3, 3.5],
+      BZ: [null, null, null, null, null, null, 17.5]
+    },
+    Toddler: {
+      US: [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
+      EU: [20, 20.5, 21, 22, 22.5, 23, 23.5, 24, 25, 25.5, 26, 26.5, 27, 28, 28.5, 29, 30],
+      CM: [12, 12, 12.5, 13, 13.5, 14, 14, 14.5, 15, 15.5, 16, 16, 16.5, 17, 17.5, 18, 18.5],
+      UK: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5],
+      BZ: [17.5, 18, 19, 19.5, 20, 21, 21.5, 22, 23, 23.5, 24, 25, 25.5, 26, 27, 27.5, 28]
+    },
+    Youth: {
+      US: [12.5, 13, 13.5, 1, 1.5, 2, 2.5, 3],
+      EU: [30.5, 31, 32, 32.5, 33, 34, 34.5, 35],
+      CM: [18.5, 19, 19.5, 20, 20.5, 20.5, 21, 21.5],
+      UK: [12, 12.5, 13, 13.5, 1, 1.5, 2, 2.5],
+      BZ: [29, 29.5, 30, 31, 31.5, 32, 33, 33.5]
+    },
+    Junior: {
+      US: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7],
+      EU: [35.5, 36, 37, 37.5, 38, 39, 39.5, 40],
+      CM: [22, 22.5, 22.5, 23, 23.5, 24, 24.5, 25],
+      UK: [3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5],
+      BZ: [34, 34.5, 35, 36, 36.5, 37, 38, 38.5]
+    },
+  };
+  const handleConvert = () => {
+    if (!shoeSize || shoeSize === "") {
+      alert("Please select a shoe size.");
+      return;
+    }
+  
+    const sizeData = timberlandSizeData[gender];
+    
+    if (!sizeData) {
+      alert("Invalid gender selection.");
+      return;
+    }
+  
+    // Find the index of the selected shoe size in the US sizing array
+    const index = sizeData.US.indexOf(Number(shoeSize));
+  
+    if (index === -1) {
+      setConvertedSizes({});
+      alert("Selected size not available.");
+      return;
+    }
+  
+    // Create an object to hold converted sizes for all regions
+    const results = {};
+    Object.keys(sizeData).forEach((system) => {
+      results[system] = sizeData[system][index];
+    });
+  
+    // Set the converted sizes in the state
+    setConvertedSizes(results);
+  };
+  
+  const handleReset = () => {
+    setGender('Men');
+    setRegion('US'); // Reset region as well
+    setShoeSize('');
+    setConvertedSizes({});
+  };
+  const handleCopy = (size) => {
+    navigator.clipboard.writeText(size);
+    alert("Size copied to clipboard!");
+  };
+
+  const categoryLabel = 'Category'; // Default value
+  const sizeLabel = 'Select Shoe Size'; // Default value
+  const selectSize = 'Choose Size'; // Default value
+  const convertButton = 'Convert'; // Default value
+  const convertedSizesLabel = 'Converted Sizes'; // Default value
+  const regionLabel = 'Region'; // Default value
+  const actionLabel = 'Action'; // Default value
+
+  return (
+    <div className="max-w-7xl mx-auto">
+    <div className="max-w-5xl mx-auto p-6 mt-5 mb-5 bg-white rounded-lg">
+      <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">Timberland Shoe Size Converter</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {/* Category Selection */}
+        <div>
+          <label className="block mb-2">{categoryLabel}</label>
+          <select
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            className="w-full border rounded-lg px-4 py-2"
+          >
+            <option value="Men">Men</option>
+            <option value="Women">Women</option>
+            <option value="Infant">Infant</option>
+            <option value="Toddler">Toddler</option>
+            <option value="Youth">Youth</option>
+            <option value="Junior">Junior</option>
+          </select>
+        </div>
+
+        {/* Region Selection */}
+        <div>
+          <label className="block mb-2">{regionLabel}</label>
+          <select
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+            className="w-full border rounded-lg px-4 py-2"
+          >
+            <option value="US">US</option>
+            <option value="EU">EU</option>
+            <option value="CM">CM</option>
+            <option value="UK">UK</option>
+            <option value="BZ">BZ</option>
+          </select>
+        </div>
+
+        {/* Shoe Size Selection */}
+        <div>
+          <label className="block mb-2">{sizeLabel}</label>
+          <select
+            value={shoeSize}
+            onChange={(e) => setShoeSize(e.target.value)}
+            className="w-full border rounded-lg px-4 py-2"
+          >
+            <option value="">{selectSize}</option>
+            {timberlandSizeData[gender]?.[region].map((size, idx) => (
+              <option key={idx} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Convert Button */}
+      <div className="mt-8 text-center">
+        <button
+          onClick={handleConvert}
+          className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600"
+        >
+          {convertButton}
+        </button>
+      </div>
+
+      {/* Converted Sizes Table */}
+      {Object.keys(convertedSizes).length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-lg font-bold mb-4">{convertedSizesLabel}</h2>
+          <table className="table-auto w-full border">
+            <thead>
+              <tr>
+                <th className="border px-4 py-2">{regionLabel}</th>
+                <th className="border px-4 py-2">{sizeLabel}</th>
+                <th className="border px-4 py-2">{actionLabel}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(convertedSizes).map(([region, size], idx) => (
+                <tr key={idx}>
+                  <td className="border px-4 py-2">{region}</td>
+                  <td className="border px-4 py-2">{size}</td>
+                  <td className="border px-4 py-2">
+                    <button
+                      onClick={() => handleCopy(size)}
+                      className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
+                    >
+                      Copy
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+           {/* Reset Button */}
+      <div className="text-center mt-3">
+        <button
+          onClick={handleReset}
+          className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-700"
+        >
+          Reset
+        </button>
+      </div>
+        </div>
+      )}
+
+     
+    </div>
+    <div className="content pt-6 pb-5">
+      <article
+        dangerouslySetInnerHTML={{ __html: content?.content || 'No content available.' }}
+        style={{ listStyleType: 'none' }}
+      ></article>
+    </div>
+  </div>
+);
+};
+
+export async function getStaticProps({ locale }) {
+try {
+  const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
+
+  const contentResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=tagGenerator&language=${locale}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${AUTH_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+
+  if (!contentResponse.ok) {
+    throw new Error('Failed to fetch content');
+  }
+
+  const contentData = await contentResponse.json();
+
+  const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
+
+  return {
+    props: {
+      content: contentData?.translations?.[locale] || {},
+      ...translations,
+    },
+    revalidate: 60 * 60 * 24,
+  };
+} catch (error) {
+  console.error('Error fetching content:', error);
+
+  return {
+    props: {
+      content: {
+        categoryLabel: 'Shoe Size Converter',
+        sizeLabel: 'Select Shoe Size',
+      },
+      translations: await serverSideTranslations(locale, ['common', 'shoeSizeConverter']),
+    },
+  };
+}
+}
+
+export default TimberlandShoeSizeConverter;
