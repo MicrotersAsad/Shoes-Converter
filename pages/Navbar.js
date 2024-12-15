@@ -88,6 +88,7 @@ function Navbar() {
             { key: 'Brazilian Shoe Size Converter', href: '/country/brazilian', icon: '🇧🇷' },
             { key: 'Mexican Shoe Size Converter', href: '/country/mexican', icon: '🇲🇽' },
             { key: 'Australian Shoe Size Converter', href: '/country/australian', icon: 'AU' },
+            { key: 'Italian Shoe Size Converter', href: '/country/italian', icon: 'IT' },
           ],
         },
         {

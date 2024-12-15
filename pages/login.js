@@ -1,6 +1,13 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { FaEnvelope, FaKey, FaEye, FaEyeSlash, FaArrowCircleRight, FaUserCircle } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaKey,
+  FaEye,
+  FaEyeSlash,
+  FaArrowCircleRight,
+  FaUserCircle,
+} from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
@@ -24,72 +31,8 @@ function LoginOrResetPassword() {
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerifyingCode, setIsVerifyingCode] = useState(false); // Track if verifying the code
 
-  useEffect(() => {
-    const fetchConfigs = async () => {
-      setIsLoading(true);
-      try {
-        const protocol = window.location.protocol === "https:" ? "https" : "http";
-        const host = window.location.host;
-        const token = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00'; // Assuming token is stored in localStorage
-        
-        if (!token) {
-          console.error('No authentication token found!');
-          return;
-        }
-
-        const response = await fetch(`${protocol}://${host}/api/extensions`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-
-        const result = await response.json();
-
-        if (result.success && Array.isArray(result.data)) {
-          const captchaExtension = result.data.find(
-            (ext) => ext.key === "google_recaptcha_2" && ext.status === "Enabled"
-          );
-
-          if (captchaExtension?.config?.siteKey) {
-            setSiteKey(captchaExtension.config.siteKey);
-          } else {
-            console.error("ReCAPTCHA configuration not found or disabled.");
-            setError("ReCAPTCHA configuration is missing or disabled.");
-          }
-        } else {
-          console.error('Error fetching extensions:', result.message || 'Unknown error');
-          setError(result.message || "Error fetching extensions");
-        }
-      } catch (error) {
-        console.error("Error fetching configurations:", error);
-        setError(error.message || "Error fetching configurations");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchConfigs();
-  }, []);
-
-  // Check if running on localhost
-  const isLocalhost =
-    typeof window !== "undefined" &&
-    (window.location.hostname === "localhost" ||
-      window.location.hostname === "127.0.0.1" ||
-      window.location.hostname === "::1");
-
-  const onRecaptchaChange = (token) => {
-    setRecaptchaToken(token);
-  };
-
-  const handleSubmitLogin = async (event) => { 
+  const handleSubmitLogin = async (event) => {
     event.preventDefault();
-
-    if (!isLocalhost && !recaptchaToken) {
-      toast.error("Please complete the reCAPTCHA");
-      return;
-    }
 
     setError("");
     setIsLoading(true);
@@ -103,7 +46,6 @@ function LoginOrResetPassword() {
         body: JSON.stringify({
           email,
           password,
-          recaptchaToken: isLocalhost ? null : recaptchaToken,
         }),
       });
 
@@ -112,17 +54,17 @@ function LoginOrResetPassword() {
         throw new Error(data.message || "Error logging in");
       }
 
+      // Save the JWT token in localStorage after login
       localStorage.setItem("token", data.token);
       toast.success("Login successful!");
 
       // Navigate to the homepage
       router.push("/");
 
-      // Once the page is loaded, reload it to update the login status
-      router.events.on('routeChangeComplete', () => {
+      // Reload the page to update the login status
+      router.events.on("routeChangeComplete", () => {
         window.location.reload(); // Reload the page after navigating
       });
-
     } catch (error) {
       toast.error("Login error: " + error.message);
       setError(error.message);
@@ -155,7 +97,6 @@ function LoginOrResetPassword() {
 
       // Show the verification code input
       setIsVerifyingCode(true);
-
     } catch (error) {
       toast.error(error.message);
       setError(error.message);
@@ -186,8 +127,7 @@ function LoginOrResetPassword() {
         setVerificationEmailSent(false);
 
         // Log the user in after successful verification
-        await handleSubmitLogin(event);  // This will login and redirect to the homepage
-
+        await handleSubmitLogin(event); // This will login and redirect to the homepage
       } else {
         throw new Error(data.message || "Failed to verify email");
       }
@@ -253,7 +193,8 @@ function LoginOrResetPassword() {
               <FaArrowCircleRight /> 18+ tools available
             </li>
             <li className="list-none">
-              <FaArrowCircleRight /> Generate engaging titles, descriptions, and more
+              <FaArrowCircleRight /> Generate engaging titles, descriptions, and
+              more
             </li>
             <li className="list-none">
               <FaArrowCircleRight /> Super easy to use
@@ -265,11 +206,20 @@ function LoginOrResetPassword() {
           <div className="w-full max-w-md">
             {!isResettingPassword ? (
               <>
-               <h1  class="text-center font-semibold text-3xl leading-5 text-[#110F14]">Welcome Back!</h1>
-               <p  class="text-center font-normal text-[15px] leading-5 text-[#5F5A69] mt-2">How are you doing today?</p>
+                <h1 class="text-center font-semibold text-3xl leading-5 text-[#110F14]">
+                  Welcome Back!
+                </h1>
+                <p class="text-center font-normal text-[15px] leading-5 text-[#5F5A69] mt-2">
+                  How are you doing today?
+                </p>
                 <form onSubmit={handleSubmitLogin}>
                   <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Email
+                    </label>
                     <input
                       type="email"
                       id="email"
@@ -282,7 +232,12 @@ function LoginOrResetPassword() {
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Password
+                    </label>
                     <div className="relative">
                       <input
                         type={showPassword ? "text" : "password"}
@@ -301,22 +256,15 @@ function LoginOrResetPassword() {
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                       </button>
                     </div>
-                   <div className="mt-3">
-                   {!isLocalhost && sitekey && (
-  <ReCAPTCHA
-    sitekey={sitekey} 
-    onChange={onRecaptchaChange}
-  />
-)}
-                   </div>
- <div className="mt-4">
-                  <button
-                    onClick={() => setIsResettingPassword(true)}
-                    className="text-red-600 hover:underline"
-                  >
-                    Forgot password?
-                  </button>
-                </div>
+                    <div className="mt-3"></div>
+                    <div className="mt-4">
+                      <button
+                        onClick={() => setIsResettingPassword(true)}
+                        className="text-red-600 hover:underline"
+                      >
+                        Forgot password?
+                      </button>
+                    </div>
                   </div>
 
                   <button
@@ -327,8 +275,16 @@ function LoginOrResetPassword() {
                     {isLoading ? "Logging in..." : "Log In"}
                   </button>
                 </form>
-                <div  class="flex flex-col text-center md:flex-row md:justify-center space-x-1 mt-4"><p  class="font-normal text-base leading-6 text-[#5F5A69]">Don’t have an account?</p><Link  href="/register"><span  class="font-semibold text-base leading-6 text-red-500">Sign Up - It's FREE</span></Link></div>
-               
+                <div class="flex flex-col text-center md:flex-row md:justify-center space-x-1 mt-4">
+                  <p class="font-normal text-base leading-6 text-[#5F5A69]">
+                    Don’t have an account?
+                  </p>
+                  <Link href="/register">
+                    <span class="font-semibold text-base leading-6 text-red-500">
+                      Sign Up - It's FREE
+                    </span>
+                  </Link>
+                </div>
 
                 {/* Resend Verification Email */}
                 <div className="mt-4 text-center">
@@ -338,7 +294,9 @@ function LoginOrResetPassword() {
                     className="text-blue-600 hover:underline"
                     disabled={isResendingVerification}
                   >
-                    {isResendingVerification ? "Resending..." : "Resend Verification Email"}
+                    {isResendingVerification
+                      ? "Resending..."
+                      : "Resend Verification Email"}
                   </button>
                 </div>
 
@@ -350,7 +308,10 @@ function LoginOrResetPassword() {
 
                 {isVerifyingCode && (
                   <form onSubmit={handleVerification} className="mt-6">
-                    <label htmlFor="verificationCode" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="verificationCode"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Enter Verification Code
                     </label>
                     <input
@@ -373,10 +334,17 @@ function LoginOrResetPassword() {
               </>
             ) : (
               <>
-                <h2 className="text-2xl font-semibold mb-6 text-gray-700">Reset Your Password</h2>
+                <h2 className="text-2xl font-semibold mb-6 text-gray-700">
+                  Reset Your Password
+                </h2>
                 <form onSubmit={handleSendResetToken}>
                   <div className="mb-4">
-                    <label htmlFor="reset-email" className="block text-sm font-medium text-gray-700">Email</label>
+                    <label
+                      htmlFor="reset-email"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Email
+                    </label>
                     <input
                       type="email"
                       id="reset-email"

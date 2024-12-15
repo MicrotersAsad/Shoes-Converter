@@ -6,7 +6,7 @@ let client;
 let clientPromise;
 
 if (!process.env.NEXT_PUBLIC_DB_USER || !process.env.NEXT_PUBLIC_DB_PASS || !process.env.NEXT_PUBLIC_DB_NAME) {
-  throw new Error("Please add your MongoDB credentials to .env.local");
+  throw new Error("Please add your MongoDB credentials to .env");
 }
 
 if (process.env.NODE_ENV === 'development') {
