@@ -128,6 +128,21 @@ function Content() {
       link: "http://www.ytubetools.com/tools/trending-videos",
       logo: TrendingVideos,
     },
+    {
+      name: "Spanish Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      logo: TrendingVideos,
+    },
+    {
+      name: "Korean Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      logo: TrendingVideos,
+    },
+    {
+      name: "Japanese Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      logo: TrendingVideos,
+    },
 
     // Add more tools as needed
   ];
@@ -351,6 +366,12 @@ function Content() {
         return "Ugg Shoe Size Converter";
       case "italian":
         return "Italian Shoe Size Converter";
+      case "spanish":
+        return "Spanish Shoe Size Converter";
+      case "korean":
+        return "Korean Shoe Size Converter";
+      case "japanese":
+        return "Japanese Shoe Size Converter";
 
       default:
         return "Unknown Category";
@@ -393,6 +414,9 @@ function Content() {
               <option value="timberland">Timberland Shoe Size Converter</option>
               <option value="ugg">Ugg Shoe Size Converter</option>
               <option value="italian">Italian Shoe Size Converter</option>
+              <option value="japanese">Japanese Shoe Size Converter</option>
+              <option value="korean">Korean Shoe Size Converter</option>
+              <option value="spanish">Spanish Shoe Size Converter</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg
