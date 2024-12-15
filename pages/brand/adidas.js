@@ -175,12 +175,14 @@ export async function getStaticProps({ locale }) {
       },
     });
 
+
     // Check if the response is successful (status 200)
     if (!contentResponse.ok) {
       throw new Error('Failed to fetch content');
     }
 
     const contentData = await contentResponse.json();
+
 
     // Fetch translations (static)
     const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
