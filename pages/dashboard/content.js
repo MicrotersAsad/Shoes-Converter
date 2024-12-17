@@ -456,8 +456,7 @@ function Content() {
         return "Ugg Shoe Size Converter";
       case "italian":
         return "Italian Shoe Size Converter";
-      case "spanish":
-        return "Spanish Shoe Size Converter";
+     
       case "korean":
         return "Korean Shoe Size Converter";
       case "japanese":
