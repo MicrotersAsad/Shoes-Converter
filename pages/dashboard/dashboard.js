@@ -53,7 +53,7 @@ const Dashboard = () => {
   const [tools, setTools] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [pages, setPages] = useState([]);
-  const [comments, setComments] = useState([]);
+
 const page=1
 const articlesPerPage = 10; // Set the number of articles per page
 
@@ -113,14 +113,14 @@ const articlesPerPage = 10; // Set the number of articles per page
             fetch('/api/active-sessions'),
             fetch('/api/reviews'),
             fetch('/api/pages'),
-            fetch('/api/comments/all')
+            
           ]);
   
           // Check if any of the responses failed
           const responses = [
             siteViewsResponse, userVisitsResponse, blogResponse, articleResponse, 
             userListResponse, loginStatsResponse, activeSessionsResponse, reviewsResponse, 
-            pagesResponse, commentsResponse
+            pagesResponse
           ];
   console.log(responses);
   
@@ -141,7 +141,7 @@ const articlesPerPage = 10; // Set the number of articles per page
           const activeSessionsData = await activeSessionsResponse.json();
           const reviewsData = await reviewsResponse.json();
           const pagesData = await pagesResponse.json();
-          const commentsData = await commentsResponse.json();
+        
           
 
   
@@ -183,7 +183,7 @@ const articlesPerPage = 10; // Set the number of articles per page
           setTools(reviewsData.length);
           setReviews(reviewsData);
           setPages(pagesData);
-          setComments(commentsData);
+         
   
           // Handle YouTube Data
           setBlogChartData({
@@ -219,7 +219,7 @@ console.log(blogs);
       <>
         {/* User Statistics Section */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
-<Link href="all-user">
+<Link href="#">
   <div className="flex items-center border rounded-lg border-purple-300 bg-purple-100 shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-purple-200 rounded-md">
@@ -234,7 +234,7 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="active-users">
+<Link href="#">
   <div className="flex items-center border rounded-lg border-green-300 bg-green-100 shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-green-200 rounded-md">
@@ -249,7 +249,7 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="unverified-user">
+<Link href="#">
   <div className="flex items-center border rounded-lg border-red-300 bg-red-100 shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-red-200 rounded-md">
@@ -264,7 +264,7 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="premium-user">
+<Link href="#">
   <div className="flex items-center border rounded-lg border-yellow-300 bg-yellow-100 shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-yellow-200 rounded-md">
@@ -279,7 +279,7 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="non-premium-user">
+<Link href="#">
   <div className="flex items-center border rounded-lg bg-white shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-gray-200 rounded-md">
@@ -294,7 +294,7 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="all-article">
+<Link href="#">
   <div className="flex items-center border rounded-lg bg-white shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-gray-200 rounded-md">
@@ -309,7 +309,7 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="content">
+<Link href="#">
   <div className="flex items-center border rounded-lg bg-white shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-gray-200 rounded-md">
@@ -324,7 +324,7 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="content">
+<Link href="#">
   <div className="flex items-center border rounded-lg bg-white shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-gray-200 rounded-md">
@@ -339,7 +339,7 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="all-pages">
+<Link href="#">
   <div className="flex items-center border rounded-lg bg-white shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-gray-200 rounded-md">
@@ -354,22 +354,9 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="comment">
-  <div className="flex items-center border rounded-lg bg-white shadow-md hover:shadow-lg transition-all p-4">
-    <div className="flex items-center space-x-4">
-      <div className="p-3 bg-gray-200 rounded-md">
-        <FaComment className="text-gray-500" />
-      </div>
-      <div>
-        <p className="text-gray-600">All Comments</p>
-        <h3 className="text-2xl font-bold">{comments.length}</h3>
-      </div>
-    </div>
-    <FaChevronRight className="text-gray-500 ml-auto" />
-  </div>
-</Link>
 
-<Link href="comment">
+
+<Link href="#">
   <div className="flex items-center border rounded-lg bg-white shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-gray-200 rounded-md">
@@ -384,7 +371,7 @@ console.log(blogs);
   </div>
 </Link>
 
-<Link href="comment">
+<Link href="#">
   <div className="flex items-center border rounded-lg bg-white shadow-md hover:shadow-lg transition-all p-4">
     <div className="flex items-center space-x-4">
       <div className="p-3 bg-blue-200 rounded-md">

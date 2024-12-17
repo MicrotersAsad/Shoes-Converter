@@ -141,8 +141,98 @@ function Content() {
     {
       name: "Japanese Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
+      
       logo: TrendingVideos,
     },
+    {
+      name: "Indian Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "Asian Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "Canadian Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+  
+    {
+      name: "Colombian Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+  
+    {
+      name: "France Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "Philippines Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "German Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+  
+    {
+      name: "Chinese Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "Alegria Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "Asics Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "Asos Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "Merrell Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "Shein Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+    {
+      name: "Shimano Shoe Size Converter",
+      link: "http://www.ytubetools.com/tools/trending-videos",
+      
+      logo: TrendingVideos,
+    },
+  
+   
 
     // Add more tools as needed
   ];
@@ -372,7 +462,33 @@ function Content() {
         return "Korean Shoe Size Converter";
       case "japanese":
         return "Japanese Shoe Size Converter";
-
+      case "spanish":
+        return "Spanish Shoe Size Converter";
+      case "indian":
+        return "Indian Shoe Size Converter";
+      case "asian":
+        return "Asian Shoe Size Converter";
+      case "france":
+        return "France Shoe Size Converter";
+      case "philippines":
+        return "Philippines Shoe Size Converter";
+      case "german":
+        return "German Shoe Size Converter";
+      case "chinese":
+        return "Chinese Shoe Size Converter";
+      case "alegria":
+        return "Alegria Shoe Size Converter";
+      case "asics":
+        return "Asics Shoe Size Converter";
+      case "asos":
+        return "Asos Shoe Size Converter";
+      case "merrell":
+        return "Merrell Shoe Size Converter";
+      case "shein":
+        return "Shein Shoe Size Converter";
+      case "shimano":
+        return "Shimano Shoe Size Converter";
+     
       default:
         return "Unknown Category";
     }
@@ -417,6 +533,20 @@ function Content() {
               <option value="japanese">Japanese Shoe Size Converter</option>
               <option value="korean">Korean Shoe Size Converter</option>
               <option value="spanish">Spanish Shoe Size Converter</option>
+              <option value="indian">Indian Shoe Size Converter</option>
+              <option value="asian">Asian Shoe Size Converter</option>
+              <option value="canadian">Canadian Shoe Size Converter</option>
+              <option value="colombian">Colombian Shoe Size Converter</option>
+              <option value="france">France Shoe Size Converter</option>
+              <option value="philippines">Philippines Shoe Size Converter</option>
+              <option value="german">German Shoe Size Converter</option>
+              <option value="chinese">Chinese Shoe Size Converter</option>
+              <option value="alegria">Alegria Shoe Size Converter</option>
+              <option value="asics">Asics Shoe Size Converter</option>
+              <option value="asos">Asos Shoe Size Converter</option>
+              <option value="merrell">Merrell Shoe Size Converter</option>
+              <option value="shein">Shein Shoe Size Converter</option>
+              <option value="shimano">Shimano Shoe Size Converter</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg

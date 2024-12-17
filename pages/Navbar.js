@@ -84,15 +84,87 @@ function Navbar() {
         {
           heading: 'Country-Specific Tools',
           items: [
-            { key: 'European Shoe Size Converter', href: '/country/european', icon: '🌍' },
-            { key: 'Brazilian Shoe Size Converter', href: '/country/brazilian', icon: '🇧🇷' },
-            { key: 'Mexican Shoe Size Converter', href: '/country/mexican', icon: '🇲🇽' },
-            { key: 'Australian Shoe Size Converter', href: '/country/australian', icon: 'AU' },
-            { key: 'Italian Shoe Size Converter', href: '/country/italian', icon: 'IT' },
-            { key: 'Japanese Shoe Size Converter', href: '/country/japanese', icon: 'AU' },
-            { key: 'Korean Shoe Size Converter', href: '/country/korean', icon: 'IT' },
-            { key: 'Spanish Shoe Size Converter', href: '/country/spanish', icon: 'IT' },
-          ],
+            {
+              key: 'European Shoe Size Converter',
+              href: '/country/european',
+              icon: '🌍' // Globe for Europe
+            },
+            {
+              key: 'Brazilian Shoe Size Converter',
+              href: '/country/brazilian',
+              icon: '🇧🇷' // Flag of Brazil
+            },
+            {
+              key: 'Mexican Shoe Size Converter',
+              href: '/country/mexican',
+              icon: '🇲🇽' // Flag of Mexico
+            },
+            {
+              key: 'Australian Shoe Size Converter',
+              href: '/country/australian',
+              icon: '🇦🇺' // Flag of Australia
+            },
+            {
+              key: 'Italian Shoe Size Converter',
+              href: '/country/italian',
+              icon: '🇮🇹' // Flag of Italy
+            },
+            {
+              key: 'Japanese Shoe Size Converter',
+              href: '/country/japanese',
+              icon: '🇯🇵' // Flag of Japan
+            },
+            {
+              key: 'Korean Shoe Size Converter',
+              href: '/country/korean',
+              icon: '🇰🇷' // Flag of South Korea
+            },
+            {
+              key: 'Spanish Shoe Size Converter',
+              href: '/country/spanish',
+              icon: '🇪🇸' // Flag of Spain
+            },
+            {
+              key: 'Indian Shoe Size Converter',
+              href: '/country/indian',
+              icon: '🇮🇳' // Flag of India
+            },
+            {
+              key: 'Asian Shoe Size Converter',
+              href: '/country/asian',
+              icon: '🇮🇳' // Flag of India
+            },
+            {
+              key: 'Canadian Shoe Size Converter',
+              href: '/country/canadian',
+              icon: '🇮🇳' // Flag of India
+            },
+            {
+              key: 'Colombian Shoe Size Converter',
+              href: '/country/colombian',
+              icon: '🇮🇳' // Flag of India
+            },
+            {
+              key: 'France Shoe Size Converter',
+              href: '/country/france',
+              icon: '🇮🇳' // Flag of India
+            },
+            {
+              key: 'Philippines Shoe Size Converter',
+              href: '/country/philippines',
+              icon: '🇮🇳' // Flag of India
+            },
+            {
+              key: 'German Shoe Size Converter',
+              href: '/country/german',
+              icon: '🇮🇳' // Flag of India
+            },
+            {
+              key: 'Chinese Shoe Size Converter',
+              href: '/country/chinese',
+              icon: '🇮🇳' // Flag of India
+            },
+          ]            
         },
         {
           heading: 'Brand-Specific Tools',
@@ -104,6 +176,12 @@ function Navbar() {
             { key: 'Puma Shoe Size Converter', href: '/brand/puma', icon: '✅' },
             { key: 'Timberland Shoe Size Converter', href: '/brand/timberland', icon: 'ad' },
             { key: 'UGG Shoe Size Converter', href: '/brand/ugg', icon: 'ad' },
+            { key: 'Alegria Shoe Size Converter', href: '/brand/alegria', icon: 'ad' },
+            { key: 'Asics Shoe Size Converter', href: '/brand/asics', icon: 'ad' },
+            { key: 'Asos Shoe Size Converter', href: '/brand/asos', icon: 'ad' },
+            { key: 'Merrell Shoe Size Converter', href: '/brand/merrell', icon: 'ad' },
+            { key: 'Shein Shoe Size Converter', href: '/brand/shein', icon: 'ad' },
+            { key: 'Shimano Shoe Size Converter', href: '/brand/shimano', icon: 'ad' },
           ],
         },
       ],
