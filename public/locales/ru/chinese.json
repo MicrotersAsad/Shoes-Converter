@@ -1,0 +1,14 @@
+{
+    "Please select a size.": "Пожалуйста, выберите размер.",
+    "Invalid size selected.": "Выбран недопустимый размер.",
+    "Result copied to clipboard!": "Результат скопирован в буфер обмена!",
+    "Chinese Shoe Size Converter": "Конвертер китайских размеров обуви",
+    "Women": "Женщины",
+    "Men": "Мужчины",
+    "Toddlers": "Малыши",
+    "Kids": "Дети",
+    "Select Size": "Выберите размер",
+    "Convert": "Преобразовать",
+    "Copy": "Копировать",
+    "Reset": "Сбросить"
+}

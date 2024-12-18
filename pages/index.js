@@ -310,10 +310,13 @@ const ShoeSizeCalculator =({ content, locale }) => {
   </table>
 </div>
 <div className="content pt-6 pb-5">
-        <article
-          dangerouslySetInnerHTML={{ __html: content?.content || "No content available." }}
-          style={{ listStyleType: "none" }}
-        ></article>
+        {content?.content ? (
+          <article
+            dangerouslySetInnerHTML={{ __html: content.content }}
+          />
+        ) : (
+          <p>{t("No content available.")}</p>
+        )}
       </div>
   
 

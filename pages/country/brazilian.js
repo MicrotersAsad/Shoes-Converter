@@ -1,9 +1,11 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const BrazilianShoeSizeConverter = ({ content, locale }) => {
+  const {t}=useTranslation("brazilian")
   const [category, setCategory] = useState('men'); // Default category
   const [toUnit, setToUnit] = useState('US & Canada'); // Default output unit
   const [size, setSize] = useState(''); // Selected size
@@ -13,7 +15,7 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
   // Shoe size data for Men's, Women's, and Kids' categories
   const shoeSizeData = {
     men: {
-      title: "Men's Brazilian Shoe Size Conversion",
+      title: t("Men's Brazilian Shoe Size Conversion"),
       data: [
         { unit: 'Brazil', sizes: [37, 38, 39, 40, 41, 42, 43, 44, 45] },
         { unit: 'US & Canada', sizes: [7,7.5,8,8.5,9,10.5,11.5,12.5,14] },
@@ -22,7 +24,7 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
       ],
     },
     women: {
-      title: "Women's Brazilian Shoe Size Conversion",
+      title: t("Women's Brazilian Shoe Size Conversion"),
       data: [
         { unit: 'Brazil', sizes: [34, 35, 36, 37, 38, 39, 40, 41] },
         { unit: 'US & Canada', sizes: [8.5,	9	,9.5	,10	,10.5	,12	,13	,14	,15.5] },
@@ -64,14 +66,14 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
     <div className="max-w-7xl mx-auto pb-5">
       <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-800 text-center">Brazilian Shoe Size Converter</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center">{t("Brazilian Shoe Size Converter")}</h2>
 
         {/* Input Fields */}
         <div className="flex flex-wrap gap-6">
           {/* Category */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-700">
-              Category:
+              {t("Category")}:
             </label>
             <select
               id="category"
@@ -84,14 +86,14 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
               }}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="men">Men's</option>
-              <option value="women">Women's</option>
+              <option value="men">{t("Men's")}</option>
+              <option value="women">{t("Women's")}</option>
             </select>
           </div>
 
           {/* Fixed From Unit */}
           <div className="flex-1 min-w-[200px]">
-            <label className="block mb-2 text-sm font-medium text-gray-700">From:</label>
+            <label className="block mb-2 text-sm font-medium text-gray-700">{t("From")}:</label>
             <div className="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm">
               Brazil
             </div>
@@ -100,7 +102,7 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
           {/* Size */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="size" className="block mb-2 text-sm font-medium text-gray-700">
-              Size:
+              {t("Size")}:
             </label>
             <select
               id="size"
@@ -109,7 +111,7 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="" disabled>
-                Select a size
+                {t("Select a size")}
               </option>
               {shoeSizeData[category]
                 .data.find((row) => row.unit === 'Brazil')
@@ -124,7 +126,7 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
           {/* To Unit */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="toUnit" className="block mb-2 text-sm font-medium text-gray-700">
-              To:
+              {t("To")}:
             </label>
             <select
               id="toUnit"
@@ -147,7 +149,7 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
             onClick={handleConversion}
             className="px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            Convert Size
+            {t("Convert Size")}
           </button>
         </div>
 
@@ -173,7 +175,7 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
                 navigator.clipboard.writeText(
                   `${categoryNames[category]} size ${size} Brazil = size ${convertedSize} ${toUnit}`
                 );
-                toast.success('Copied to Clipboard!', {
+                toast.success(t('Copied to Clipboard!'), {
                   position: 'top-center',
                   autoClose: 2000,
                   hideProgressBar: true,
@@ -185,13 +187,13 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
               }}
               className="mt-4 px-4 py-2 text-white bg-green-500 rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             >
-              Copy
+              {t("Copy")}
             </button>
             <button
               onClick={handleReset}
               className="px-6 ms-2 py-2 text-white bg-red-500 rounded-lg shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
-              Reset
+              {t("Reset")}
             </button>
           </div>
         )}
@@ -211,7 +213,7 @@ const BrazilianShoeSizeConverter = ({ content, locale }) => {
                   key={index}
                   className="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700"
                 >
-                  Size {index + 1}
+                  {t("Size")} {index + 1}
                 </th>
               ))}
             </tr>
@@ -267,7 +269,7 @@ export async function getStaticProps({ locale }) {
     const contentData = await contentResponse.json();
 
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
+    const translations = await serverSideTranslations(locale, ['brazilian', 'shoeSizeConverter']);
 
     return {
       props: {
@@ -287,7 +289,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        translations: await serverSideTranslations(locale, ['common', 'shoeSizeConverter']),
+        ...(await serverSideTranslations(locale, ['brazilian', 'navbar','footer'])),
       },
     };
   }

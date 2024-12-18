@@ -1,9 +1,11 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AustralianShoeSizeConverter = ({ content, locale }) => {
+  const {t}=useTranslation("australian")
   const [category, setCategory] = useState('men'); // Default category
   const [toUnit, setToUnit] = useState('US'); // Default output unit
   const [size, setSize] = useState(''); // Selected size
@@ -14,7 +16,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
   // Shoe size data for various categories
   const shoeSizeData = {
     women: {
-      title: "Women's Shoe Size Conversion",
+      title: t("Women's Shoe Size Conversion"),
       data: [
         { unit: 'Centimeters', sizes: [21.6, 22.2, 23.0, 23.4, 23.8, 24.6, 25.1, 25.8, 26.5, 27.1, 27.8, 28.4, 29.0, 29.6] },
         { unit: 'Europe', sizes: ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48'] },
@@ -24,7 +26,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
       ],
     },
     men: {
-      title: "Men's Shoe Size Conversion",
+      title: t("Men's Shoe Size Conversion"),
       data: [
         { unit: 'Centimeters', sizes: [26.3, 26.7, 27.4, 28.0, 28.8, 29.2, 29.6, 30.0, 30.5, 31.3, 32.2, 32.7, 33.3, 34.0, 34.5, 35.0, 35.5, 36.0, 36.5, 37.0] },
         { unit: 'Europe', sizes: ['39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58'] },
@@ -34,7 +36,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
       ],
     },
     baby: {
-      title: "Baby Size Guide (EU15 - 24) Pre Walking",
+      title: t("Baby Size Guide (EU15 - 24) Pre Walking"),
       data: [
         { unit: 'Centimeters', sizes: [8.4, 9.0, 9.8, 10.4, 11.1, 11.8, 12.5, 13.2, 13.9, 14.5] },
         { unit: 'Europe', sizes: ['15', '-', '16', '17', '18', '19', '20', '21', '22', '23'] },
@@ -44,7 +46,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
       ],
     },
     toddler: {
-      title: "Toddlers' Shoe Size Conversion (EU22 - 35) Walking - 3 Yrs",
+      title: t("Toddlers' Shoe Size Conversion (EU22 - 35) Walking - 3 Yrs"),
       data: [
         { unit: 'Centimeters', sizes: [13.3, 14.0, 14.6, 14.9, 15.3, 15.9, 16.0, 16.6, 16.7, 17.0, 17.3, 17.6, 18.0, 18.3, 18.6, 19.3, 20.0, 20.3, 20.7, 21.0, 21.4, 22.1, 22.4, 22.8] },
         { unit: 'Europe', sizes: ['22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43'] },
@@ -54,7 +56,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
       ],
     },
     youngKids: {
-      title: "Young Kids Size Guide (EU25 - 40) 3 - 8 Yrs",
+      title: t("Young Kids Size Guide (EU25 - 40) 3 - 8 Yrs"),
       data: [
         { unit: 'Centimeters', sizes: [15.3, 15.9, 16.0, 16.6, 16.7, 17.0, 17.3, 17.6, 18.0, 18.3, 18.6, 19.3, 20.0, 20.3, 20.7, 21.0, 21.4, 22.1, 22.4, 22.8, 23.1, 23.5, 23.8, 24.2, 24.5, 24.9, 25.3, 25.6, 25.9] },
         { unit: 'Europe', sizes: ['25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43'] },
@@ -64,7 +66,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
       ],
     },
     olderKids: {
-      title: "Older Kids Size Guide (EU33 - 43) 8+ Yrs",
+      title: t("Older Kids Size Guide (EU33 - 43) 8+ Yrs"),
       data: [
         { unit: 'Centimeters', sizes: [20.7, 21.3, 21.6, 21.9, 22.0, 22.2, 22.7, 23.0, 23.1, 23.4, 23.5, 23.7, 23.8, 24.1, 24.5, 24.8, 25.1, 25.3, 25.6, 25.9, 26.3, 26.7, 27.0, 27.3, 27.6, 27.9, 28.0, 28.4, 28.5, 28.6, 28.8, 29.0, 29.2, 29.6, 30.0, 30.5] },
         { unit: 'Europe', sizes: ['33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43'] },
@@ -105,7 +107,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
 
   const handleConversion = () => {
     if (!size) {
-      toast.error('Please select a size.', {
+      toast.error(t('Please select a size.'), {
         position: 'top-center',
         autoClose: 2000,
       });
@@ -123,7 +125,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
     } else {
       setHighlightIndex(null);
       setConvertedSize('Invalid size');
-      toast.error('Selected size is invalid or not available.', {
+      toast.error(t('Selected size is invalid or not available.'), {
         position: 'top-center',
         autoClose: 2000,
       });
@@ -142,14 +144,14 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
     <div className="max-w-7xl mx-auto pb-5 ps-3 pe-3">
       <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-800 text-center">Australian Shoe Size Converter</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center">{t("Australian Shoe Size Converter")}</h2>
 
         {/* Input Fields */}
         <div className="flex flex-wrap gap-6">
           {/* Category */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-700">
-              Category:
+              {t('Category')}:
             </label>
             <select
               id="category"
@@ -160,18 +162,18 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
               }}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="women">Women's</option>
-              <option value="men">Men's</option>
-              <option value="baby">Baby</option>
-              <option value="toddler">Toddlers'</option>
-              <option value="youngKids">Young Kids'</option>
-              <option value="olderKids">Older Kids'</option>
+              <option value="women">{t("Women's")}</option>
+              <option value="men">{t("Men's")}</option>
+              <option value="baby">{t("Baby")}</option>
+              <option value="toddler">{t("Toddlers'")}</option>
+              <option value="youngKids">{t("Young Kids'")}</option>
+              <option value="olderKids">{t("Older Kids'")}</option>
             </select>
           </div>
 
           {/* Fixed From Unit */}
           <div className="flex-1 min-w-[200px]">
-            <label className="block mb-2 text-sm font-medium text-gray-700">From:</label>
+            <label className="block mb-2 text-sm font-medium text-gray-700">{t("From")}:</label>
             <div className="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm">
               {fromUnit}
             </div>
@@ -180,7 +182,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
           {/* Size */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="size" className="block mb-2 text-sm font-medium text-gray-700">
-              Size ({fromUnit}):
+              {t("Size")} ({fromUnit}):
             </label>
             <select
               id="size"
@@ -189,7 +191,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="" disabled>
-                Select a size
+                {t("Select a size")}
               </option>
               {shoeSizeData[category]
                 .data.find((row) => row.unit === fromUnit)
@@ -204,7 +206,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
           {/* To Unit */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="toUnit" className="block mb-2 text-sm font-medium text-gray-700">
-              To:
+              {t("To")}:
             </label>
             <select
               id="toUnit"
@@ -227,13 +229,13 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
             onClick={handleConversion}
             className="px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            Convert Size
+            {t("Convert Size")}
           </button>
           <button
             onClick={handleReset}
             className="px-6 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
           >
-            Reset
+            {t("Reset")}
           </button>
         </div>
 
@@ -250,7 +252,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
                   navigator.clipboard.writeText(
                     `${categoryNames[category]} size ${size} ${fromUnit} = size ${convertedSize} ${toUnit}`
                   );
-                  toast.success('Copied to Clipboard!', {
+                  toast.success(t('Copied to Clipboard!'), {
                     position: 'top-center',
                     autoClose: 2000,
                     hideProgressBar: true,
@@ -262,7 +264,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
                 }}
                 className="px-4 py-2 text-white bg-green-500 rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
               >
-                Copy
+                  {t("Copy")}
               </button>
             </div>
           </div>
@@ -285,7 +287,7 @@ const AustralianShoeSizeConverter = ({ content, locale }) => {
                     key={index}
                     className="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700"
                   >
-                    Size {index + 1}
+                    {t("Size")} {index + 1}
                   </th>
                 ))}
             </tr>
@@ -343,7 +345,7 @@ export async function getStaticProps({ locale }) {
     const contentData = await contentResponse.json();
 
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
+    const translations = await serverSideTranslations(locale, ['australian', 'shoeSizeConverter']);
 
     return {
       props: {
@@ -363,7 +365,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        translations: await serverSideTranslations(locale, ['common', 'shoeSizeConverter']),
+        ...(await serverSideTranslations(locale, ['australian', 'navbar','footer'])),
       },
     };
   }

@@ -185,7 +185,7 @@ export async function getStaticProps({ locale }) {
 
 
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
+    const translations = await serverSideTranslations(locale, ['men', 'shoeSizeConverter']);
 
     return {
       props: {
@@ -205,7 +205,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        translations: await serverSideTranslations(locale, ['common', 'shoeSizeConverter']),
+        translations: await serverSideTranslations(locale, ['men', 'shoeSizeConverter']),
       },
     };
   }

@@ -190,7 +190,7 @@ export async function getStaticProps({ locale }) {
 
     const contentData = await contentResponse.json();
 
-    const translations = await serverSideTranslations(locale, ['common', 'AsicsShoeSizeConverter ']);
+    const translations = await serverSideTranslations(locale, ['men', 'AsicsShoeSizeConverter ']);
 
     return {
       props: {
@@ -213,7 +213,7 @@ export async function getStaticProps({ locale }) {
           regionLabel: 'Region',
           actionLabel: 'Action',
         },
-        translations: await serverSideTranslations(locale, ['common', 'AsicsShoeSizeConverter ']),
+        translations: await serverSideTranslations(locale, ['men', 'AsicsShoeSizeConverter ']),
       },
     };
   }

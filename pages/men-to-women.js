@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Switch } from '@headlessui/react'; // For toggle switch
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'react-i18next';
 
 const ShoeSizeConverter = ({ content, locale }) => {
+  const {t}=useTranslation("men-to-women")
   const [gender, setGender] = useState('Men'); // Default gender
   const [sizeSystem, setSizeSystem] = useState('US'); // Default size system
   const [shoeSize, setShoeSize] = useState(''); // Selected shoe size
@@ -53,23 +55,23 @@ const ShoeSizeConverter = ({ content, locale }) => {
     <div className="max-w-7xl mx-auto pb-5">
       <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
         {/* Header */}
-        <h2 className="text-2xl font-bold text-gray-800 text-center">Shoe Size Converter</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center">{t("Men To Women Shoe Size Converter")}</h2>
 
         {/* Controls */}
         <div className="flex flex-wrap gap-6">
           <div className="flex-1 min-w-[200px]">
-            <label className="block mb-2 text-sm font-medium text-gray-700">Gender:</label>
+            <label className="block mb-2 text-sm font-medium text-gray-700">{t("Gender")}:</label>
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="Men">Men's</option>
-              <option value="Women">Women's</option>
+              <option value="Men">{t("Men's")}</option>
+              <option value="Women">{t("Women's")}</option>
             </select>
           </div>
           <div className="flex-1 min-w-[200px]">
-            <label className="block mb-2 text-sm font-medium text-gray-700">Size System:</label>
+            <label className="block mb-2 text-sm font-medium text-gray-700">{t("Size System")}:</label>
             <select
               value={sizeSystem}
               onChange={(e) => setSizeSystem(e.target.value)}
@@ -83,14 +85,14 @@ const ShoeSizeConverter = ({ content, locale }) => {
             </select>
           </div>
           <div className="flex-1 min-w-[200px]">
-            <label className="block mb-2 text-sm font-medium text-gray-700">Shoe Size:</label>
+            <label className="block mb-2 text-sm font-medium text-gray-700">{t("Shoe Size")}:</label>
             <select
               value={shoeSize}
               onChange={(e) => setShoeSize(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="" disabled>
-                Select a size
+                {t("Select a size")}
               </option>
               {shoeSizeData[gender][sizeSystem].map((size, index) => (
                 <option key={index} value={size}>
@@ -109,18 +111,18 @@ const ShoeSizeConverter = ({ content, locale }) => {
                 showWomenSize ? 'bg-blue-500' : 'bg-gray-200'
               } relative inline-flex h-6 w-11 items-center rounded-full`}
             >
-              <span className="sr-only">Show corresponding Women's Size</span>
+              <span className="sr-only">{t("Show corresponding Women's Size")}</span>
               <span
                 className={`${
                   showWomenSize ? 'translate-x-6' : 'translate-x-1'
                 } inline-block h-4 w-4 transform rounded-full bg-white transition`}
               />
             </Switch>
-            <span className="text-sm font-medium text-gray-700">Show corresponding Women's Size</span>
+            <span className="text-sm font-medium text-gray-700">{t("Show corresponding Women's Size")}</span>
           </div>
         {/* Results */}
         <div>
-          <h3 className="text-lg font-bold mb-4">Your Size:</h3>
+          <h3 className="text-lg font-bold mb-4">{t("Your Size")}:</h3>
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {Object.entries(convertedSizes).map(([system, value]) => (
               <li key={system} className="text-center bg-gray-100 px-4 py-2 rounded-lg list-none">
@@ -131,7 +133,7 @@ const ShoeSizeConverter = ({ content, locale }) => {
         </div>
         {showWomenSize && (
           <div>
-            <h3 className="text-lg font-bold mt-6 mb-4">Women's Sizes:</h3>
+            <h3 className="text-lg font-bold mt-6 mb-4">{t("Women's Sizes")}:</h3>
             <ul className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {Object.entries(womenConvertedSizes).map(([system, value]) => (
                 <li key={system} className="text-center bg-green-100 px-4 py-2 rounded-lg list-none">
@@ -174,7 +176,7 @@ export async function getStaticProps({ locale }) {
     const contentData = await contentResponse.json();
 
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
+    const translations = await serverSideTranslations(locale, ['men-to-women', 'shoeSizeConverter']);
 
     return {
       props: {
@@ -194,7 +196,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        translations: await serverSideTranslations(locale, ['common', 'shoeSizeConverter']),
+        ...(await serverSideTranslations(locale, ['men-to-women', 'navbar','footer'])),
       },
     };
   }

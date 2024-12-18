@@ -1,8 +1,11 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ChineseShoeSizeConverter = () => {
+  const {t}=useTranslation("chinese")
   const sizeData = {
     women: {
       "US": [5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11],
@@ -43,12 +46,12 @@ const ChineseShoeSizeConverter = () => {
 
   const handleConversion = () => {
     if (!size) {
-      toast.error("Please select a size.");
+      toast.error(t("Please select a size."));
       return;
     }
     const fromIndex = sizeData[category][fromUnit].indexOf(Number(size));
     if (fromIndex === -1) {
-      toast.error("Invalid size selected.");
+      toast.error(t("Invalid size selected."));
       return;
     }
     setConvertedSize(sizeData[category][toUnit][fromIndex]);
@@ -62,21 +65,21 @@ const ChineseShoeSizeConverter = () => {
   };
  const handleCopy = () => {
     navigator.clipboard.writeText(` ${convertedSize} ${toUnit}`);
-    toast.success("Result copied to clipboard!");
+    toast.success(t("Result copied to clipboard!"));
   };
 
   return (
     <div className="container mx-auto max-w-7xl p-6">
          <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
-        <h1 className="text-2xl font-bold text-center mb-4">Chinese Shoe Size Converter</h1>
+        <h1 className="text-2xl font-bold text-center mb-4">{t("Chinese Shoe Size Converter")}</h1>
 
         <div className="flex flex-wrap gap-6">
         <div className="flex-1 min-w-[200px]">
           <select className="w-full p-2 border rounded" value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option value="women">Women</option>
-            <option value="men">Men</option>
-            <option value="toddlers">Toddlers</option>
-            <option value="kids">Kids</option>
+            <option value="women">{t("Women")}</option>
+            <option value="men">{t("Men")}</option>
+            <option value="toddlers">{t("Toddlers")}</option>
+            <option value="kids">{t("Kids")}</option>
           </select>
 </div>
 <div className="flex-1 min-w-[200px]">
@@ -96,7 +99,7 @@ const ChineseShoeSizeConverter = () => {
           </div>
           <div className="flex-1 min-w-[200px]">
           <select className="w-full p-2 border rounded" value={size} onChange={(e) => setSize(e.target.value)}>
-            <option value="">Select Size</option>
+            <option value="">{t("Select Size")}</option>
             {sizeData[category][fromUnit].map((s, i) => (
               <option key={i} value={s}>{s}</option>
             ))}
@@ -106,7 +109,7 @@ const ChineseShoeSizeConverter = () => {
         </div>
 
         <div className="flex justify-center gap-4">
-        <button onClick={handleConversion} className="px-4 py-2 bg-blue-500 text-white rounded">Convert</button>
+        <button onClick={handleConversion} className="px-4 py-2 bg-blue-500 text-white rounded">{t("Convert")}</button>
         </div>
      
 
@@ -125,13 +128,13 @@ const ChineseShoeSizeConverter = () => {
       }}
       className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
     >
-      Copy
+      {t("Copy")}
     </button>
     <button
       onClick={handleReset}
       className="px-4 py-2 ms-3 bg-red-500 text-white rounded hover:bg-red-600"
     >
-      Reset
+      {t("Reset")}
     </button>
   </div>
 )}
@@ -162,5 +165,51 @@ const ChineseShoeSizeConverter = () => {
     
   );
 };
+export async function getStaticProps({ locale }) {
+  try {
+    // Define the authorization token (you can replace this with an actual token)
+    const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
 
+    // Fetch the content data with authorization header
+    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=chinese&language=${locale}`, {
+      method: 'GET',  // You can also specify POST, PUT, etc. if needed
+      headers: {
+        'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
+        'Content-Type': 'application/json',       // Set Content-Type to JSON
+      },
+    });
+
+    // Check if the response is successful (status 200)
+    if (!contentResponse.ok) {
+      throw new Error('Failed to fetch content');
+    }
+
+    const contentData = await contentResponse.json();
+
+    // Fetch translations (static)
+    const translations = await serverSideTranslations(locale, ['chinese', 'shoeSizeConverter']);
+
+    return {
+      props: {
+        content: contentData?.translations?.[locale] || {},
+        ...translations,
+      },
+      revalidate: 60 * 60 * 24,  // 24 hours revalidation
+    };
+  } catch (error) {
+    console.error('Error fetching content:', error);
+
+    // Return default content in case of error
+    return {
+      props: {
+        content: {
+          categoryLabel: 'Shoe Size Converter',
+          sizeLabel: 'Select Shoe Size',
+          // Add default values for other fields...
+        },
+        ...(await serverSideTranslations (locale, ['chinese', 'navbar','footer'])),
+      },
+    };
+  }
+}
 export default ChineseShoeSizeConverter;

@@ -1,0 +1,14 @@
+{
+    "Please select a size.": "サイズを選択してください。",
+    "Invalid size selected.": "無効なサイズが選択されました。",
+    "Result copied to clipboard!": "結果がクリップボードにコピーされました！",
+    "Chinese Shoe Size Converter": "中国の靴サイズ変換器",
+    "Women": "女性",
+    "Men": "男性",
+    "Toddlers": "幼児",
+    "Kids": "子供",
+    "Select Size": "サイズを選択",
+    "Convert": "変換",
+    "Copy": "コピー",
+    "Reset": "リセット"
+}

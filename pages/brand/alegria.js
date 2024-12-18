@@ -167,7 +167,7 @@ export async function getStaticProps({ locale }) {
     );
 
     const contentData = await contentResponse.json();
-    const translations = await serverSideTranslations(locale, ["common", "AlegriaShoeSizeChart"]);
+    const translations = await serverSideTranslations(locale, ["men", "AlegriaShoeSizeChart"]);
 
     return {
       props: {

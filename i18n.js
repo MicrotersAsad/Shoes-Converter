@@ -4,9 +4,7 @@ const path = require("path");
 const NextI18NextInstance = new NextI18Next({
   defaultLanguage: "en",
   otherLanguages: [
-    "fr",
-    "zh-HANS",   // Traditional Chinese
-    "zh-HANT",   // Simplified Chinese
+    "fr",         //franch
     "nl",        // Dutch
     "gu",        // Gujarati
     "hi",        // Hindi
@@ -22,27 +20,12 @@ const NextI18NextInstance = new NextI18Next({
   localePath: path.resolve("./public/locales"), // Path to locales folder
   ns: [
     "home",
-    "common",
-    "tagextractor",
+    "men",
     "navbar",
-    "titlegenerator",
-    "trending",
-    "videoDataViewer",
-    "banner",
-    "logo",
     "search",
-    "embed",
-    "hashtag",
-    "calculator",
-    "thumbnail",
-    "tdextractor",
-    "channelId",
-    "monetization",
-    "summary",
-    "keyword",
     "footer",
     "pricing",
-    "description"
+   
   ], // List of namespaces you will be using
   defaultNS: "home",   // The default namespace that will be used
   fallbackNS: "home",  // Fallback namespace when translation is missing

@@ -1,0 +1,17 @@
+{
+    "Please select a size first.": "먼저 사이즈를 선택하세요.",
+    "Selections reset.": "선택이 초기화되었습니다.",
+    "Copied to clipboard!": "클립보드에 복사되었습니다!",
+    "Canadian Shoe Size Converter": "캐나다 신발 사이즈 변환기",
+    "Category": "카테고리",
+    "Women": "여성",
+    "Men": "남성",
+    "Youth": "청소년",
+    "Size": "사이즈",
+    "Select Size": "사이즈 선택",
+    "Convert To": "변환 대상",
+    "Convert": "변환",
+    "Copy": "복사",
+    "Reset": "초기화",
+    "Size Conversion Table": "사이즈 변환표"
+}

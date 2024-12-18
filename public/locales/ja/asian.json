@@ -1,0 +1,13 @@
+{
+    "Asian Clothing Size Conversion": "アジアの服のサイズ変換",
+    "Please select an Asian size first.": "まずアジアサイズを選択してください。",
+    "Selected size is invalid or not available.": "選択したサイズは無効か利用できません。",
+    "No corresponding size found for the selected Asian size.": "選択したアジアサイズに対応するサイズが見つかりません。",
+    "Asian Size": "アジアサイズ",
+    "Select an Asian size": "アジアサイズを選択",
+    "Convert To": "変換先",
+    "Convert Size": "サイズを変換",
+    "Copied to Clipboard!": "クリップボードにコピーしました！",
+    "Copy": "コピー",
+    "Reset": "リセット"
+}

@@ -1,9 +1,11 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ShoeSizeCalculator = ({ content, locale }) => {
+  const {t}=useTranslation("women")
   const [category, setCategory] = useState('women'); // Default category
   const [fromUnit, setFromUnit] = useState('US & Canada'); // Default input unit
   const [toUnit, setToUnit] = useState('Europe'); // Default output unit
@@ -14,7 +16,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
   // Shoe size data for Women's category
   const shoeSizeData = {
     women: {
-      title: "Women's Shoe Size Conversion",
+      title: t("Women's Shoe Size Conversion"),
       data: [
         { unit: 'US & Canada', sizes: [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12] },
         { unit: 'UK', sizes: [2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10] },
@@ -26,7 +28,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
   };
 
   const categoryNames = {
-    women: "Women's",
+    women: t("Women's"),
   };
 
   // Handle size conversion
@@ -59,14 +61,14 @@ const ShoeSizeCalculator = ({ content, locale }) => {
     <div className="max-w-7xl mx-auto pb-5">
       <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-800 text-center">Women's Shoe Size Calculator</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center">{t("Women's Shoe Size Calculator")}</h2>
 
         {/* Input Fields */}
         <div className="flex flex-wrap gap-6">
           {/* From Unit */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="fromUnit" className="block mb-2 text-sm font-medium text-gray-700">
-              From:
+              {t("From")}:
             </label>
             <select
               id="fromUnit"
@@ -88,7 +90,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
           {/* Size */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="size" className="block mb-2 text-sm font-medium text-gray-700">
-              Size:
+              {t("Size")}:
             </label>
             <select
               id="size"
@@ -97,7 +99,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="" disabled>
-                Select a size
+                {t("Select a size")}
               </option>
               {shoeSizeData[category]
                 .data.find((row) => row.unit === fromUnit)
@@ -112,7 +114,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
           {/* To Unit */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="toUnit" className="block mb-2 text-sm font-medium text-gray-700">
-              To:
+              {t("To")}:
             </label>
             <select
               id="toUnit"
@@ -135,7 +137,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
             onClick={handleConversion}
             className="px-6 py-2 text-white bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            Convert Size
+            {t("Convert Size")}
           </button>
         </div>
 
@@ -173,13 +175,13 @@ const ShoeSizeCalculator = ({ content, locale }) => {
               }}
               className="mt-4 px-4 py-2 text-white bg-green-500 rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             >
-              Copy
+              {t("Copy")}
             </button>
             <button
               onClick={handleReset}
               className="px-6 ms-3 py-2 text-white bg-red-500 rounded-lg shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
-              Reset
+              {t("Reset")}
             </button>
           </div>
         )}
@@ -199,7 +201,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
                   key={index}
                   className="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700"
                 >
-                  Size {index + 1}
+                  {t("Size")} {index + 1}
                 </th>
               ))}
             </tr>
@@ -255,7 +257,7 @@ export async function getStaticProps({ locale }) {
     const contentData = await contentResponse.json();
 
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
+    const translations = await serverSideTranslations(locale, ['women', 'shoeSizeConverter']);
 
     return {
       props: {
@@ -275,7 +277,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        translations: await serverSideTranslations(locale, ['common', 'shoeSizeConverter']),
+        ...(await serverSideTranslations(locale, ['women', 'navbar','footer'])),
       },
     };
   }

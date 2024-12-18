@@ -242,7 +242,7 @@ try {
 
   const contentData = await contentResponse.json();
 
-  const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
+  const translations = await serverSideTranslations(locale, ['men', 'shoeSizeConverter']);
 
   return {
     props: {
@@ -260,7 +260,7 @@ try {
         categoryLabel: 'Shoe Size Converter',
         sizeLabel: 'Select Shoe Size',
       },
-      translations: await serverSideTranslations(locale, ['common', 'shoeSizeConverter']),
+      translations: await serverSideTranslations(locale, ['men', 'shoeSizeConverter']),
     },
   };
 }

@@ -1,9 +1,11 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ShoeSizeCalculator = ({ content, locale }) => {
+   const { t } = useTranslation('kids'); // Correct namespace
   const [category, setCategory] = useState('bigKids'); // Default category
   const [fromUnit, setFromUnit] = useState('US & Canada'); // Default input unit
   const [toUnit, setToUnit] = useState('Europe'); // Default output unit
@@ -14,7 +16,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
   // Shoe size data for Kids categories
   const shoeSizeData = {
     bigKids: {
-      title: "Big Kids' Shoe Size Conversion (7–12 Years)",
+      title: t("Big Kids' Shoe Size Conversion (7–12 Years)"),
       data: [
         { unit: 'US & Canada', sizes: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7] },
         { unit: 'UK', sizes: [2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6] },
@@ -24,7 +26,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
       ],
     },
     littleKids: {
-      title: "Little Kids' Shoe Size Conversion (4–7 Years)",
+      title: t("Little Kids' Shoe Size Conversion (4–7 Years)"),
       data: [
         { unit: 'US & Canada', sizes: [10.5, 11, 11.5, 12, 12.5, 13, 13.5, 1, 1.5, 2, 2.5, 3] },
         { unit: 'UK', sizes: [9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 14, 1, 1.5, 2] },
@@ -34,7 +36,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
       ],
     },
     toddlers: {
-      title: "Toddlers' Shoe Size Conversion (9 Months - 4 Years)",
+      title: t("Toddlers' Shoe Size Conversion (9 Months - 4 Years)"),
       data: [
         { unit: 'US & Canada', sizes: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10] },
         { unit: 'UK', sizes: [19, 19, 20, 20, 21, 22, 22, 23, 23, 24, 25, 25, 26, 27] },
@@ -44,7 +46,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
       ],
     },
     infants: {
-      title: "Infants' Shoe Size Conversion (0–9 Months)",
+      title: t("Infants' Shoe Size Conversion (0–9 Months)"),
       data: [
         { unit: 'US & Canada', sizes: [0, 1, 1.5, 2, 2.5, 3] },
         { unit: 'UK', sizes: [0, 0.5, 1, 1, 1.5, 2] },
@@ -56,10 +58,10 @@ const ShoeSizeCalculator = ({ content, locale }) => {
   };
 
   const categoryNames = {
-    bigKids: "Big Kid's (7 - 12 years)",
-    littleKids: "Little Kid's (4 - 7 years)",
-    toddlers: "Toddlers' (9 months - 4 years)",
-    infants: "Infants' (0 - 9 months)",
+    bigKids: t("Big Kid's (7 - 12 years)"),
+    littleKids: t("Little Kid's (4 - 7 years)"),
+    toddlers: t("Toddlers' (9 months - 4 years)"),
+    infants: t("Infants' (0 - 9 months)"),
   };
 
   const handleConversion = () => {
@@ -90,14 +92,14 @@ const ShoeSizeCalculator = ({ content, locale }) => {
     <div className="max-w-7xl mx-auto pb-5">
       <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-800 text-center">Kid's Shoe Size Calculator</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center">{t("Kid's Shoe Size Calculator")}</h2>
 
         {/* Input Fields */}
         <div className="flex flex-wrap gap-6">
           {/* Category */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-700">
-              Category:
+              {t("Category")}:
             </label>
             <select
               id="category"
@@ -110,17 +112,17 @@ const ShoeSizeCalculator = ({ content, locale }) => {
               }}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="bigKids">Big Kid's (7 - 12 years)</option>
-              <option value="littleKids">Little Kid's (4 - 7 years)</option>
-              <option value="toddlers">Toddlers' (9 months - 4 years)</option>
-              <option value="infants">Infants' (0 - 9 months)</option>
+              <option value="bigKids">{t("Big Kid's (7 - 12 years)")}</option>
+              <option value="littleKids">{t("Little Kid's (4 - 7 years)")}</option>
+              <option value="toddlers">{t("Toddlers' (9 months - 4 years)")}</option>
+              <option value="infants">{t("Infants' (0 - 9 months)")}</option>
             </select>
           </div>
 
           {/* From Unit */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="fromUnit" className="block mb-2 text-sm font-medium text-gray-700">
-              From:
+              {t("From")}:
             </label>
             <select
               id="fromUnit"
@@ -142,7 +144,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
           {/* Size */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="size" className="block mb-2 text-sm font-medium text-gray-700">
-              Size:
+              {t("Size")}:
             </label>
             <select
               id="size"
@@ -151,7 +153,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="" disabled>
-                Select a size
+                {t("Select a size")}
               </option>
               {shoeSizeData[category]
                 .data.find((row) => row.unit === fromUnit)
@@ -166,7 +168,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
           {/* To Unit */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="toUnit" className="block mb-2 text-sm font-medium text-gray-700">
-              To:
+              {t("To")}:
             </label>
             <select
               id="toUnit"
@@ -189,7 +191,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
             onClick={handleConversion}
             className="px-6 py-2 text-white bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            Convert Size
+            {t("Convert Size")}
           </button>
         </div>
 
@@ -215,7 +217,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
                 navigator.clipboard.writeText(
                   `${categoryNames[category]} size ${size} ${fromUnit} = ${categoryNames[category]} size ${convertedSize} ${toUnit}`
                 );
-                toast.success('Copied to Clipboard!', {
+                toast.success(t('Copied to Clipboard!'), {
                   position: "top-center",
                   autoClose: 2000,
                   hideProgressBar: true,
@@ -227,13 +229,13 @@ const ShoeSizeCalculator = ({ content, locale }) => {
               }}
               className="mt-4 px-4 py-2 text-white bg-green-500 rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             >
-              Copy
+              {t("Copy")}
             </button>
             <button
               onClick={handleReset}
               className="px-6 ms-3 py-2 text-white bg-red-500 rounded-lg shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
-              Reset
+              {t("Reset")}
             </button>
           </div>
         )}
@@ -253,7 +255,7 @@ const ShoeSizeCalculator = ({ content, locale }) => {
                   key={index}
                   className="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700"
                 >
-                  Size {index + 1}
+                  {t("Size")} {index + 1}
                 </th>
               ))}
             </tr>
@@ -309,7 +311,7 @@ export async function getStaticProps({ locale }) {
     const contentData = await contentResponse.json();
 
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['common', 'shoeSizeConverter']);
+    const translations = await serverSideTranslations(locale, ['kids', 'shoeSizeConverter']);
 
     return {
       props: {
@@ -329,7 +331,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        translations: await serverSideTranslations(locale, ['common', 'shoeSizeConverter']),
+        ...(await serverSideTranslations(locale, ['kids', 'navbar','footer'])),
       },
     };
   }
