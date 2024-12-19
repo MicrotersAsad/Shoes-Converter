@@ -1,7 +1,9 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-const AlegriaShoeSizeChart = ({ content, locale }) => {
+const AlegriaShoeSizeChart = ({ content }) => {
+  const {t}=useTranslation("alegria")
   const [gender, setGender] = useState("mens");
   const [shoeSize, setShoeSize] = useState("");
   const [convertedSizes, setConvertedSizes] = useState({});
@@ -47,25 +49,25 @@ const AlegriaShoeSizeChart = ({ content, locale }) => {
 
   const handleCopy = (size) => {
     navigator.clipboard.writeText(size);
-    alert("Size copied to clipboard!");
+    alert(t("Size copied to clipboard!"));
   };
 
   const genderData = sizeData[gender] || [];
 
   // Content Fallback
-  const categoryLabel = content?.categoryLabel || "Category";
-  const sizeLabel = content?.sizeLabel || "Select Shoe Size";
-  const selectSize = content?.selectSize || "Choose Size";
-  const convertButton = content?.convertButton || "Convert";
-  const convertedSizesLabel = content?.convertedSizesLabel || "Converted Sizes";
-  const regionLabel = content?.regionLabel || "Region";
-  const actionLabel = content?.actionLabel || "Action";
+  const categoryLabel = content?.categoryLabel || t("Category");
+  const sizeLabel = content?.sizeLabel || t("Select Shoe Size");
+  const selectSize = content?.selectSize || t("Choose Size");
+  const convertButton = content?.convertButton || t("Convert");
+  const convertedSizesLabel = content?.convertedSizesLabel || t("Converted Sizes");
+  const regionLabel = content?.regionLabel || t("Region");
+  const actionLabel = content?.actionLabel || t("Action");
 
   return (
     <div className="max-w-7xl mx-auto p-6">
       <div className="max-w-5xl mx-auto bg-white rounded-lg p-6">
         <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">
-          Alegria Shoe Size Converter
+          {t("Alegria Shoe Size Converter")}
         </h1>
 
         {/* Gender and Shoe Size Selection */}
@@ -77,8 +79,8 @@ const AlegriaShoeSizeChart = ({ content, locale }) => {
               onChange={(e) => setGender(e.target.value)}
               className="w-full border rounded-lg px-4 py-2"
             >
-              <option value="mens">Men</option>
-              <option value="womens">Women</option>
+              <option value="mens">{t("Men")}</option>
+              <option value="womens">{t("Women")}</option>
             </select>
           </div>
 
@@ -130,7 +132,7 @@ const AlegriaShoeSizeChart = ({ content, locale }) => {
                         onClick={() => handleCopy(size)}
                         className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
                       >
-                        Copy
+                        {t("Copy")}
                       </button>
                     </td>
                   </tr>
@@ -142,7 +144,7 @@ const AlegriaShoeSizeChart = ({ content, locale }) => {
                 onClick={handleReset}
                 className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-700"
               >
-                Reset
+                {t("Reset")}
               </button>
             </div>
           </div>
@@ -154,33 +156,47 @@ const AlegriaShoeSizeChart = ({ content, locale }) => {
 
 export async function getStaticProps({ locale }) {
   try {
-    const AUTH_TOKEN = "AZ-fc905a5a5ae08609ba38b046ecc8ef00";
-    const contentResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=tagGenerator&language=${locale}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${AUTH_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    // Define the authorization token (you can replace this with an actual token)
+    const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
+
+    // Fetch the content data with authorization header
+    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=alegria&language=${locale}`, {
+      method: 'GET',  // You can also specify POST, PUT, etc. if needed
+      headers: {
+        'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
+        'Content-Type': 'application/json',       // Set Content-Type to JSON
+      },
+    });
+
+    // Check if the response is successful (status 200)
+    if (!contentResponse.ok) {
+      throw new Error('Failed to fetch content');
+    }
 
     const contentData = await contentResponse.json();
-    const translations = await serverSideTranslations(locale, ["men", "AlegriaShoeSizeChart"]);
+
+    // Fetch translations (static)
+    const translations = await serverSideTranslations(locale, ['alegria', 'shoeSizeConverter']);
 
     return {
       props: {
         content: contentData?.translations?.[locale] || {},
         ...translations,
       },
-      revalidate: 86400,
+      revalidate: 60 * 60 * 24,  // 24 hours revalidation
     };
   } catch (error) {
-    console.error("Error fetching content:", error);
+    console.error('Error fetching content:', error);
+
+    // Return default content in case of error
     return {
       props: {
-        content: {},
+        content: {
+          categoryLabel: 'Shoe Size Converter',
+          sizeLabel: 'Select Shoe Size',
+          // Add default values for other fields...
+        },
+        ...(await serverSideTranslations (locale, ['alegria', 'navbar','footer'])),
       },
     };
   }

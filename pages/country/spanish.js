@@ -1,8 +1,11 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const SpanishShoeSizeConverter = () => {
+const SpanishShoeSizeConverter = ({content}) => {
+  const {t}=useTranslation("spanish")
   const [category, setCategory] = useState('women'); // Default category
   const [toUnit, setToUnit] = useState('UK'); // Default "To" unit
   const [size, setSize] = useState(''); // Selected size in Spanish (EU)
@@ -13,7 +16,7 @@ const SpanishShoeSizeConverter = () => {
   const spanishShoeSizeData = {
     categories: {
       women: {
-        title: "Women's Shoe Sizes - International Conversion",
+        title: t("Women's Shoe Sizes - International Conversion"),
         data: [
           { unit: 'Spanish (EU)', sizes: ['35', '36', '37', '38', '39', '40', '41', '42', '43'] },
           { unit: 'UK', sizes: ['2.55', '3.56', '4.57', '5.58', '6.59', '7.60', '8.61', '9.62', '10.63'] },
@@ -24,7 +27,7 @@ const SpanishShoeSizeConverter = () => {
         ],
       },
       men: {
-        title: "Men's Shoe Sizes - International Conversion",
+        title: t("Men's Shoe Sizes - International Conversion"),
         data: [
           { unit: 'Spanish (EU)', sizes: ['39', '40', '42', '43', '44', '45', '46', '47', '48'] },
           { unit: 'UK', sizes: ['6.57', '6.57', '7.58', '8.59', '9.51', '10.51', '11.12', '12.13', '13'] },
@@ -53,7 +56,7 @@ const SpanishShoeSizeConverter = () => {
 
   const handleConversion = () => {
     if (!size) {
-      toast.error('Please select a size.', {
+      toast.error(t('Please select a size.'), {
         position: 'top-center',
         autoClose: 2000,
       });
@@ -88,7 +91,7 @@ const SpanishShoeSizeConverter = () => {
     } else {
       setHighlightIndex(null);
       setConvertedSize('Invalid size');
-      toast.error('Selected size is invalid or not available.', {
+      toast.error(t('Selected size is invalid or not available.'), {
         position: 'top-center',
         autoClose: 2000,
       });
@@ -107,14 +110,14 @@ const SpanishShoeSizeConverter = () => {
     <div className="max-w-7xl mx-auto pb-5">
       <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-800 text-center">Spanish Shoe Size Converter</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center">{t("Spanish Shoe Size Converter")}</h2>
 
         {/* Input Fields */}
         <div className="flex flex-wrap gap-6">
           {/* Category */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-700">
-              Category:
+              {t("Category")}:
             </label>
             <select
               id="category"
@@ -122,15 +125,15 @@ const SpanishShoeSizeConverter = () => {
               onChange={(e) => setCategory(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="women">Women's</option>
-              <option value="men">Men's</option>
+              <option value="women">{t("Women's")}</option>
+              <option value="men">{t("Men's")}</option>
             </select>
           </div>
 
           {/* Size */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="size" className="block mb-2 text-sm font-medium text-gray-700">
-              Size (Spanish EU):
+              {t("Size")} (Spanish EU):
             </label>
             <select
               id="size"
@@ -139,7 +142,7 @@ const SpanishShoeSizeConverter = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="" disabled>
-                Select a size
+                {t("Select a size")}
               </option>
               {spanishShoeSizeData.categories[category].data
                 .find((row) => row.unit === 'Spanish (EU)')
@@ -154,7 +157,7 @@ const SpanishShoeSizeConverter = () => {
           {/* To Unit */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="toUnit" className="block mb-2 text-sm font-medium text-gray-700">
-              To:
+              {t("To")}:
             </label>
             <select
               id="toUnit"
@@ -179,7 +182,7 @@ const SpanishShoeSizeConverter = () => {
             onClick={handleConversion}
             className="px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            Convert Size
+            {t("Convert Size")}
           </button>
          
         </div>
@@ -195,7 +198,7 @@ const SpanishShoeSizeConverter = () => {
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(`Size ${size} Spanish (EU) = ${convertedSize} ${toUnit}`);
-                  toast.success('Copied to Clipboard!', {
+                  toast.success(t('Copied to Clipboard!'), {
                     position: 'top-center',
                     autoClose: 2000,
                     hideProgressBar: true,
@@ -207,14 +210,14 @@ const SpanishShoeSizeConverter = () => {
                 }}
                 className="px-4 py-2 text-white bg-green-500 rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
               >
-                Copy
+                {t("Copy")}
               </button>
 
               <button
             onClick={handleReset}
             className="px-6 py-2 ms-3 text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
           >
-            Reset
+            {t("Reset")}
           </button>
             </div>
           </div>
@@ -257,8 +260,61 @@ const SpanishShoeSizeConverter = () => {
           </tbody>
         </table>
       </div>
-    </div>
-  );
-};
+     <div className="content pt-6 pb-5">
+            <article
+              dangerouslySetInnerHTML={{ __html: content?.content || "No content available." }}
+              style={{ listStyleType: "none" }}
+            ></article>
+          </div>
+        </div>
+      );
+    };
+    export async function getStaticProps({ locale }) {
+      try {
+        // Define the authorization token (you can replace this with an actual token)
+        const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
+    
+        // Fetch the content data with authorization header
+        const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=france&language=${locale}`, {
+          method: 'GET',  // You can also specify POST, PUT, etc. if needed
+          headers: {
+            'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
+            'Content-Type': 'application/json',       // Set Content-Type to JSON
+          },
+        });
+    
+        // Check if the response is successful (status 200)
+        if (!contentResponse.ok) {
+          throw new Error('Failed to fetch content');
+        }
+    
+        const contentData = await contentResponse.json();
+    
+        // Fetch translations (static)
+        const translations = await serverSideTranslations(locale, ['spanish', 'shoeSizeConverter']);
+    
+        return {
+          props: {
+            content: contentData?.translations?.[locale] || {},
+            ...translations,
+          },
+          revalidate: 60 * 60 * 24,  // 24 hours revalidation
+        };
+      } catch (error) {
+        console.error('Error fetching content:', error);
+    
+        // Return default content in case of error
+        return {
+          props: {
+            content: {
+              categoryLabel: 'Shoe Size Converter',
+              sizeLabel: 'Select Shoe Size',
+              // Add default values for other fields...
+            },
+            ...(await serverSideTranslations (locale, ['spanish', 'navbar','footer'])),
+          },
+        };
+      }
+    }
 
 export default SpanishShoeSizeConverter;

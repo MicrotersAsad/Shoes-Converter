@@ -1,7 +1,9 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-const AdidasShoeSizeConverter = ({ content, locale }) => {
+const AdidasShoeSizeConverter = ({ content }) => {
+  const {t}=useTranslation("adidas")
   const [gender, setGender] = useState("Men");
   const [shoeSize, setShoeSize] = useState("");
   const [convertedSizes, setConvertedSizes] = useState({});
@@ -56,19 +58,19 @@ const AdidasShoeSizeConverter = ({ content, locale }) => {
   };
 
   // If translations or content are undefined, fallback to empty object or default values
-  const categoryLabel =  "Category"; // Default value
-  const sizeLabel = "Select Shoe Size"; // Default value
-  const selectSize =  "Choose Size"; // Default value
-  const convertButton = "Convert"; // Default value
-  const convertedSizesLabel =  "Converted Sizes"; // Default value
-  const regionLabel = "Region"; // Default value
-  const actionLabel = "Action"; // Default value
+  const categoryLabel =  t("Category"); // Default value
+  const sizeLabel = t("Select Shoe Size"); // Default value
+  const selectSize =  t("Choose Size"); // Default value
+  const convertButton = t("Convert"); // Default value
+  const convertedSizesLabel =  t("Converted Sizes"); // Default value
+  const regionLabel = t("Region"); // Default value
+  const actionLabel = t("Action"); // Default value
 
   return (
     <div className="max-w-7xl mx-auto">
   
     <div className="max-w-5xl mx-auto p-6 mt-5 mb-5 bg-white rounded-lg">
-      <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">Adidas Shoe Size Converter</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">{t("Adidas Shoe Size Converter")}</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div>
@@ -78,8 +80,8 @@ const AdidasShoeSizeConverter = ({ content, locale }) => {
             onChange={(e) => setGender(e.target.value)}
             className="w-full border rounded-lg px-4 py-2"
           >
-            <option value="Men">Men</option>
-            <option value="Women">Women</option>
+            <option value="Men">{t("Men")}</option>
+            <option value="Women">{t("Women")}</option>
           </select>
         </div>
 
@@ -130,7 +132,7 @@ const AdidasShoeSizeConverter = ({ content, locale }) => {
                       onClick={() => handleCopy(size)}
                       className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
                     >
-                      Copy
+                      {t("Copy")}
                     </button>
                   </td>
                 </tr>
@@ -143,7 +145,7 @@ const AdidasShoeSizeConverter = ({ content, locale }) => {
               onClick={handleReset}
               className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-700"
             >
-              Reset
+              {t("Reset")}
             </button>
           </div>
         </div>
@@ -167,7 +169,7 @@ export async function getStaticProps({ locale }) {
     const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
 
     // Fetch the content data with authorization header
-    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=tagGenerator&language=${locale}`, {
+    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=adidas&language=${locale}`, {
       method: 'GET',  // You can also specify POST, PUT, etc. if needed
       headers: {
         'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
@@ -185,7 +187,7 @@ export async function getStaticProps({ locale }) {
 
 
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['men', 'shoeSizeConverter']);
+    const translations = await serverSideTranslations(locale, ['adidas', 'shoeSizeConverter']);
 
     return {
       props: {
@@ -205,7 +207,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        translations: await serverSideTranslations(locale, ['men', 'shoeSizeConverter']),
+        ...(await serverSideTranslations (locale, ['adidas', 'navbar','footer'])),
       },
     };
   }

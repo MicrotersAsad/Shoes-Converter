@@ -1,8 +1,11 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const IndiaToUSShoeSizeConverter = () => {
+const IndiaToUSShoeSizeConverter = ({content}) => {
+  const {t}=useTranslation("indian")
   const [category, setCategory] = useState('women'); // Default category: women
   const [toUnit, setToUnit] = useState('US'); // Default "To" unit
   const [size, setSize] = useState(''); // Selected India size
@@ -12,7 +15,7 @@ const IndiaToUSShoeSizeConverter = () => {
   const shoeSizeData = {
     categories: {
       women: {
-        title: "Women's India to US Shoe Size Conversion",
+        title: t("Women's India to US Shoe Size Conversion"),
         data: [
           { unit: 'India', sizes: ['2','2.5','3','3.5','4','4.5','5','5.5','6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11.5','13','14','15']},
           { unit: 'US', sizes: ['4','4.5','5','5.5','6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','13','14','15','16','17'] },
@@ -23,7 +26,7 @@ const IndiaToUSShoeSizeConverter = () => {
         ],
       },
       men: {
-        title: "Men's India to US Shoe Size Conversion",
+        title: t("Men's India to US Shoe Size Conversion"),
         data: [
           { unit: 'India', sizes: ['5.5','6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12.5','13.5','14.5','15.5'] },
           { unit: 'US', sizes: ['6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','13','14','15','16'] },
@@ -76,7 +79,7 @@ const IndiaToUSShoeSizeConverter = () => {
     if (fromIndex === -1) {
       setHighlightIndex(null);
       setConvertedSize('Invalid size');
-      toast.error('Selected India size is invalid or not available.', {
+      toast.error(t('Selected India size is invalid or not available.'), {
         position: 'top-center',
         autoClose: 2000,
       });
@@ -97,7 +100,7 @@ const IndiaToUSShoeSizeConverter = () => {
     const result = toRow.sizes[fromIndex];
     if (!result) {
       setConvertedSize('No corresponding size found.');
-      toast.error('No corresponding size found for the selected India size.', {
+      toast.error(t('No corresponding size found for the selected India size.'), {
         position: 'top-center',
         autoClose: 2000,
       });
@@ -120,13 +123,13 @@ const IndiaToUSShoeSizeConverter = () => {
   return (
     <div className="max-w-7xl mx-auto pb-5">
       <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
-        <h2 className="text-2xl font-bold text-gray-800 text-center">India to US Shoe Size Conversion</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center">{t("India to US Shoe Size Conversion")}</h2>
 
         <div className="flex flex-wrap gap-6">
           {/* Category Selector */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-700">
-              Category:
+              {t("Category")}:
             </label>
             <select
               id="category"
@@ -142,7 +145,7 @@ const IndiaToUSShoeSizeConverter = () => {
           {/* India Size Selector */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="size" className="block mb-2 text-sm font-medium text-gray-700">
-              India Size:
+              {t("India Size")}:
             </label>
             <select
               id="size"
@@ -150,7 +153,7 @@ const IndiaToUSShoeSizeConverter = () => {
               onChange={(e) => setSize(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
             >
-              <option value="" disabled>Select an India size</option>
+              <option value="" disabled>{t("Select an India size")}</option>
               {data.find((row) => row.unit === 'India')?.sizes.map((indiaSize, idx) => (
                 <option key={idx} value={indiaSize}>
                   {indiaSize}
@@ -162,7 +165,7 @@ const IndiaToUSShoeSizeConverter = () => {
           {/* To Unit Selector */}
           <div className="flex-1 min-w-[200px]">
             <label htmlFor="toUnit" className="block mb-2 text-sm font-medium text-gray-700">
-              To Unit:
+             {t("To Unit")}:
             </label>
             <select
               id="toUnit"
@@ -185,7 +188,7 @@ const IndiaToUSShoeSizeConverter = () => {
             onClick={handleConversion}
             className="px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none"
           >
-            Convert Size
+            {t("Convert Size")}
           </button>
          
         </div>
@@ -209,13 +212,13 @@ const IndiaToUSShoeSizeConverter = () => {
                 }}
                 className="px-4 py-2 ms-3 text-white bg-green-500 rounded-lg shadow hover:bg-green-600 focus:outline-none"
               >
-                Copy
+                {t("Copy")}
               </button>
               <button
             onClick={handleReset}
             className="px-6 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none"
           >
-            Reset
+            {t("Reset")}
           </button>
             </div>
           </div>
@@ -257,8 +260,60 @@ const IndiaToUSShoeSizeConverter = () => {
           </tbody>
         </table>
       </div>
+      <div className="content pt-6 pb-5">
+        <article
+          dangerouslySetInnerHTML={{ __html: content?.content || "No content available." }}
+          style={{ listStyleType: "none" }}
+        ></article>
+      </div>
     </div>
   );
 };
+export async function getStaticProps({ locale }) {
+  try {
+    // Define the authorization token (you can replace this with an actual token)
+    const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
 
+    // Fetch the content data with authorization header
+    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=france&language=${locale}`, {
+      method: 'GET',  // You can also specify POST, PUT, etc. if needed
+      headers: {
+        'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
+        'Content-Type': 'application/json',       // Set Content-Type to JSON
+      },
+    });
+
+    // Check if the response is successful (status 200)
+    if (!contentResponse.ok) {
+      throw new Error('Failed to fetch content');
+    }
+
+    const contentData = await contentResponse.json();
+
+    // Fetch translations (static)
+    const translations = await serverSideTranslations(locale, ['indian', 'shoeSizeConverter']);
+
+    return {
+      props: {
+        content: contentData?.translations?.[locale] || {},
+        ...translations,
+      },
+      revalidate: 60 * 60 * 24,  // 24 hours revalidation
+    };
+  } catch (error) {
+    console.error('Error fetching content:', error);
+
+    // Return default content in case of error
+    return {
+      props: {
+        content: {
+          categoryLabel: 'Shoe Size Converter',
+          sizeLabel: 'Select Shoe Size',
+          // Add default values for other fields...
+        },
+        ...(await serverSideTranslations (locale, ['indian', 'navbar','footer'])),
+      },
+    };
+  }
+}
 export default IndiaToUSShoeSizeConverter;

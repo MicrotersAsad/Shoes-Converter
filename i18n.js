@@ -25,6 +25,25 @@ const NextI18NextInstance = new NextI18Next({
     "search",
     "footer",
     "pricing",
+    "european",
+    "asian",
+    "australian",
+    "brazilian",
+    "canadian",
+    "chinese",
+    "colombian",
+    "european",
+    "kids",
+    "men-to-women",
+    "women",
+    "korean",
+    "mexican"
+
+
+
+
+
+
    
   ], // List of namespaces you will be using
   defaultNS: "home",   // The default namespace that will be used

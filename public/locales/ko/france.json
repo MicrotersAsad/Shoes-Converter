@@ -1,0 +1,15 @@
+{
+    "Please select a size.": "사이즈를 선택하세요.",
+    "Invalid size selected.": "잘못된 사이즈가 선택되었습니다.",
+    "Result copied to clipboard!": "결과가 클립보드에 복사되었습니다!",
+    "France Shoe Size Converter": "프랑스 신발 사이즈 변환기",
+    "Category": "카테고리",
+    "Men": "남성",
+    "Women": "여성",
+    "Size": "사이즈",
+    "Select Size": "사이즈 선택",
+    "Convert To": "변환 대상",
+    "Convert": "변환",
+    "Copy": "복사",
+    "Reset": "초기화"
+}

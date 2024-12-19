@@ -1,0 +1,15 @@
+{
+    "Please select a size.": "Пожалуйста, выберите размер.",
+    "Invalid size selected.": "Выбран недопустимый размер.",
+    "Result copied to clipboard!": "Результат скопирован в буфер обмена!",
+    "Columbia Shoe Size Converter": "Конвертер размеров обуви Columbia",
+    "Category": "Категория",
+    "Men": "Мужчины",
+    "Women": "Женщины",
+    "Size": "Размер",
+    "Select Size": "Выберите размер",
+    "Convert To": "Конвертировать в",
+    "Convert": "Конвертировать",
+    "Copy": "Копировать",
+    "Reset": "Сбросить"
+}

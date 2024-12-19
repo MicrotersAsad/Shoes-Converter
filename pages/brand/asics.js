@@ -1,7 +1,9 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-const AsicsShoeSizeConverter  = ({ content, locale }) => {
+const AsicsShoeSizeConverter  = ({ content }) => {
+  const {t}=useTranslation("asics")
   const [gender, setGender] = useState("Men");
   const [shoeSize, setShoeSize] = useState("");
   const [convertedSizes, setConvertedSizes] = useState({});
@@ -64,22 +66,22 @@ const AsicsShoeSizeConverter  = ({ content, locale }) => {
 
   const handleCopy = (size) => {
     navigator.clipboard.writeText(size);
-    alert("Size copied to clipboard!");
+    alert(t("Size copied to clipboard!"));
   };
 
   // Fallback content labels
-  const categoryLabel = content?.categoryLabel || "Category";
-  const sizeLabel = content?.sizeLabel || "Select Shoe Size";
-  const selectSize = content?.selectSize || "Choose Size";
-  const convertButton = content?.convertButton || "Convert";
-  const convertedSizesLabel = content?.convertedSizesLabel || "Converted Sizes";
-  const regionLabel = content?.regionLabel || "Region";
-  const actionLabel = content?.actionLabel || "Action";
+  const categoryLabel = content?.categoryLabel || t("Category");
+  const sizeLabel = content?.sizeLabel || t("Select Shoe Size");
+  const selectSize = content?.selectSize || t("Choose Size");
+  const convertButton = content?.convertButton || t("Convert");
+  const convertedSizesLabel = content?.convertedSizesLabel || t("Converted Sizes");
+  const regionLabel = content?.regionLabel || t("Region");
+  const actionLabel = content?.actionLabel || t("Action");
 
   return (
     <div className="max-w-7xl mx-auto">
       <div className="max-w-5xl mx-auto p-6 mt-5 mb-5 bg-white rounded-lg">
-        <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">Asics Shoe Size Converter </h1>
+        <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">{t("Asics Shoe Size Converter")}</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div>
@@ -89,9 +91,9 @@ const AsicsShoeSizeConverter  = ({ content, locale }) => {
               onChange={(e) => setGender(e.target.value)}
               className="w-full border rounded-lg px-4 py-2"
             >
-              <option value="Men">Men</option>
-              <option value="Women">Women</option>
-              <option value="kids">Kids</option>
+              <option value="Men">{t("Men")}</option>
+              <option value="Women">{t("Women")}</option>
+              <option value="kids">{t("Kids")}</option>
             </select>
           </div>
 
@@ -142,7 +144,7 @@ const AsicsShoeSizeConverter  = ({ content, locale }) => {
                         onClick={() => handleCopy(size)}
                         className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
                       >
-                        Copy
+                        {t("Copy")}
                       </button>
                     </td>
                   </tr>
@@ -155,7 +157,7 @@ const AsicsShoeSizeConverter  = ({ content, locale }) => {
                 onClick={handleReset}
                 className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-700"
               >
-                Reset
+                {t("Reset")}
               </button>
             </div>
           </div>
@@ -176,7 +178,7 @@ export async function getStaticProps({ locale }) {
   try {
     const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
 
-    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=tagGenerator&language=${locale}`, {
+    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=asics&language=${locale}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${AUTH_TOKEN}`,
@@ -190,7 +192,7 @@ export async function getStaticProps({ locale }) {
 
     const contentData = await contentResponse.json();
 
-    const translations = await serverSideTranslations(locale, ['men', 'AsicsShoeSizeConverter ']);
+    const translations = await serverSideTranslations(locale, ['asics', 'AsicsShoeSizeConverter ']);
 
     return {
       props: {
@@ -213,7 +215,7 @@ export async function getStaticProps({ locale }) {
           regionLabel: 'Region',
           actionLabel: 'Action',
         },
-        translations: await serverSideTranslations(locale, ['men', 'AsicsShoeSizeConverter ']),
+        ...(await serverSideTranslations (locale, ['asics', 'navbar','footer'])),
       },
     };
   }

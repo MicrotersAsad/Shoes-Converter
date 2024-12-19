@@ -1,0 +1,15 @@
+{
+    "Please select a size.": "サイズを選択してください。",
+    "Invalid size selected.": "無効なサイズが選択されました。",
+    "Result copied to clipboard!": "結果がクリップボードにコピーされました！",
+    "Columbia Shoe Size Converter": "コロンビア靴サイズ変換ツール",
+    "Category": "カテゴリー",
+    "Men": "男性",
+    "Women": "女性",
+    "Size": "サイズ",
+    "Select Size": "サイズを選択",
+    "Convert To": "変換先",
+    "Convert": "変換",
+    "Copy": "コピー",
+    "Reset": "リセット"
+}

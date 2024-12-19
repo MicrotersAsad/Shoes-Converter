@@ -1,8 +1,11 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ColumbiaShoeSizeConverter = () => {
+const ColumbiaShoeSizeConverter = ({content}) => {
+  const {t}=useTranslation("colombian")
   const sizeData = {
     men: {
       FOOT_MM: [247, 251, 256, 260, 264, 269, 273, 277, 281, 285, 290, 298, 307, 315, 324, 332],
@@ -30,12 +33,12 @@ const ColumbiaShoeSizeConverter = () => {
 
   const handleConversion = () => {
     if (!size) {
-      toast.error("Please select a size.");
+      toast.error(t("Please select a size."));
       return;
     }
     const fromIndex = sizeData[category]["US"].indexOf(Number(size));
     if (fromIndex === -1) {
-      toast.error("Invalid size selected.");
+      toast.error(t("Invalid size selected."));
       return;
     }
     setConvertedSize(sizeData[category][toUnit][fromIndex]);
@@ -44,7 +47,7 @@ const ColumbiaShoeSizeConverter = () => {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(`US Size ${size} = ${convertedSize} ${toUnit.replace("_", " ")}`);
-    toast.success("Result copied to clipboard!");
+    toast.success(t("Result copied to clipboard!"));
   };
 
   const handleReset = () => {
@@ -56,12 +59,12 @@ const ColumbiaShoeSizeConverter = () => {
   return (
     <div className="container mx-auto max-w-7xl p-6">
       <div className="flex flex-col max-w-4xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
-        <h1 className="text-2xl font-bold text-center mb-4">Columbia Shoe Size Converter</h1>
+        <h1 className="text-2xl font-bold text-center mb-4">{t("Columbia Shoe Size Converter")}</h1>
 
         <div className="flex flex-wrap gap-6">
           {/* Category Selector */}
         <div className="flex-1 min-w-[200px]">
-            <label className="block mb-2 font-medium">Category:</label>
+            <label className="block mb-2 font-medium">{t("Category")}:</label>
             <select
               className="w-full p-2 border rounded"
               value={category}
@@ -70,14 +73,14 @@ const ColumbiaShoeSizeConverter = () => {
                 handleReset();
               }}
             >
-              <option value="men">Men</option>
-              <option value="women">Women</option>
+              <option value="men">{t("Men")}</option>
+              <option value="women">{t("Women")}</option>
             </select>
           </div>
 
           {/* Size Selector */}
           <div className="flex-1 min-w-[200px]">
-            <label className="block mb-2 font-medium">US Size:</label>
+            <label className="block mb-2 font-medium">US {t("Size")}:</label>
             <select className="w-full p-2 border rounded" value={size} onChange={(e) => setSize(e.target.value)}>
               <option value="">Select Size</option>
               {sizeData[category]["US"].map((s, i) => (
@@ -90,7 +93,7 @@ const ColumbiaShoeSizeConverter = () => {
 
           {/* Convert To */}
           <div className="flex-1 min-w-[200px]">
-            <label className="block mb-2 font-medium">Convert To:</label>
+            <label className="block mb-2 font-medium">{t("Convert To")}:</label>
             <select className="w-full p-2 border rounded" value={toUnit} onChange={(e) => setToUnit(e.target.value)}>
               {Object.keys(sizeData[category]).map(
                 (unit, i) => unit !== "US" && <option key={i} value={unit}>{unit.replace("_", " ")}</option>
@@ -102,7 +105,7 @@ const ColumbiaShoeSizeConverter = () => {
         {/* Buttons */}
         <div className="flex justify-center gap-4">
           <button onClick={handleConversion} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Convert
+            {t("Convert")}
           </button>
           
         </div>
@@ -111,17 +114,17 @@ const ColumbiaShoeSizeConverter = () => {
         {convertedSize && (
           <div className="mt-6 text-center">
             <p className="text-xl font-semibold">
-              US Size {size} = <span className="text-red-500">{convertedSize} {toUnit.replace("_", " ")}</span>
+              US {t("Size")} {size} = <span className="text-red-500">{convertedSize} {toUnit.replace("_", " ")}</span>
             </p>
             <button
               onClick={handleCopy}
               className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
-              Copy
+              {t("Copy")}
             </button>
 
             <button onClick={handleReset} className="px-4 py-2 ms-3 bg-red-500 text-white rounded hover:bg-red-600">
-            Reset
+            {t("Reset")}
           </button>
           </div>
         )}
@@ -148,9 +151,61 @@ const ColumbiaShoeSizeConverter = () => {
           </tbody>
         </table>
       </div>
+      <div className="content pt-6 pb-5">
+        <article
+          dangerouslySetInnerHTML={{ __html: content?.content || "No content available." }}
+          style={{ listStyleType: "none" }}
+        ></article>
+      </div>
       <ToastContainer />
     </div>
   );
 };
+export async function getStaticProps({ locale }) {
+  try {
+    // Define the authorization token (you can replace this with an actual token)
+    const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
 
+    // Fetch the content data with authorization header
+    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=colombian&language=${locale}`, {
+      method: 'GET',  // You can also specify POST, PUT, etc. if needed
+      headers: {
+        'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
+        'Content-Type': 'application/json',       // Set Content-Type to JSON
+      },
+    });
+
+    // Check if the response is successful (status 200)
+    if (!contentResponse.ok) {
+      throw new Error('Failed to fetch content');
+    }
+
+    const contentData = await contentResponse.json();
+
+    // Fetch translations (static)
+    const translations = await serverSideTranslations(locale, ['colombian', 'shoeSizeConverter']);
+
+    return {
+      props: {
+        content: contentData?.translations?.[locale] || {},
+        ...translations,
+      },
+      revalidate: 60 * 60 * 24,  // 24 hours revalidation
+    };
+  } catch (error) {
+    console.error('Error fetching content:', error);
+
+    // Return default content in case of error
+    return {
+      props: {
+        content: {
+          categoryLabel: 'Shoe Size Converter',
+          sizeLabel: 'Select Shoe Size',
+          // Add default values for other fields...
+        },
+        ...(await serverSideTranslations (locale, ['colombian', 'navbar','footer'])),
+      },
+    };
+  }
+}
 export default ColumbiaShoeSizeConverter;

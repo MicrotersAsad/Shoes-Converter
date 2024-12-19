@@ -1,0 +1,15 @@
+{
+    "Please select a size.": "कृपया एक आकार चुनें।",
+    "Invalid size selected.": "अवैध आकार चुना गया है।",
+    "Result copied to clipboard!": "परिणाम क्लिपबोर्ड पर कॉपी किया गया!",
+    "France Shoe Size Converter": "फ्रांस जूता आकार परिवर्तक",
+    "Category": "श्रेणी",
+    "Men": "पुरुष",
+    "Women": "महिलाएं",
+    "Size": "आकार",
+    "Select Size": "आकार चुनें",
+    "Convert To": "में परिवर्तित करें",
+    "Convert": "परिवर्तित करें",
+    "Copy": "कॉपी करें",
+    "Reset": "रीसेट करें"
+}

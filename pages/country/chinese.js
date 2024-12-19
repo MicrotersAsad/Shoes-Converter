@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ChineseShoeSizeConverter = () => {
+const ChineseShoeSizeConverter = ({content}) => {
   const {t}=useTranslation("chinese")
   const sizeData = {
     women: {
@@ -161,6 +161,12 @@ const ChineseShoeSizeConverter = () => {
             ))}
           </tbody>
         </table>
+        <div className="content pt-6 pb-5">
+        <article
+          dangerouslySetInnerHTML={{ __html: content?.content || "No content available." }}
+          style={{ listStyleType: "none" }}
+        ></article>
+      </div>
       </div>
     
   );

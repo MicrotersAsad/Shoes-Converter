@@ -1,0 +1,15 @@
+{
+    "Please select a size.": "Por favor, seleccione una talla.",
+    "Invalid size selected.": "Talla seleccionada no válida.",
+    "Result copied to clipboard!": "¡Resultado copiado al portapapeles!",
+    "Columbia Shoe Size Converter": "Conversor de tallas de zapatos Columbia",
+    "Category": "Categoría",
+    "Men": "Hombres",
+    "Women": "Mujeres",
+    "Size": "Talla",
+    "Select Size": "Seleccionar talla",
+    "Convert To": "Convertir a",
+    "Convert": "Convertir",
+    "Copy": "Copiar",
+    "Reset": "Restablecer"
+}
