@@ -1,0 +1,19 @@
+{
+    "Please select a shoe size.": "Por favor, selecciona una talla de zapato.",
+    "Invalid category selection.": "Selección de categoría no válida.",
+    "Selected size not available.": "Talla seleccionada no disponible.",
+    "Size copied to clipboard!": "¡Talla copiada al portapapeles!",
+    "Category": "Categoría",
+    "Select Shoe Size": "Seleccionar talla de zapato",
+    "Choose Size": "Elegir talla",
+    "Convert": "Convertir",
+    "Converted Sizes": "Tallas convertidas",
+    "Region": "Región",
+    "Action": "Acción",
+    "Ugg Shoe Size Converter": "Conversor de tallas de zapatos Ugg",
+    "Men": "Hombres",
+    "Women": "Mujeres",
+    "Kids": "Niños",
+    "Copy": "Copiar",
+    "Reset": "Restablecer"
+}

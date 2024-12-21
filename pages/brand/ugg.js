@@ -1,7 +1,9 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const UggShoeSizeConverter = ({ content, locale }) => {
+  const {t}=useTranslation("ugg")
     const [category, setCategory] = useState("Men");
   const [shoeSize, setShoeSize] = useState("");
   const [convertedSizes, setConvertedSizes] = useState({});
@@ -65,7 +67,7 @@ const UggShoeSizeConverter = ({ content, locale }) => {
   };
   const handleConvert = () => {
     if (!shoeSize) {
-      alert("Please select a shoe size.");
+      alert(t("Please select a shoe size."));
       return;
     }
 
@@ -80,7 +82,7 @@ const UggShoeSizeConverter = ({ content, locale }) => {
     }
 
     if (!selectedSizeData) {
-      alert("Invalid category selection.");
+      alert(t("Invalid category selection."));
       return;
     }
 
@@ -89,7 +91,7 @@ const UggShoeSizeConverter = ({ content, locale }) => {
 
     if (!sizeEntry) {
       setConvertedSizes({});
-      alert("Selected size not available.");
+      alert(t("Selected size not available."));
       return;
     }
 
@@ -118,13 +120,13 @@ const UggShoeSizeConverter = ({ content, locale }) => {
   };
 
   // Labels (consider using i18n translations)
-  const categoryLabel = 'Category';
-  const sizeLabel = 'Select Shoe Size';
-  const selectSize = 'Choose Size';
-  const convertButton = 'Convert';
-  const convertedSizesLabel = 'Converted Sizes';
-  const regionLabel = 'Region';
-  const actionLabel = 'Action';
+  const categoryLabel = t('Category');
+  const sizeLabel = t('Select Shoe Size');
+  const selectSize = t('Choose Size');
+  const convertButton = t('Convert');
+  const convertedSizesLabel = t('Converted Sizes');
+  const regionLabel = t('Region');
+  const actionLabel = t('Action');
 
   // Generate unique shoe sizes based on the selected category and region
   const getShoeSizes = () => {
@@ -146,7 +148,7 @@ const UggShoeSizeConverter = ({ content, locale }) => {
   return (
     <div className="max-w-7xl mx-auto">
     <div className="max-w-5xl mx-auto p-6 mt-5 mb-5 bg-white rounded-lg">
-    <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">Ugg Shoe Size Converter</h1>
+    <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">{t("Ugg Shoe Size Converter")}</h1>
 
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -159,9 +161,9 @@ const UggShoeSizeConverter = ({ content, locale }) => {
               onChange={(e) => setCategory(e.target.value)}
               className="w-full border rounded-lg px-4 py-2"
             >
-              <option value="Men">Men</option>
-              <option value="Women">Women</option>
-              <option value="Kids">Kids</option>
+              <option value="Men">{"Men"}</option>
+              <option value="Women">{"Women"}</option>
+              <option value="Kids">{"Kids"}</option>
             </select>
           </div>
 
@@ -234,7 +236,7 @@ const UggShoeSizeConverter = ({ content, locale }) => {
                       onClick={() => handleCopy(size)}
                       className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
                     >
-                      Copy
+                      {t("Copy")}
                     </button>
                   </td>
                 </tr>
@@ -247,7 +249,7 @@ const UggShoeSizeConverter = ({ content, locale }) => {
           onClick={handleReset}
           className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-700"
         >
-          Reset
+          {t("Reset")}
         </button>
       </div>
         </div>
@@ -270,7 +272,7 @@ try {
   const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
 
   const contentResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=tagGenerator&language=${locale}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=ugg&language=${locale}`,
     {
       method: 'GET',
       headers: {
@@ -286,7 +288,7 @@ try {
 
   const contentData = await contentResponse.json();
 
-  const translations = await serverSideTranslations(locale, ['men', 'shoeSizeConverter']);
+  const translations = await serverSideTranslations(locale, ['ugg', 'shoeSizeConverter']);
 
   return {
     props: {
@@ -304,7 +306,7 @@ try {
         categoryLabel: 'Shoe Size Converter',
         sizeLabel: 'Select Shoe Size',
       },
-      translations: await serverSideTranslations(locale, ['men', 'shoeSizeConverter']),
+      ...(await serverSideTranslations (locale, ['ugg', 'navbar','footer']))
     },
   };
 }

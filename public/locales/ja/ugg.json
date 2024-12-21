@@ -1,0 +1,19 @@
+{
+    "Please select a shoe size.": "靴のサイズを選択してください。",
+    "Invalid category selection.": "無効なカテゴリ選択。",
+    "Selected size not available.": "選択したサイズは利用できません。",
+    "Size copied to clipboard!": "サイズがクリップボードにコピーされました！",
+    "Category": "カテゴリー",
+    "Select Shoe Size": "靴のサイズを選択",
+    "Choose Size": "サイズを選ぶ",
+    "Convert": "変換する",
+    "Converted Sizes": "変換されたサイズ",
+    "Region": "地域",
+    "Action": "アクション",
+    "Ugg Shoe Size Converter": "UGG靴サイズ変換ツール",
+    "Men": "男性",
+    "Women": "女性",
+    "Kids": "子供",
+    "Copy": "コピー",
+    "Reset": "リセット"
+}

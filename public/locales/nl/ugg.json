@@ -1,0 +1,19 @@
+{
+    "Please select a shoe size.": "Selecteer een schoenmaat.",
+    "Invalid category selection.": "Ongeldige categorie selecteren.",
+    "Selected size not available.": "Geselecteerde maat niet beschikbaar.",
+    "Size copied to clipboard!": "Maat gekopieerd naar klembord!",
+    "Category": "Categorie",
+    "Select Shoe Size": "Selecteer schoenmaat",
+    "Choose Size": "Kies maat",
+    "Convert": "Converteren",
+    "Converted Sizes": "Geconverteerde maten",
+    "Region": "Regio",
+    "Action": "Actie",
+    "Ugg Shoe Size Converter": "UGG Schoenmaat Converter",
+    "Men": "Mannen",
+    "Women": "Vrouwen",
+    "Kids": "Kinderen",
+    "Copy": "Kopiëren",
+    "Reset": "Resetten"
+}

@@ -1,0 +1,19 @@
+{
+    "Please select a shoe size.": "Пожалуйста, выберите размер обуви.",
+    "Invalid category selection.": "Недопустимый выбор категории.",
+    "Selected size not available.": "Выбранный размер недоступен.",
+    "Size copied to clipboard!": "Размер скопирован в буфер обмена!",
+    "Category": "Категория",
+    "Select Shoe Size": "Выберите размер обуви",
+    "Choose Size": "Выберите размер",
+    "Convert": "Конвертировать",
+    "Converted Sizes": "Преобразованные размеры",
+    "Region": "Регион",
+    "Action": "Действие",
+    "Ugg Shoe Size Converter": "Конвертер размеров обуви Ugg",
+    "Men": "Мужчины",
+    "Women": "Женщины",
+    "Kids": "Дети",
+    "Copy": "Копировать",
+    "Reset": "Сбросить"
+}

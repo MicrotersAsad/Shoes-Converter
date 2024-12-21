@@ -1,0 +1,19 @@
+{
+    "Please select a shoe size.": "कृपया जूते का आकार चुनें।",
+    "Invalid category selection.": "अमान्य श्रेणी चयन।",
+    "Selected size not available.": "चयनित आकार उपलब्ध नहीं है।",
+    "Size copied to clipboard!": "आकार क्लिपबोर्ड पर कॉपी किया गया!",
+    "Category": "श्रेणी",
+    "Select Shoe Size": "जूते का आकार चुनें",
+    "Choose Size": "आकार चुनें",
+    "Convert": "रूपांतरित करें",
+    "Converted Sizes": "रूपांतरित आकार",
+    "Region": "क्षेत्र",
+    "Action": "कार्य",
+    "Ugg Shoe Size Converter": "अग जूते का आकार परिवर्तक",
+    "Men": "पुरुष",
+    "Women": "महिलाएँ",
+    "Kids": "बच्चे",
+    "Copy": "कॉपी करें",
+    "Reset": "रीसेट करें"
+}
