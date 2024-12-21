@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "કૃપા કરીને શૂ સાઇઝ પસંદ કરો.",
+    "Invalid gender selection.": "અમાન્ય લિંગ પસંદગી.",
+    "Selected size not available.": "પસંદ કરેલું માપ ઉપલબ્ધ નથી.",
+    "Size copied to clipboard!": "સાઇઝ ક્લિપબોર્ડમાં નકલ કરવામાં આવી!",
+    "Category": "શ્રેણી",
+    "Select Shoe Size": "શૂ સાઇઝ પસંદ કરો",
+    "Choose Size": "માપ પસંદ કરો",
+    "Convert": "રૂપાંતરિત કરો",
+    "Converted Sizes": "રૂપાંતરિત માપ",
+    "Region": "વિસ્તાર",
+    "Action": "ક્રિયા",
+    "Timberland Shoe Size Converter": "ટિમ્બરલેન્ડ શૂ સાઇઝ રૂપાંતરક",
+    "Men": "પુરુષો",
+    "Women": "મહિલાઓ",
+    "Infant": "શિશુ",
+    "Toddler": "નાનું બાળક",
+    "Youth": "યુવાન",
+    "Junior": "કિશોર",
+    "Copy": "નકલ કરો",
+    "Reset": "ફરી સેટ કરો"
+}

@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "신발 사이즈를 선택하세요.",
+    "Invalid gender selection.": "잘못된 성별 선택입니다.",
+    "Selected size not available.": "선택한 사이즈를 사용할 수 없습니다.",
+    "Size copied to clipboard!": "사이즈가 클립보드에 복사되었습니다!",
+    "Category": "카테고리",
+    "Select Shoe Size": "신발 사이즈 선택",
+    "Choose Size": "사이즈 선택",
+    "Convert": "변환",
+    "Converted Sizes": "변환된 사이즈",
+    "Region": "지역",
+    "Action": "작업",
+    "Timberland Shoe Size Converter": "팀버랜드 신발 사이즈 변환기",
+    "Men": "남성",
+    "Women": "여성",
+    "Infant": "영아",
+    "Toddler": "유아",
+    "Youth": "청소년",
+    "Junior": "주니어",
+    "Copy": "복사",
+    "Reset": "초기화"
+}

@@ -1,8 +1,10 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-const NikeShoeSizeConverter = ({ content, locale }) => {
-  const [gender, setGender] = useState('Men'); // Default gender
+const NikeShoeSizeConverter = ({ content }) => {
+  const {t}=useTranslation("nike")
+    const [gender, setGender] = useState('Men'); // Default gender
   const [shoeSize, setShoeSize] = useState(''); // Selected shoe size
   const [convertedSizes, setConvertedSizes] = useState({}); // Converted sizes
 
@@ -80,32 +82,32 @@ const NikeShoeSizeConverter = ({ content, locale }) => {
     <div className="max-w-7xl mx-auto">
  
     <div className="max-w-5xl mx-auto p-6 mt-5 mb-5 bg-white ">
-      <h1 className="text-3xl font-bold text-center mb-6">Nike Shoe Size Converter</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">{t("Nike Shoe Size Converter")}</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div>
-          <label className="block mb-2">Gender:</label>
+          <label className="block mb-2">{t("Gender")}:</label>
           <select
             value={gender}
             onChange={(e) => setGender(e.target.value)}
             className="w-full border rounded-lg px-4 py-2"
           >
-            <option value="Men">Men's</option>
-            <option value="Women">Women's</option>
-            <option value="BigKids">Big Kids</option>
-            <option value="LittleKids">Little Kids</option>
-            <option value="BabiesToddlers">Babies & Toddlers</option>
+            <option value="Men">{t("Men's")}</option>
+            <option value="Women">{t("Women's")}</option>
+            <option value="BigKids">{t("Big Kids")}</option>
+            <option value="LittleKids">{t("Little Kids")}</option>
+            <option value="BabiesToddlers">{t("Babies & Toddlers")}</option>
           </select>
         </div>
 
         <div>
-          <label className="block mb-2">Shoe Size:</label>
+          <label className="block mb-2">{t("Shoe Size")}:</label>
           <select
             value={shoeSize}
             onChange={(e) => setShoeSize(e.target.value)}
             className="w-full border rounded-lg px-4 py-2"
           >
-            <option value="">Select size</option>
+            <option value="">{t("Select size")}</option>
             {nikeSizeData[gender]["US - Kid's"] 
               ? nikeSizeData[gender]["US - Kid's"].map((size, idx) => (
                   <option key={idx} value={size}>
@@ -125,7 +127,7 @@ const NikeShoeSizeConverter = ({ content, locale }) => {
           onClick={handleConvert}
           className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600"
         >
-          Convert Size
+          {t("Convert Size")}
         </button>
         </div>
       </div>
@@ -137,13 +139,13 @@ const NikeShoeSizeConverter = ({ content, locale }) => {
 
       {Object.keys(convertedSizes).length > 0 && (
         <div className="mt-6">
-          <h2 className="text-lg font-bold mb-4">Converted Sizes</h2>
+          <h2 className="text-lg font-bold mb-4">{t("Converted Sizes")}</h2>
           <table className="table-auto w-full border">
             <thead>
               <tr>
-                <th className="border px-4 py-2">Size System</th>
-                <th className="border px-4 py-2">Size</th>
-                <th className="border px-4 py-2">Action</th>
+                <th className="border px-4 py-2">{t("Size System")}</th>
+                <th className="border px-4 py-2">{t("Size")}</th>
+                <th className="border px-4 py-2">{t("Action")}</th>
               </tr>
             </thead>
             <tbody>
@@ -156,7 +158,7 @@ const NikeShoeSizeConverter = ({ content, locale }) => {
                       onClick={() => handleCopy(size)}
                       className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
                     >
-                      Copy
+                      {t("Copy")}
                     </button>
                   </td>
                 </tr>
@@ -168,7 +170,7 @@ const NikeShoeSizeConverter = ({ content, locale }) => {
           onClick={handleReset}
           className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-700"
         >
-          Reset
+          {t("Reset")}
         </button>
         </div>
         </div>
@@ -190,7 +192,7 @@ export async function getStaticProps({ locale }) {
     const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
 
     // Fetch the content data with authorization header
-    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=tagGenerator&language=${locale}`, {
+    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=nike&language=${locale}`, {
       method: 'GET',  // You can also specify POST, PUT, etc. if needed
       headers: {
         'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
@@ -206,7 +208,7 @@ export async function getStaticProps({ locale }) {
     const contentData = await contentResponse.json();
 
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['men', 'shoeSizeConverter']);
+    const translations = await serverSideTranslations(locale, ['nike', 'shoeSizeConverter']);
 
     return {
       props: {
@@ -226,7 +228,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        translations: await serverSideTranslations(locale, ['men', 'shoeSizeConverter']),
+        ...(await serverSideTranslations (locale, ['nike', 'navbar','footer'])),
       },
     };
   }

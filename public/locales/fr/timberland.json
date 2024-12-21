@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "Veuillez sélectionner une pointure.",
+    "Invalid gender selection.": "Sélection de genre invalide.",
+    "Selected size not available.": "Taille sélectionnée non disponible.",
+    "Size copied to clipboard!": "Taille copiée dans le presse-papiers !",
+    "Category": "Catégorie",
+    "Select Shoe Size": "Sélectionner une pointure",
+    "Choose Size": "Choisir une taille",
+    "Convert": "Convertir",
+    "Converted Sizes": "Tailles converties",
+    "Region": "Région",
+    "Action": "Action",
+    "Timberland Shoe Size Converter": "Convertisseur de pointures Timberland",
+    "Men": "Hommes",
+    "Women": "Femmes",
+    "Infant": "Nourrisson",
+    "Toddler": "Tout-petit",
+    "Youth": "Jeunes",
+    "Junior": "Junior",
+    "Copy": "Copier",
+    "Reset": "Réinitialiser"
+}

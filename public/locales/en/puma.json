@@ -1,0 +1,21 @@
+{
+    "Please select a shoe size.":"Please select a shoe size.",
+    "Invalid category selection.":"Invalid category selection.",
+    "Selected size not available.":"Selected size not available.",
+    "Size copied to clipboard!":"Size copied to clipboard!",
+    "Puma Shoe Size Converter":"Puma Shoe Size Converter",
+    "Category":"Category",
+    "Women":"Women",
+    "Men":"Men",
+    "Kids":"Kids",
+    "Baby & Toddler":"Baby & Toddler",
+    "Region":"Region",
+    "Shoe Size":"Shoe Size",
+    "Select Size":"Select Size",
+    "Convert":"Convert",
+    "Converted Sizes":"Converted Sizes",
+    "Size":"Size",
+    "Action":"Action",
+    "Copy":"Copy",
+    "Reset":"Reset"
+}

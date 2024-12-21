@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "કૃપા કરીને શૂ સાઇઝ પસંદ કરો.",
+    "Size not found for the given foot length.": "આ ફૂટ લંબાઈ માટે કદ મળી શક્યું નથી.",
+    "Size copied to clipboard!": "સાઇઝ ક્લિપબોર્ડમાં નકલ કરવામાં આવી!",
+    "Category": "શ્રેણી",
+    "Select Shoe Size": "શૂ સાઇઝ પસંદ કરો",
+    "Choose Size": "માપ પસંદ કરો",
+    "Convert": "રૂપાંતરિત કરો",
+    "Converted Sizes": "રૂપાંતરિત માપ",
+    "Region": "વિસ્તાર",
+    "Action": "ક્રિયા",
+    "Dr. Martens Shoe Size Converter": "ડૉ. માર્ટેન્સ શૂ સાઇઝ રૂપાંતરક",
+    "Men": "પુરુષો",
+    "Women": "મહિલાઓ",
+    "Infant": "શિશુ",
+    "Toddler": "નાનું બાળક",
+    "Youth": "યુવાનો",
+    "Junior": "કિશોર",
+    "Select Foot Length": "પગની લંબાઈ પસંદ કરો",
+    "Copy": "નકલ કરો",
+    "Reset": "ફરી સેટ કરો"
+}

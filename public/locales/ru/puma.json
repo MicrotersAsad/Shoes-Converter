@@ -1,0 +1,21 @@
+{
+    "Please select a shoe size.":"Пожалуйста, выберите размер обуви.",
+    "Invalid category selection.":"Неверный выбор категории.",
+    "Selected size not available.":"Выбранный размер недоступен.",
+    "Size copied to clipboard!":"Размер скопирован в буфер обмена!",
+    "Puma Shoe Size Converter":"Конвертер размеров обуви Puma",
+    "Category":"Категория",
+    "Women":"Женщины",
+    "Men":"Мужчины",
+    "Kids":"Дети",
+    "Baby & Toddler":"Младенцы и малыши",
+    "Region":"Регион",
+    "Shoe Size":"Размер обуви",
+    "Select Size":"Выберите размер",
+    "Convert":"Конвертировать",
+    "Converted Sizes":"Преобразованные размеры",
+    "Size":"Размер",
+    "Action":"Действие",
+    "Copy":"Копировать",
+    "Reset":"Сбросить"
+}

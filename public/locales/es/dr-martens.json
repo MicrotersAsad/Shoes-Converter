@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "Por favor, selecciona una talla de zapato.",
+    "Size not found for the given foot length.": "No se encontró talla para la longitud del pie dada.",
+    "Size copied to clipboard!": "¡Talla copiada al portapapeles!",
+    "Category": "Categoría",
+    "Select Shoe Size": "Seleccionar talla de zapato",
+    "Choose Size": "Elegir talla",
+    "Convert": "Convertir",
+    "Converted Sizes": "Tallas convertidas",
+    "Region": "Región",
+    "Action": "Acción",
+    "Dr. Martens Shoe Size Converter": "Conversor de tallas de zapatos Dr. Martens",
+    "Men": "Hombres",
+    "Women": "Mujeres",
+    "Infant": "Infante",
+    "Toddler": "Niño pequeño",
+    "Youth": "Joven",
+    "Junior": "Junior",
+    "Select Foot Length": "Seleccionar longitud del pie",
+    "Copy": "Copiar",
+    "Reset": "Restablecer"
+}

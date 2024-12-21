@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "Пожалуйста, выберите размер обуви.",
+    "Invalid gender selection.": "Недопустимый выбор пола.",
+    "Selected size not available.": "Выбранный размер недоступен.",
+    "Size copied to clipboard!": "Размер скопирован в буфер обмена!",
+    "Category": "Категория",
+    "Select Shoe Size": "Выберите размер обуви",
+    "Choose Size": "Выберите размер",
+    "Convert": "Конвертировать",
+    "Converted Sizes": "Преобразованные размеры",
+    "Region": "Регион",
+    "Action": "Действие",
+    "Timberland Shoe Size Converter": "Конвертер размеров обуви Timberland",
+    "Men": "Мужчины",
+    "Women": "Женщины",
+    "Infant": "Младенец",
+    "Toddler": "Малыш",
+    "Youth": "Подросток",
+    "Junior": "Юниор",
+    "Copy": "Копировать",
+    "Reset": "Сбросить"
+}

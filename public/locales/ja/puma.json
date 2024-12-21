@@ -1,0 +1,21 @@
+{
+    "Please select a shoe size.":"靴のサイズを選択してください。",
+    "Invalid category selection.":"無効なカテゴリ選択。",
+    "Selected size not available.":"選択したサイズは利用できません。",
+    "Size copied to clipboard!":"サイズがクリップボードにコピーされました！",
+    "Puma Shoe Size Converter":"プーマ靴サイズ変換器",
+    "Category":"カテゴリ",
+    "Women":"女性",
+    "Men":"男性",
+    "Kids":"子供",
+    "Baby & Toddler":"赤ちゃんと幼児",
+    "Region":"地域",
+    "Shoe Size":"靴のサイズ",
+    "Select Size":"サイズを選択",
+    "Convert":"変換",
+    "Converted Sizes":"変換されたサイズ",
+    "Size":"サイズ",
+    "Action":"アクション",
+    "Copy":"コピー",
+    "Reset":"リセット"
+}

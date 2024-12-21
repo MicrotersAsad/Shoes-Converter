@@ -1,6 +1,9 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const SheinShoeSizeChart = () => {
+const SheinShoeSizeChart = ({content}) => {
+  const {t}=useTranslation("shein")
   const [category, setCategory] = useState("women"); // Default category
   const [region, setRegion] = useState("US"); // Default region
   const [selectedSize, setSelectedSize] = useState(""); // Selected shoe size
@@ -54,14 +57,14 @@ const SheinShoeSizeChart = () => {
     <div className="max-w-7xl mx-auto p-6">
       <div className="bg-white shadow-lg rounded-lg p-6">
         <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">
-          Shein Shoe Size Conversion Tool
+          {t("Shein Shoe Size Conversion Tool")}
         </h1>
 
         {/* Dropdown Selections */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
           {/* Category Selection */}
           <div>
-            <label className="block mb-2 font-bold">Category</label>
+            <label className="block mb-2 font-bold">{t("Category")}</label>
             <select
               value={category}
               onChange={(e) => {
@@ -71,14 +74,14 @@ const SheinShoeSizeChart = () => {
               }}
               className="w-full border rounded-lg px-4 py-2"
             >
-              <option value="women">Women's Shoes</option>
-              <option value="men">Men's Shoes</option>
+              <option value="women">{t("Women's Shoes")}</option>
+              <option value="men">{t("Men's Shoes")}</option>
             </select>
           </div>
 
           {/* Region Selection */}
           <div>
-            <label className="block mb-2 font-bold">Region</label>
+            <label className="block mb-2 font-bold">{t("Region")}</label>
             <select
               value={region}
               onChange={(e) => {
@@ -100,7 +103,7 @@ const SheinShoeSizeChart = () => {
 
           {/* Size Selection */}
           <div>
-            <label className="block mb-2 font-bold">Size</label>
+            <label className="block mb-2 font-bold">{t("Size")}</label>
             <select
               value={selectedSize}
               onChange={(e) => setSelectedSize(e.target.value)}
@@ -122,7 +125,7 @@ const SheinShoeSizeChart = () => {
             onClick={handleFilter}
             className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600 mr-4"
           >
-            Filter
+            {t("Filter")}
           </button>
         
         </div>
@@ -158,14 +161,66 @@ const SheinShoeSizeChart = () => {
             onClick={handleReset}
             className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-600"
           >
-            Reset
+            {t("Reset")}
           </button>
           </div>
           </>
         )}
       </div>
-    </div>
-  );
-};
+     <div className="content pt-6 pb-5">
+          <article
+            dangerouslySetInnerHTML={{ __html: content?.content || 'No content available.' }}
+            style={{ listStyleType: 'none' }}
+          ></article>
+        </div>
+      </div>
+    );
+    };
+    
+    export async function getStaticProps({ locale }) {
+    try {
+      const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
+    
+      const contentResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=shein&language=${locale}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${AUTH_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    
+      if (!contentResponse.ok) {
+        throw new Error('Failed to fetch content');
+      }
+    
+      const contentData = await contentResponse.json();
+    
+      const translations = await serverSideTranslations(locale, ['shein', 'shoeSizeConverter']);
+    
+      return {
+        props: {
+          content: contentData?.translations?.[locale] || {},
+          ...translations,
+        },
+        revalidate: 60 * 60 * 24,
+      };
+    } catch (error) {
+      console.error('Error fetching content:', error);
+    
+      return {
+        props: {
+          content: {
+            categoryLabel: 'Shoe Size Converter',
+            sizeLabel: 'Select Shoe Size',
+          },
+          ...(await serverSideTranslations (locale, ['shein', 'navbar','footer'])),
+        },
+      };
+    }
+    }
+    
 
 export default SheinShoeSizeChart;

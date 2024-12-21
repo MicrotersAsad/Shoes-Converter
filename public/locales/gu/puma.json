@@ -1,0 +1,21 @@
+{
+    "Please select a shoe size.":"કૃપા કરીને એક જૂતાની સાઇઝ પસંદ કરો.",
+    "Invalid category selection.":"અમાન્ય શ્રેણી પસંદગી.",
+    "Selected size not available.":"પસંદ કરેલી સાઇઝ ઉપલબ્ધ નથી.",
+    "Size copied to clipboard!":"સાઇઝ ક્લિપબોર્ડ પર નકલ કરવામાં આવી!",
+    "Puma Shoe Size Converter":"પુમા જૂતાની સાઇઝ કન્વર્ટર",
+    "Category":"શ્રેણી",
+    "Women":"મહિલાઓ",
+    "Men":"પુરુષો",
+    "Kids":"બાળકો",
+    "Baby & Toddler":"બાળક અને ટોડલર",
+    "Region":"પ્રદેશ",
+    "Shoe Size":"જૂતાની સાઇઝ",
+    "Select Size":"સાઇઝ પસંદ કરો",
+    "Convert":"કન્વર્ટ",
+    "Converted Sizes":"કન્વર્ટ કરેલી સાઇઝ",
+    "Size":"સાઇઝ",
+    "Action":"ક્રિયા",
+    "Copy":"નકલ",
+    "Reset":"રીસેટ"
+}

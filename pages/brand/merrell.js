@@ -1,6 +1,9 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const MerrellShoeSizeChart = () => {
+const MerrellShoeSizeChart = ({content}) => {
+  const {t}=useTranslation("merrell")
   const [category, setCategory] = useState("mens"); // Default category
   const [region, setRegion] = useState("USA"); // Default region
   const [shoeSize, setShoeSize] = useState(""); // Selected shoe size
@@ -67,14 +70,14 @@ const MerrellShoeSizeChart = () => {
     <div className="max-w-7xl mx-auto p-6">
       <div className="bg-white shadow-lg rounded-lg p-6">
         <h1 className="text-3xl font-bold text-center mb-6 text-green-600">
-          Merrell Shoe Size Conversion
+          {t("Merrell Shoe Size Conversion")}
         </h1>
 
         {/* Dropdown Selections */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
           {/* Category Selection */}
           <div>
-            <label className="block mb-2 font-bold">Category</label>
+            <label className="block mb-2 font-bold">{t("Category")}</label>
             <select
               value={category}
               onChange={(e) => {
@@ -84,17 +87,17 @@ const MerrellShoeSizeChart = () => {
               }}
               className="w-full border rounded-lg px-4 py-2"
             >
-              <option value="mens">Men's Footwear</option>
-              <option value="womens">Women's Footwear</option>
-              <option value="baby">Baby's Footwear</option>
-              <option value="toddler">Toddler's Footwear</option>
-              <option value="kids">Kid's Footwear</option>
+              <option value="mens">{t("Men's Footwear")}</option>
+              <option value="womens">{t("Women's Footwear")}</option>
+              <option value="baby">{t("Baby's Footwear")}</option>
+              <option value="toddler">{t("Toddler's Footwear")}</option>
+              <option value="kids">{t("Kid's Footwear")}</option>
             </select>
           </div>
 
           {/* Region Selection */}
           <div>
-            <label className="block mb-2 font-bold">Region</label>
+            <label className="block mb-2 font-bold">{t("Region")}</label>
             <select
               value={region}
               onChange={(e) => {
@@ -114,13 +117,13 @@ const MerrellShoeSizeChart = () => {
 
           {/* Size Selection */}
           <div>
-            <label className="block mb-2 font-bold">Size</label>
+            <label className="block mb-2 font-bold">{t("Select Size")}</label>
             <select
               value={shoeSize}
               onChange={(e) => setShoeSize(e.target.value)}
               className="w-full border rounded-lg px-4 py-2"
             >
-              <option value="">Select Size</option>
+              <option value="">{t("Select Size")}</option>
               {getRegionSizes().map((size, index) => (
                 <option key={index} value={size}>
                   {size}
@@ -136,7 +139,7 @@ const MerrellShoeSizeChart = () => {
             onClick={handleFilter}
             className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600 mr-4"
           >
-            Filter
+            {t("Filter")}
           </button>
           
         </div>
@@ -144,7 +147,7 @@ const MerrellShoeSizeChart = () => {
         {/* Filtered Table */}
         {filteredSizes.length > 0 && (
           <div>
-            <h2 className="text-lg font-bold mb-4 text-center">Filtered Sizes</h2>
+            <h2 className="text-lg font-bold mb-4 text-center">{t("Filtered Sizes")}</h2>
             <table className="table-auto w-full border-collapse border border-gray-300">
               <thead>
                 <tr className="bg-gray-200">
@@ -172,14 +175,67 @@ const MerrellShoeSizeChart = () => {
             onClick={handleReset}
             className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-600"
           >
-            Reset
+            {t("Reset")}
           </button>
          </div>
           </div>
         )}
       </div>
-    </div>
-  );
-};
+
+     <div className="content pt-6 pb-5">
+          <article
+            dangerouslySetInnerHTML={{ __html: content?.content || 'No content available.' }}
+            style={{ listStyleType: 'none' }}
+          ></article>
+        </div>
+      </div>
+    );
+    };
+    
+    export async function getStaticProps({ locale }) {
+    try {
+      const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
+    
+      const contentResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=merrell&language=${locale}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${AUTH_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    
+      if (!contentResponse.ok) {
+        throw new Error('Failed to fetch content');
+      }
+    
+      const contentData = await contentResponse.json();
+    
+      const translations = await serverSideTranslations(locale, ['merrell', 'shoeSizeConverter']);
+    
+      return {
+        props: {
+          content: contentData?.translations?.[locale] || {},
+          ...translations,
+        },
+        revalidate: 60 * 60 * 24,
+      };
+    } catch (error) {
+      console.error('Error fetching content:', error);
+    
+      return {
+        props: {
+          content: {
+            categoryLabel: 'Shoe Size Converter',
+            sizeLabel: 'Select Shoe Size',
+          },
+          ...(await serverSideTranslations (locale, ['merrell', 'navbar','footer'])),
+        },
+      };
+    }
+    }
+    
 
 export default MerrellShoeSizeChart;

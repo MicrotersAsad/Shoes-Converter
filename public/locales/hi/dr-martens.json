@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "कृपया जूते का आकार चुनें।",
+    "Size not found for the given foot length.": "दिए गए पैर की लंबाई के लिए आकार नहीं मिला।",
+    "Size copied to clipboard!": "आकार क्लिपबोर्ड पर कॉपी किया गया!",
+    "Category": "श्रेणी",
+    "Select Shoe Size": "जूते का आकार चुनें",
+    "Choose Size": "आकार चुनें",
+    "Convert": "रूपांतरित करें",
+    "Converted Sizes": "रूपांतरित आकार",
+    "Region": "क्षेत्र",
+    "Action": "कार्य",
+    "Dr. Martens Shoe Size Converter": "डॉ. मार्टेन्स जूते का आकार परिवर्तक",
+    "Men": "पुरुष",
+    "Women": "महिलाएँ",
+    "Infant": "शिशु",
+    "Toddler": "नन्हा बच्चा",
+    "Youth": "युवा",
+    "Junior": "किशोर",
+    "Select Foot Length": "पैर की लंबाई चुनें",
+    "Copy": "कॉपी करें",
+    "Reset": "रीसेट करें"
+}

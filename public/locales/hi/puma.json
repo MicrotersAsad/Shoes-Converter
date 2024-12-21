@@ -1,0 +1,21 @@
+{
+    "Please select a shoe size.":"कृपया एक जूते का आकार चुनें।",
+    "Invalid category selection.":"अमान्य श्रेणी चयन।",
+    "Selected size not available.":"चयनित आकार उपलब्ध नहीं है।",
+    "Size copied to clipboard!":"आकार क्लिपबोर्ड पर कॉपी किया गया!",
+    "Puma Shoe Size Converter":"प्यूमा जूते का आकार परिवर्तक",
+    "Category":"श्रेणी",
+    "Women":"महिलाएं",
+    "Men":"पुरुष",
+    "Kids":"बच्चे",
+    "Baby & Toddler":"शिशु और छोटे बच्चे",
+    "Region":"क्षेत्र",
+    "Shoe Size":"जूते का आकार",
+    "Select Size":"आकार चुनें",
+    "Convert":"परिवर्तित करें",
+    "Converted Sizes":"परिवर्तित आकार",
+    "Size":"आकार",
+    "Action":"क्रिया",
+    "Copy":"कॉपी करें",
+    "Reset":"रीसेट करें"
+}

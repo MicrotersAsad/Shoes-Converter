@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "Bitte wählen Sie eine Schuhgröße aus.",
+    "Invalid gender selection.": "Ungültige Geschlechtsauswahl.",
+    "Selected size not available.": "Ausgewählte Größe nicht verfügbar.",
+    "Size copied to clipboard!": "Größe in die Zwischenablage kopiert!",
+    "Category": "Kategorie",
+    "Select Shoe Size": "Schuhgröße auswählen",
+    "Choose Size": "Größe wählen",
+    "Convert": "Umrechnen",
+    "Converted Sizes": "Umgerechnete Größen",
+    "Region": "Region",
+    "Action": "Aktion",
+    "Timberland Shoe Size Converter": "Timberland Schuhgrößenumrechner",
+    "Men": "Männer",
+    "Women": "Frauen",
+    "Infant": "Säugling",
+    "Toddler": "Kleinkind",
+    "Youth": "Jugend",
+    "Junior": "Junior",
+    "Copy": "Kopieren",
+    "Reset": "Zurücksetzen"
+}

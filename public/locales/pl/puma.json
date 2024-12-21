@@ -1,0 +1,21 @@
+{
+    "Please select a shoe size.":"Proszę wybrać rozmiar buta.",
+    "Invalid category selection.":"Nieprawidłowy wybór kategorii.",
+    "Selected size not available.":"Wybrany rozmiar jest niedostępny.",
+    "Size copied to clipboard!":"Rozmiar skopiowany do schowka!",
+    "Puma Shoe Size Converter":"Konwerter rozmiarów butów Puma",
+    "Category":"Kategoria",
+    "Women":"Kobiety",
+    "Men":"Mężczyźni",
+    "Kids":"Dzieci",
+    "Baby & Toddler":"Niemowlęta i małe dzieci",
+    "Region":"Region",
+    "Shoe Size":"Rozmiar buta",
+    "Select Size":"Wybierz rozmiar",
+    "Convert":"Konwertuj",
+    "Converted Sizes":"Przekonwertowane rozmiary",
+    "Size":"Rozmiar",
+    "Action":"Akcja",
+    "Copy":"Kopiuj",
+    "Reset":"Resetuj"
+}

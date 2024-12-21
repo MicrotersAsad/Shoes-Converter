@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "Пожалуйста, выберите размер обуви.",
+    "Size not found for the given foot length.": "Размер для указанной длины стопы не найден.",
+    "Size copied to clipboard!": "Размер скопирован в буфер обмена!",
+    "Category": "Категория",
+    "Select Shoe Size": "Выберите размер обуви",
+    "Choose Size": "Выберите размер",
+    "Convert": "Конвертировать",
+    "Converted Sizes": "Преобразованные размеры",
+    "Region": "Регион",
+    "Action": "Действие",
+    "Dr. Martens Shoe Size Converter": "Конвертер размеров обуви Dr. Martens",
+    "Men": "Мужчины",
+    "Women": "Женщины",
+    "Infant": "Младенец",
+    "Toddler": "Малыш",
+    "Youth": "Подросток",
+    "Junior": "Юниор",
+    "Select Foot Length": "Выберите длину стопы",
+    "Copy": "Копировать",
+    "Reset": "Сбросить"
+}

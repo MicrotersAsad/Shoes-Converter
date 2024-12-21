@@ -1,7 +1,9 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const TimberlandShoeSizeConverter = ({ content, locale }) => {
+  const {t}=useTranslation("dr-martens")
   const [gender, setGender] = useState("Men");
   const [shoeSize, setShoeSize] = useState("");
   const [convertedSizes, setConvertedSizes] = useState({});
@@ -70,7 +72,7 @@ const TimberlandShoeSizeConverter = ({ content, locale }) => {
   };
   const handleConvert = () => {
     if (!shoeSize || shoeSize === '') {
-      alert('Please select a shoe size.');
+      alert(t('Please select a shoe size.'));
       return;
     }
 
@@ -81,7 +83,7 @@ const TimberlandShoeSizeConverter = ({ content, locale }) => {
 
     if (!sizeMatch) {
       setConvertedSizes({});
-      alert('Size not found for the given foot length.');
+      alert(t('Size not found for the given foot length.'));
       return;
     }
 
@@ -100,18 +102,18 @@ const TimberlandShoeSizeConverter = ({ content, locale }) => {
     alert("Size copied to clipboard!");
   };
 
-  const categoryLabel = 'Category'; // Default value
-  const sizeLabel = 'Select Shoe Size'; // Default value
-  const selectSize = 'Choose Size'; // Default value
-  const convertButton = 'Convert'; // Default value
-  const convertedSizesLabel = 'Converted Sizes'; // Default value
-  const regionLabel = 'Region'; // Default value
-  const actionLabel = 'Action'; // Default value
+  const categoryLabel = t('Category'); // Default value
+  const sizeLabel = t('Select Shoe Size'); // Default value
+  const selectSize = t('Choose Size'); // Default value
+  const convertButton = t('Convert'); // Default value
+  const convertedSizesLabel = t('Converted Sizes'); // Default value
+  const regionLabel = t('Region'); // Default value
+  const actionLabel = t('Action'); // Default value
 
   return (
     <div className="max-w-7xl mx-auto">
     <div className="max-w-5xl mx-auto p-6 mt-5 mb-5 bg-white rounded-lg">
-      <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">Dr. Martens Shoe Size Converter</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">{t("Dr. Martens Shoe Size Converter")}</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {/* Category Selection */}
@@ -122,12 +124,12 @@ const TimberlandShoeSizeConverter = ({ content, locale }) => {
             onChange={(e) => setGender(e.target.value)}
             className="w-full border rounded-lg px-4 py-2"
           >
-            <option value="Men">Men</option>
-            <option value="Women">Women</option>
-            <option value="Infant">Infant</option>
-            <option value="Toddler">Toddler</option>
-            <option value="Youth">Youth</option>
-            <option value="Junior">Junior</option>
+            <option value="Men">{t("Men")}</option>
+            <option value="Women">{t("Women")}</option>
+            <option value="Infant">{t("Infant")}</option>
+            <option value="Toddler">{t("Toddler")}</option>
+            <option value="Youth">{t("Youth")}</option>
+            <option value="Junior">{t("Junior")}</option>
           </select>
         </div>
 
@@ -150,7 +152,7 @@ const TimberlandShoeSizeConverter = ({ content, locale }) => {
         {/* Shoe Size Selection */}
         
           <div>
-          <label className="block mb-2">Select Foot Length</label>
+          <label className="block mb-2">{t("Select Foot Length")}</label>
         <select
           value={shoeSize}
           onChange={(e) => setShoeSize(e.target.value)}
@@ -198,7 +200,7 @@ const TimberlandShoeSizeConverter = ({ content, locale }) => {
                       onClick={() => handleCopy(size)}
                       className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
                     >
-                      Copy
+                      {t("Copy")}
                     </button>
                   </td>
                 </tr>
@@ -211,7 +213,7 @@ const TimberlandShoeSizeConverter = ({ content, locale }) => {
           onClick={handleReset}
           className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-700"
         >
-          Reset
+          {t("Reset")}
         </button>
       </div>
         </div>
@@ -250,7 +252,7 @@ try {
 
   const contentData = await contentResponse.json();
 
-  const translations = await serverSideTranslations(locale, ['men', 'shoeSizeConverter']);
+  const translations = await serverSideTranslations(locale, ['dr-martens', 'shoeSizeConverter']);
 
   return {
     props: {
@@ -268,7 +270,7 @@ try {
         categoryLabel: 'Shoe Size Converter',
         sizeLabel: 'Select Shoe Size',
       },
-      translations: await serverSideTranslations(locale, ['men', 'shoeSizeConverter']),
+      ...(await serverSideTranslations (locale, ['dr-martens', 'navbar','footer'])),
     },
   };
 }

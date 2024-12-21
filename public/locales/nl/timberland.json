@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "Selecteer een schoenmaat.",
+    "Invalid gender selection.": "Ongeldige geslachtsselectie.",
+    "Selected size not available.": "Geselecteerde maat niet beschikbaar.",
+    "Size copied to clipboard!": "Maat gekopieerd naar klembord!",
+    "Category": "Categorie",
+    "Select Shoe Size": "Selecteer schoenmaat",
+    "Choose Size": "Kies maat",
+    "Convert": "Converteren",
+    "Converted Sizes": "Geconverteerde maten",
+    "Region": "Regio",
+    "Action": "Actie",
+    "Timberland Shoe Size Converter": "Timberland Schoenmaat Converter",
+    "Men": "Mannen",
+    "Women": "Vrouwen",
+    "Infant": "Baby",
+    "Toddler": "Peuter",
+    "Youth": "Jeugd",
+    "Junior": "Junior",
+    "Copy": "Kopiëren",
+    "Reset": "Resetten"
+}

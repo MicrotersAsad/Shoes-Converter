@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "靴のサイズを選択してください。",
+    "Invalid gender selection.": "無効な性別選択。",
+    "Selected size not available.": "選択したサイズは利用できません。",
+    "Size copied to clipboard!": "サイズがクリップボードにコピーされました！",
+    "Category": "カテゴリー",
+    "Select Shoe Size": "靴のサイズを選択",
+    "Choose Size": "サイズを選ぶ",
+    "Convert": "変換する",
+    "Converted Sizes": "変換されたサイズ",
+    "Region": "地域",
+    "Action": "アクション",
+    "Timberland Shoe Size Converter": "ティンバーランド靴サイズ変換ツール",
+    "Men": "男性",
+    "Women": "女性",
+    "Infant": "乳児",
+    "Toddler": "幼児",
+    "Youth": "若者",
+    "Junior": "ジュニア",
+    "Copy": "コピー",
+    "Reset": "リセット"
+}

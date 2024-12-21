@@ -1,0 +1,23 @@
+{
+    "Please select a shoe size.":"Please select a shoe size.",
+    "Size not found for the given foot length.":"Size not found for the given foot length.'",
+    "Size copied to clipboard!":"Size copied to clipboard!",
+    "Category":"Category",
+    "Select Shoe Size":"Select Shoe Size",
+    "Choose Size":"Choose Size",
+    "Convert":"Convert",
+    "Converted Sizes":"Converted Sizes",
+    "Region":"Region",
+    "Action":"Action",
+    "Dr. Martens Shoe Size Converter":"Dr. Martens Shoe Size Converter",
+    "Men":"Men",
+    "Women":"Women",
+    "Infant":"Infant",
+    "Toddler":"Toddler",
+    "Youth":"Youth",
+    "Junior":"Junior",
+    "Select Foot Length":"Select Foot Length",
+    "Copy":"Copy",
+    "Reset":"Reset"
+}
+

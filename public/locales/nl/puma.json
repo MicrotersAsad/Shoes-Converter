@@ -1,0 +1,21 @@
+{
+    "Please select a shoe size.":"Selecteer een schoenmaat.",
+    "Invalid category selection.":"Ongeldige categorie selectie.",
+    "Selected size not available.":"Geselecteerde maat niet beschikbaar.",
+    "Size copied to clipboard!":"Maat gekopieerd naar klembord!",
+    "Puma Shoe Size Converter":"Puma Schoenmaat Converter",
+    "Category":"Categorie",
+    "Women":"Vrouwen",
+    "Men":"Mannen",
+    "Kids":"Kinderen",
+    "Baby & Toddler":"Baby & Peuter",
+    "Region":"Regio",
+    "Shoe Size":"Schoenmaat",
+    "Select Size":"Selecteer Maat",
+    "Convert":"Converteren",
+    "Converted Sizes":"Geconverteerde Maten",
+    "Size":"Maat",
+    "Action":"Actie",
+    "Copy":"Kopiëren",
+    "Reset":"Resetten"
+}

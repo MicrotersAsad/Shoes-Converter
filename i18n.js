@@ -37,7 +37,9 @@ const NextI18NextInstance = new NextI18Next({
     "men-to-women",
     "women",
     "korean",
-    "mexican"
+    "mexican",
+    "asos",
+    "clarks"
 
 
 

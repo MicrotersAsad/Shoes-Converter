@@ -1,8 +1,10 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-const ClarksShoeSizeConverter = ({ content, locale }) => {
-  const [gender, setGender] = useState('Men'); // Default gender
+const ClarksShoeSizeConverter = ({ content }) => {
+  const {t}=useTranslation("clarks")
+  const [gender, setGender] = useState('clarks'); // Default gender
   const [region, setRegion] = useState('US'); // Default region
   const [shoeSize, setShoeSize] = useState(''); // Selected shoe size
   const [convertedSizes, setConvertedSizes] = useState({}); // Resultant converted sizes
@@ -10,13 +12,13 @@ const ClarksShoeSizeConverter = ({ content, locale }) => {
 
   // Clarks shoe size data
   const clarksSizeData = {
-    Men: {
+    clarks: {
       US: [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12],
       UK: [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5],
       EU: [39, 40, 40.5, 41, 42, 42.5, 43, 43.5, 44, 44.5, 45, 45.5, 46],
       Inches: [9.3, 9.5, 9.7, 9.8, 10, 10.2, 10.4, 10.6, 10.8, 11, 11.2, 11.4, 11.6],
     },
-    Women: {
+    Woclarks: {
       US: [5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10],
       UK: [3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8],
       EU: [35, 36, 36.5, 37, 37.5, 38, 38.5, 39, 39.5, 40, 40.5],
@@ -60,21 +62,21 @@ const ClarksShoeSizeConverter = ({ content, locale }) => {
     <div className="max-w-4xl mx-auto p-6 mt-10 bg-gray-100 shadow-md rounded-lg">
       {/* Header */}
       <h1 className="text-3xl font-extrabold text-center text-indigo-700 mb-6">
-        Clarks Shoe Size Converter
+       {t("Clarks Shoe Size Converter")}
       </h1>
 
       {/* Controls */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Gender:</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t("Gender")}:</label>
           <select
             value={gender}
             onChange={(e) => setGender(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           >
-            <option value="Men">Men</option>
-            <option value="Women">Women</option>
-            <option value="Kids">Kids</option>
+            <option value="clarks">{t("clarks")}</option>
+            <option value="Woclarks">{t("Woclarks")}</option>
+            <option value="Kids">{t("Kids")}</option>
           </select>
         </div>
 
@@ -93,13 +95,13 @@ const ClarksShoeSizeConverter = ({ content, locale }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Shoe Size:</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t("Shoe Size")}:</label>
           <select
             value={shoeSize}
             onChange={(e) => setShoeSize(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           >
-            <option value="">Select a size</option>
+            <option value="">{t("Select a size")}</option>
             {clarksSizeData[gender][region].map((size, index) => (
               <option key={index} value={size}>
                 {size}
@@ -115,20 +117,20 @@ const ClarksShoeSizeConverter = ({ content, locale }) => {
           onClick={handleConvert}
           className="px-6 py-2 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
         >
-          Convert Size
+          {t("Convert Size")}
         </button>
       </div>
 
       {/* Results */}
       {Object.keys(convertedSizes).length > 0 && (
         <div className="mt-10">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">Converted Sizes:</h2>
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">{t("Converted Sizes")}:</h2>
           <table className="w-full border border-gray-300 rounded-md shadow-md">
             <thead>
               <tr className="bg-indigo-100">
-                <th className="border border-gray-300 px-4 py-2 text-left">Region</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Size</th>
-                <th className="border border-gray-300 px-4 py-2 text-center">Action</th>
+                <th className="border border-gray-300 px-4 py-2 text-left">{t("Region")}</th>
+                <th className="border border-gray-300 px-4 py-2 text-left">{t("Size")}</th>
+                <th className="border border-gray-300 px-4 py-2 text-center">{t("Action")}</th>
               </tr>
             </thead>
             <tbody>
@@ -141,7 +143,7 @@ const ClarksShoeSizeConverter = ({ content, locale }) => {
                       onClick={() => handleCopy(key, value)}
                       className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                     >
-                      Copy
+                      {t("Copy")}
                     </button>
                   </td>
                 </tr>
@@ -156,7 +158,7 @@ const ClarksShoeSizeConverter = ({ content, locale }) => {
 
       {Object.keys(convertedSizes).length === 0 && shoeSize && (
         <div className="mt-10 text-center text-red-600 font-semibold">
-          Invalid size or conversion unavailable.
+          {t("Invalid size or conversion unavailable.")}
         </div>
       )}
     </div>
@@ -191,7 +193,7 @@ export async function getStaticProps({ locale }) {
     const contentData = await contentResponse.json();
 
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['men', 'shoeSizeConverter']);
+    const translations = await serverSideTranslations(locale, ['clarks', 'shoeSizeConverter']);
 
     return {
       props: {
@@ -211,7 +213,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        translations: await serverSideTranslations(locale, ['men', 'shoeSizeConverter']),
+        ...(await serverSideTranslations (locale, ['clarks', 'navbar','footer'])),
       },
     };
   }

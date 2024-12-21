@@ -1,0 +1,22 @@
+{
+    "Please select a shoe size.": "Selecteer een schoenmaat.",
+    "Size not found for the given foot length.": "Maat niet gevonden voor de opgegeven voetlengte.",
+    "Size copied to clipboard!": "Maat gekopieerd naar klembord!",
+    "Category": "Categorie",
+    "Select Shoe Size": "Selecteer schoenmaat",
+    "Choose Size": "Kies maat",
+    "Convert": "Converteren",
+    "Converted Sizes": "Geconverteerde maten",
+    "Region": "Regio",
+    "Action": "Actie",
+    "Dr. Martens Shoe Size Converter": "Dr. Martens Schoenmaat Converter",
+    "Men": "Mannen",
+    "Women": "Vrouwen",
+    "Infant": "Baby",
+    "Toddler": "Peuter",
+    "Youth": "Jeugd",
+    "Junior": "Junior",
+    "Select Foot Length": "Selecteer voetlengte",
+    "Copy": "Kopiëren",
+    "Reset": "Resetten"
+}

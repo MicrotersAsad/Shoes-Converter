@@ -1,7 +1,10 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const ShimanoShoeSizeChart = () => {
-  const [gender, setGender] = useState("mens");
+const ShimanoShoeSizeChart = ({content}) => {
+  const {t}=useTranslation("shimano")
+    const [gender, setGender] = useState("mens");
   const [shoeSize, setShoeSize] = useState("");
   const [convertedSizes, setConvertedSizes] = useState([]);
 
@@ -56,31 +59,31 @@ const ShimanoShoeSizeChart = () => {
     <div className="max-w-7xl mx-auto p-6">
       <div className="bg-white max-w-5xl mx-auto shadow-lg rounded-lg p-6">
         <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">
-          Shimano Shoe Size Conversion
+          {t("Shimano Shoe Size Conversion")}
         </h1>
 
         {/* Gender and Size Selection */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
           <div>
-            <label className="block mb-2 font-bold">Select Category</label>
+            <label className="block mb-2 font-bold">{t("Select Category")}</label>
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
               className="w-full border rounded-lg px-4 py-2"
             >
-              <option value="mens">Men</option>
-              <option value="womens">Women</option>
+              <option value="mens">{t("Men")}</option>
+              <option value="womens">{t("Women")}</option>
             </select>
           </div>
 
           <div>
-            <label className="block mb-2 font-bold">Select US Size</label>
+            <label className="block mb-2 font-bold">{t("Select US Size")}</label>
             <select
               value={shoeSize}
               onChange={(e) => setShoeSize(e.target.value)}
               className="w-full border rounded-lg px-4 py-2"
             >
-              <option value="">Choose Size</option>
+              <option value="">{t("Choose Size")}</option>
               {sizeData[gender].map((row, idx) => (
                 <option key={idx} value={row.US}>
                   {row.US}
@@ -94,7 +97,7 @@ const ShimanoShoeSizeChart = () => {
               onClick={handleConvert}
               className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600"
             >
-              Convert
+              {t("Convert")}
             </button>
           </div>
         </div>
@@ -102,7 +105,7 @@ const ShimanoShoeSizeChart = () => {
         {/* Converted Sizes Table */}
         {convertedSizes.length > 0 && (
           <div>
-            <h2 className="text-lg font-bold mb-4">Converted Sizes</h2>
+            <h2 className="text-lg font-bold mb-4">{t("Converted Sizes")}</h2>
             <table className="table-auto w-full border-collapse border border-gray-300">
               <thead>
                 <tr className="bg-gray-200 text-center">
@@ -127,7 +130,7 @@ const ShimanoShoeSizeChart = () => {
             onClick={handleReset}
             className="bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-600"
           >
-            Reset
+            {t("Reset")}
           </button>
         </div>
           </div>
@@ -135,8 +138,59 @@ const ShimanoShoeSizeChart = () => {
 
        
       </div>
-    </div>
-  );
-};
-
+    <div className="content pt-6 pb-5">
+              <article
+                dangerouslySetInnerHTML={{ __html: content?.content || 'No content available.' }}
+                style={{ listStyleType: 'none' }}
+              ></article>
+            </div>
+          </div>
+        );
+        };
+        
+        export async function getStaticProps({ locale }) {
+        try {
+          const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
+        
+          const contentResponse = await fetch(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=shimano&language=${locale}`,
+            {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${AUTH_TOKEN}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+        
+          if (!contentResponse.ok) {
+            throw new Error('Failed to fetch content');
+          }
+        
+          const contentData = await contentResponse.json();
+        
+          const translations = await serverSideTranslations(locale, ['shimano', 'shoeSizeConverter']);
+        
+          return {
+            props: {
+              content: contentData?.translations?.[locale] || {},
+              ...translations,
+            },
+            revalidate: 60 * 60 * 24,
+          };
+        } catch (error) {
+          console.error('Error fetching content:', error);
+        
+          return {
+            props: {
+              content: {
+                categoryLabel: 'Shoe Size Converter',
+                sizeLabel: 'Select Shoe Size',
+              },
+              ...(await serverSideTranslations (locale, ['shimano', 'navbar','footer'])),
+            },
+          };
+        }
+        }
+        
 export default ShimanoShoeSizeChart;

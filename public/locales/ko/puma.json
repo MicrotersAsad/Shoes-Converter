@@ -1,0 +1,21 @@
+{
+    "Please select a shoe size.":"신발 사이즈를 선택하세요.",
+    "Invalid category selection.":"잘못된 카테고리 선택입니다.",
+    "Selected size not available.":"선택한 사이즈는 사용할 수 없습니다.",
+    "Size copied to clipboard!":"사이즈가 클립보드에 복사되었습니다!",
+    "Puma Shoe Size Converter":"푸마 신발 사이즈 변환기",
+    "Category":"카테고리",
+    "Women":"여성",
+    "Men":"남성",
+    "Kids":"어린이",
+    "Baby & Toddler":"유아 및 아기",
+    "Region":"지역",
+    "Shoe Size":"신발 사이즈",
+    "Select Size":"사이즈 선택",
+    "Convert":"변환",
+    "Converted Sizes":"변환된 사이즈",
+    "Size":"사이즈",
+    "Action":"동작",
+    "Copy":"복사",
+    "Reset":"재설정"
+}
