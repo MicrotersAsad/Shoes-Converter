@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getContentProps } from '../../utils/getContentProps';
 import Head from 'next/head';
 import Script from 'next/script';
-import { i18n } from 'next-i18next';s
+import { i18n } from 'next-i18next';
 const ChineseShoeSizeConverter = ({ meta,
   content,
   relatedTools,
