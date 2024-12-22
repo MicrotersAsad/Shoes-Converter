@@ -30,8 +30,9 @@ export const fetchContent = async (category, locale, host, protocol) => {
     }
 
     // Define base URL
-    const basePath = `${protocol}://${host}/tools/${category}`;
-    const canonicalUrl = locale === "en" ? basePath : `${protocol}://${host}/${locale}/tools/${category}`;
+    const basePath = `${protocol}://${host}`;
+    const canonicalUrl = locale === "en" ? basePath : `${protocol}://${host}/${locale}`;
+
 
     // Generate hreflang links
     const translations = contentData.translations || {};
@@ -43,7 +44,7 @@ export const fetchContent = async (category, locale, host, protocol) => {
         .map((lang) => ({
           rel: "alternate",
           hreflang: lang,
-          href: `${protocol}://${host}/${lang}/tools/${category}`,
+          href: `${protocol}://${host}/${lang}`,
         })),
     ];
 
@@ -76,8 +77,8 @@ export const fetchContent = async (category, locale, host, protocol) => {
       faqs: [],
       relatedTools: [],
       hreflangs: [
-        { rel: "alternate", hreflang: "x-default", href: `${protocol}://${host}/tools/${category}` },
-        { rel: "alternate", hreflang: "en", href: `${protocol}://${host}/tools/${category}` },
+        { rel: "alternate", hreflang: "x-default", href: `${protocol}://${host}` },
+        { rel: "alternate", hreflang: "en", href: `${protocol}://${host}` },
       ],
     };
   } 

@@ -1,12 +1,16 @@
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Head from 'next/head';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ShoeSizeCalculator =({ content, locale }) => {
-    const { t } = useTranslation('home'); // Correct namespace
+const ShoeSizeCalculator =({ content,  title,
+  description,
+  image, }) => {
+
+  const { t } = useTranslation('home'); // Correct namespace
   const [category, setCategory] = useState('women'); // Default category
   const [fromUnit, setFromUnit] = useState('US & Canada'); // Default input unit
   const [toUnit, setToUnit] = useState('Europe'); // Default output unit
@@ -114,7 +118,56 @@ const ShoeSizeCalculator =({ content, locale }) => {
   return (
 
     <div className='max-w-7xl mx-auto pb-5'> 
+    <Head>
+          {/* SEO Meta Tags */}
+          <title>{title}</title>
+          <meta name="description" content={description} />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <meta name="robots" content="index, follow" />
 
+          {/* Canonical URL */}
+          <link rel="canonical" href="https://ytubetools.com/" />
+
+          {/* Open Graph Meta Tags */}
+          <meta property="og:type" content="website" />
+          <meta property="og:url"  content="https://ytubetools.com/"/>
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:image" content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733308755615-ytubetools-homepage.png" />
+          <meta property="og:image:secure_url" content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733308755615-ytubetools-homepage.png" />
+          <meta property="og:site_name" content="Ytubetools" />
+          <meta property="og:locale" content="en_US" />
+
+          {/* Twitter Meta Tags */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:domain" content="https://ytubetools.com/" />
+          <meta property="twitter:url" content="https://ytubetools.com/"/>
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content={description} />
+          <meta name="twitter:image" content="" />
+          <meta name="twitter:site" content="@ytubetools" />
+          <meta name="twitter:image:alt" content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733308755615-ytubetools-homepage.png" />
+   {/* Hreflang Meta Tags (for multilingual SEO) */}
+   <link rel="alternate" hreflang="x-default" href="https://www.ytubetools.com"></link>
+   <link rel="alternate" href="https://www.ytubetools.com" hreflang="en" />
+        <link rel="alternate" href="https://www.ytubetools.com/fr" hreflang="fr" />
+        <link rel="alternate" href="https://www.ytubetools.com/es" hreflang="es" />
+        <link rel="alternate" href="https://www.ytubetools.com/zh-HANS" hreflang="zh-HANS" />
+        <link rel="alternate" href="https://www.ytubetools.com/zh-HANT" hreflang="zh-HANT" />
+        <link rel="alternate" href="https://www.ytubetools.com/de" hreflang="de" />
+        <link rel="alternate" href="https://www.ytubetools.com/gu" hreflang="gu" />
+        <link rel="alternate" href="https://www.ytubetools.com/hi" hreflang="hi" />
+        <link rel="alternate" href="https://www.ytubetools.com/it" hreflang="it" />
+        <link rel="alternate" href="https://www.ytubetools.com/ja" hreflang="ja" />
+        <link rel="alternate" href="https://www.ytubetools.com/ko" hreflang="ko" />
+        <link rel="alternate" href="https://www.ytubetools.com/nl" hreflang="nl" />
+        <link rel="alternate" href="https://www.ytubetools.com/pl" hreflang="pl" />
+        <link rel="alternate" href="https://www.ytubetools.com/ru" hreflang="ru" />
+          
+        </Head>
 <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
   {/* Title */}
   <h2 className="text-2xl font-bold text-gray-800 text-center">{t("Shoe Size Calculator")}</h2>
@@ -327,16 +380,19 @@ const ShoeSizeCalculator =({ content, locale }) => {
 export async function getStaticProps({ locale }) {
   try {
     // Define the authorization token (you can replace this with an actual token)
-    const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';  // Replace with your token or fetch from an env variable
+    const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00'; // Replace with your token or fetch from an env variable
 
     // Fetch the content data with authorization header
-    const contentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=tagGenerator&language=${locale}`, {
-      method: 'GET',  // You can also specify POST, PUT, etc. if needed
-      headers: {
-        'Authorization': `Bearer ${AUTH_TOKEN}`,  // Add Authorization header
-        'Content-Type': 'application/json',       // Set Content-Type to JSON
-      },
-    });
+    const contentResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=shoe-conversation&language=${locale}`,
+      {
+        method: 'GET', // You can also specify POST, PUT, etc. if needed
+        headers: {
+          Authorization: `Bearer ${AUTH_TOKEN}`, // Add Authorization header
+          'Content-Type': 'application/json', // Set Content-Type to JSON
+        },
+      }
+    );
 
     // Check if the response is successful (status 200)
     if (!contentResponse.ok) {
@@ -345,15 +401,27 @@ export async function getStaticProps({ locale }) {
 
     const contentData = await contentResponse.json();
 
+    // Extract title and description from the content data
+    const title = contentData?.translations?.[locale]?.title || 'Default Title';
+    const description =contentData?.translations?.[locale]?.description || 'Default Description';
+    const image=contentData?.translations?.[locale]?.image || 'Default image';
+    console.log(title);
+    
     // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, ['home', 'navbar']);
+    const translations = await serverSideTranslations(locale, [
+      'home',
+      'navbar',
+    ]);
 
     return {
       props: {
         content: contentData?.translations?.[locale] || {},
+        title,
+        description,
+        image,
         ...translations,
       },
-      revalidate: 60 * 60 * 24,  // 24 hours revalidation
+      revalidate: 60 * 60 * 24, // 24 hours revalidation
     };
   } catch (error) {
     console.error('Error fetching content:', error);
@@ -366,9 +434,13 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        ...(await serverSideTranslations(locale, ['home', 'navbar','footer'])),
+        title,
+        description,
+        image,
+        ...(await serverSideTranslations(locale, ['home', 'navbar', 'footer'])),
       },
     };
   }
 }
+
 export default ShoeSizeCalculator;

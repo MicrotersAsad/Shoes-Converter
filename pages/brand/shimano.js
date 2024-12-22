@@ -1,8 +1,16 @@
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-
-const ShimanoShoeSizeChart = ({content}) => {
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { getContentProps } from '../../utils/getContentProps';
+import Head from 'next/head';
+import Script from 'next/script';
+import { i18n } from 'next-i18next';
+const ShimanoShoeSizeChart = ({ meta,
+  content,
+  relatedTools,
+  faqs,
+  reactions,hreflangs  }) => {
   const {t}=useTranslation("shimano")
     const [gender, setGender] = useState("mens");
   const [shoeSize, setShoeSize] = useState("");
@@ -57,6 +65,106 @@ const ShimanoShoeSizeChart = ({content}) => {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
+          <Head>
+            {/* SEO Meta Tags */}
+            <title>{meta?.title}</title>
+            <meta name="description" content={meta?.description} />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0"
+            />
+            <meta name="robots" content="index, follow" />
+
+            {/* Canonical URL */}
+            <link rel="canonical" href={`${meta?.url}/brand/shimano`}  />
+
+            {/* Open Graph Meta Tags */}
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={`${meta?.url}/brand/shimano`} />
+            <meta property="og:title" content={meta?.title} />
+            <meta property="og:description" content={meta?.description} />
+            <meta
+              property="og:image"
+              content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1732959231638-youtubechannelidfinderb.png"
+            />
+            <meta
+              property="og:image:secure_url"
+              content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1732959231638-youtubechannelidfinderb.png"
+            />
+            <meta property="og:site_name" content="Ytubetools" />
+            <meta property="og:locale" content="en_US" />
+
+            {/* Twitter Meta Tags */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:domain" content={`${meta?.url}/brand/shimano`} />
+            <meta property="twitter:url" content={`${`${meta?.url}/brand/shimano`}`} />
+            <meta name="twitter:title" content={meta?.title} />
+            <meta name="twitter:description" content={meta?.description} />
+            <meta
+              name="twitter:image"
+              content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1732959231638-youtubechannelidfinderb.png"
+            />
+            <meta name="twitter:site" content="@ytubetools" />
+            <meta name="twitter:image:alt" content="channel-id-finder" />
+
+            {/* Alternate hreflang Tags for SEO */}
+            {hreflangs &&
+              hreflangs.map((hreflang, index) => (
+                <link
+                  key={index}
+                  rel={hreflang.rel}
+                  hreflang={hreflang.hreflang}
+                  href={`${hreflang.href}/brand/shimano`}
+                />
+              ))}
+            {/* <link
+            rel="alternate"
+            hreflang="en"
+            href={meta?.url?.replace(/\/$/, "").replace(/\/$/, "")}
+          /> */}
+          </Head>
+          {/* JSON-LD Structured Data */}
+          <Script id="webpage-structured-data" type="application/ld+json">
+  {JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: meta?.title || "Default Title",
+    url: `${meta?.url || "https://defaulturl.com"}${
+      i18n.language !== "en" && !meta?.url.includes(`/${i18n.language}`)
+        ? `/${i18n.language}`
+        : ""
+    }/brand/shimano`,
+    description: meta?.description || "Default description for the webpage.",
+    breadcrumb: {
+      "@id": `${meta?.url || "https://defaulturl.com"}#breadcrumb`,
+    },
+    about: {
+      "@type": "Thing",
+      name: meta?.title || "Default Title",
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      url: meta?.url || "https://defaulturl.com",
+    },
+  })}
+</Script>
+
+         
+
+          <Script id="faq-structured-data" type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.answer,
+                },
+              })),
+            })}
+          </Script>
       <div className="bg-white max-w-5xl mx-auto shadow-lg rounded-lg p-6">
         <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">
           {t("Shimano Shoe Size Conversion")}
@@ -140,7 +248,7 @@ const ShimanoShoeSizeChart = ({content}) => {
       </div>
     <div className="content pt-6 pb-5">
               <article
-                dangerouslySetInnerHTML={{ __html: content?.content || 'No content available.' }}
+                dangerouslySetInnerHTML={{ __html: content || 'No content available.' }}
                 style={{ listStyleType: 'none' }}
               ></article>
             </div>
@@ -148,49 +256,10 @@ const ShimanoShoeSizeChart = ({content}) => {
         );
         };
         
-        export async function getStaticProps({ locale }) {
-        try {
-          const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
-        
-          const contentResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=shimano&language=${locale}`,
-            {
-              method: 'GET',
-              headers: {
-                Authorization: `Bearer ${AUTH_TOKEN}`,
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-        
-          if (!contentResponse.ok) {
-            throw new Error('Failed to fetch content');
-          }
-        
-          const contentData = await contentResponse.json();
-        
-          const translations = await serverSideTranslations(locale, ['shimano', 'shoeSizeConverter']);
-        
-          return {
-            props: {
-              content: contentData?.translations?.[locale] || {},
-              ...translations,
-            },
-            revalidate: 60 * 60 * 24,
-          };
-        } catch (error) {
-          console.error('Error fetching content:', error);
-        
-          return {
-            props: {
-              content: {
-                categoryLabel: 'Shoe Size Converter',
-                sizeLabel: 'Select Shoe Size',
-              },
-              ...(await serverSideTranslations (locale, ['shimano', 'navbar','footer'])),
-            },
-          };
+        export async function getStaticProps(context) {
+          return getContentProps("shimano", context.locale, context.req);
         }
-        }
+        
+        
         
 export default ShimanoShoeSizeChart;
