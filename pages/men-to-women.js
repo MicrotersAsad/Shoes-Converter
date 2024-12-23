@@ -257,7 +257,7 @@ const ShoeSizeConverter = ({ meta,
       </div>
       <div className="content pt-6 pb-5">
         <article
-          dangerouslySetInnerHTML={{ __html: content?.content || "No content available." }}
+          dangerouslySetInnerHTML={{ __html: content || "No content available." }}
           style={{ listStyleType: "none" }}
         ></article>
       </div>
