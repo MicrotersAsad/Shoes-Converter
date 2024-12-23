@@ -1,17 +1,22 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { fetchContent, fetchReviews } from '../contexts/ContentContext';
 
-// getContentProps ফাংশনটি কনটেন্ট ফেচের জন্য ব্যবহার করা হচ্ছে
 export const getContentProps = async (category, locale, req) => {
-  const host = "shoes-converter.vercel.app";  // এখানে localhost ব্যবহার করুন, প্রোটোকল হিসেবে http: ব্যবহার করতে পারেন
+  // লোকাল এবং প্রোডাকশন হোস্ট ডাইনামিকভাবে সেট করুন
+  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+  const host =
+    process.env.NODE_ENV === 'production'
+      ? 'shoes-converter.vercel.app'
+      : req?.headers?.host || 'localhost:3000'; // লোকালহোস্ট ব্যবহার
 
-  const contentProps = await fetchContent(category, locale, host, "https");  // এখানে http প্রোটোকল ব্যবহার হচ্ছে
-  const reviews = await fetchReviews(category, host, "https");
+  // কনটেন্ট এবং রিভিউ ফেচ
+  const contentProps = await fetchContent(category, locale, host, protocol);
+  const reviews = await fetchReviews(category, host, protocol);
 
   return {
     props: {
-      ...contentProps,  // কনটেন্ট প্রপার্টিজ
-      reviews,          // রিভিউ ডেটা
+      ...contentProps, // কনটেন্ট প্রপার্টিজ
+      reviews,         // রিভিউ ডেটা
       ...(await serverSideTranslations(locale, [
         'common',
         'women',
@@ -50,7 +55,6 @@ export const getContentProps = async (category, locale, req) => {
         'spanish',
         'timberland',
         'ugg',
-        
       ])),
     },
   };

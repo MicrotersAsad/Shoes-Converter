@@ -26,6 +26,7 @@ export const fetchContent = async (category, locale, host, protocol) => {
     }
 
     const contentData = await contentResponse.json();
+console.log(contentData);
 
     if (!contentData.translations || !contentData.translations[locale]) {
       throw new Error('Invalid content data format');
