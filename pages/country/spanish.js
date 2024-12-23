@@ -7,7 +7,11 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { i18n } from 'next-i18next';
 
-const SpanishShoeSizeConverter = ({content}) => {
+const SpanishShoeSizeConverter =  ({ meta,
+  content,
+  relatedTools,
+  faqs,
+  reactions,hreflangs}) => {
   const {t}=useTranslation("spanish")
   const [category, setCategory] = useState('women'); // Default category
   const [toUnit, setToUnit] = useState('UK'); // Default "To" unit
