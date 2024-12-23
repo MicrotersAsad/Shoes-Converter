@@ -401,10 +401,7 @@ export async function getStaticProps({ locale }) {
     const contentData = await contentResponse.json();
 
     // Extract title and description from the content data
-    const title = contentData?.translations?.[locale]?.title || 'Default Title';
-    const description =contentData?.translations?.[locale]?.description || 'Default Description';
-    const image=contentData?.translations?.[locale]?.image || 'Default image';
-    console.log(title);
+   
     
     // Fetch translations (static)
     const translations = await serverSideTranslations(locale, [
@@ -415,9 +412,7 @@ export async function getStaticProps({ locale }) {
     return {
       props: {
         content: contentData?.translations?.[locale] || {},
-        title,
-        description,
-        image,
+       
         ...translations,
       },
       revalidate: 60 * 60 * 24, // 24 hours revalidation
@@ -433,9 +428,7 @@ export async function getStaticProps({ locale }) {
           sizeLabel: 'Select Shoe Size',
           // Add default values for other fields...
         },
-        title,
-        description,
-        image,
+        
         ...(await serverSideTranslations(locale, ['home', 'navbar', 'footer'])),
       },
     };
