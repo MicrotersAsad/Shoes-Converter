@@ -6,9 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ShoeSizeCalculator =({ content,  title,
-  description,
-  image, }) => {
+const ShoeSizeCalculator =({ content }) => {
 
   const { t } = useTranslation('home'); // Correct namespace
   const [category, setCategory] = useState('women'); // Default category
@@ -114,13 +112,14 @@ const ShoeSizeCalculator =({ content,  title,
     setConvertedSize(''); // Clear the converted result
     setHighlightIndex(null); // Remove highlights
   };
-  
+  const description="Shoe Size Converter"
+  const title="Shoe Size Converter"
   return (
 
     <div className='max-w-7xl mx-auto pb-5'> 
     <Head>
           {/* SEO Meta Tags */}
-          <title>{title}</title>
+          <title>Shoe Size Converter</title>
           <meta name="description" content={description} />
           <meta
             name="viewport"
