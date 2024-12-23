@@ -12,6 +12,8 @@ export const fetchContent = async (category, locale, host, protocol) => {
 
   try {
     const apiUrl = `${protocol}://${host}/api/content?category=${category}&language=${locale}`;
+    console.log(apiUrl);
+    
     const contentResponse = await fetch(apiUrl, {
       headers: {
         'Authorization': `Bearer ${AUTH_TOKEN}`, // Add Authorization header
