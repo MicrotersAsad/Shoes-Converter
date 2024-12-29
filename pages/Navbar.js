@@ -39,6 +39,8 @@ import korian from '../public/koran.png';
 import mexico from '../public/mexico.png';
 import Philippines from '../public/Philippines.png';
 import Italian from '../public/circle.png';
+import spain from '../public/spain.png';
+import asian from '../public/asian.jpg';
 import { FaBookmark } from 'react-icons/fa';
 
 function classNames(...classes) {
@@ -149,7 +151,7 @@ function Navbar() {
             {
               key: t('Spanish Shoe Size Converter'),
               href: '/country/spanish',
-              icon: '🇪🇸' // Flag of Spain
+              icon: spain // Flag of Spain
             },
             {
               key: t('Indian Shoe Size Converter'),
@@ -159,7 +161,7 @@ function Navbar() {
             {
               key: t('Asian Shoe Size Converter'),
               href: '/country/asian',
-              icon: '🇮🇳' // Flag of India
+              icon: asian // Flag of India
             },
             {
               key: t('Canadian Shoe Size Converter'),
@@ -469,23 +471,32 @@ function Navbar() {
                         <Menu.Items className="flex flex-col pl-4 space-y-1">
                           {item.children.map((section) => (
                             <div key={section.heading}>
-                              <h4 className="font-semibold text-gray-400">{t(section.heading)}</h4>
+                              <h4 className="font-semibold text-white">{t(section.heading)}</h4>
                               {section.items.map((subItem) => (
-                                <Menu.Item key={subItem.key}>
-                                  {({ active }) => (
-                                    <Link
-                                      href={subItem.href}
-                                      className={classNames(
-                                        active
-                                          ? 'bg-gray-100 text-gray-700'
-                                          : 'text-gray-500 hover:bg-gray-200 hover:text-gray-700',
-                                        'block px-4 py-2 rounded-md'
-                                      )}
-                                    >
-                                      {subItem.icon} {t(subItem.key)}
-                                    </Link>
-                                  )}
-                                </Menu.Item>
+                                 <Menu.Item key={subItem.key}>
+                                 {({ active }) => (
+                                   <Link
+                                     href={subItem.href}
+                                     className={classNames(
+                                       active ? 'bg-gray-100' : '',
+                                       'block px-4 py-2 text-sm text-white rounded-md'
+                                     )}
+                                   >
+                                     {typeof subItem.icon === 'object' ? (
+                                       <Image
+                                         src={subItem.icon}
+                                         alt={subItem.key}
+                                         width={20}
+                                         height={20}
+                                         className="inline-block mr-2"
+                                       />
+                                     ) : (
+                                       <span className="mr-2">{subItem.icon}</span>
+                                     )}
+                                     {subItem.key}
+                                   </Link>
+                                 )}
+                               </Menu.Item>
                               ))}
                             </div>
                           ))}
