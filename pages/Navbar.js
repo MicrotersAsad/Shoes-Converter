@@ -26,6 +26,19 @@ import Merrell from '../public/Merrell.png';
 import shimano from '../public/shimano-2.svg';
 import Shein from '../public/Shein .png';
 import asos from '../public/asos.svg';
+import australia from '../public/australia.png';
+import brazil from '../public/brazil-flag.png';
+import columbia from '../public/british-columbia.png';
+import canada from '../public/canada.png';
+import Chinese from '../public/Chinese.png';
+import Germany from '../public/Flag_of_Germany.svg.webp';
+import france from '../public/france.png';
+import india from '../public/india.png';
+import japan from '../public/japan.png';
+import korian from '../public/koran.png';
+import mexico from '../public/mexico.png';
+import Philippines from '../public/Philippines.png';
+import Italian from '../public/circle.png';
 import { FaBookmark } from 'react-icons/fa';
 
 function classNames(...classes) {
@@ -106,32 +119,32 @@ function Navbar() {
             {
               key: t('Brazilian Shoe Size Converter'),
               href: '/country/brazilian',
-              icon: '🇧🇷' // Flag of Brazil
+              icon: brazil // Flag of Brazil
             },
             {
               key: t('Mexican Shoe Size Converter'),
               href: '/country/mexican',
-              icon: '🇲🇽' // Flag of Mexico
+              icon: mexico // Flag of Mexico
             },
             {
               key: t('Australian Shoe Size Converter'),
               href: '/country/australian',
-              icon: '🇦🇺' // Flag of Australia
+              icon: australia // Flag of Australia
             },
             {
               key: t('Italian Shoe Size Converter'),
               href: '/country/italian',
-              icon: '🇮🇹' // Flag of Italy
+              icon: Italian // Flag of Italy
             },
             {
               key: t('Japanese Shoe Size Converter'),
               href: '/country/japanese',
-              icon: '🇯🇵' // Flag of Japan
+              icon: japan // Flag of Japan
             },
             {
               key: t('Korean Shoe Size Converter'),
               href: '/country/korean',
-              icon: '🇰🇷' // Flag of South Korea
+              icon: korian // Flag of South Korea
             },
             {
               key: t('Spanish Shoe Size Converter'),
@@ -141,7 +154,7 @@ function Navbar() {
             {
               key: t('Indian Shoe Size Converter'),
               href: '/country/indian',
-              icon: '🇮🇳' // Flag of India
+              icon: india // Flag of India
             },
             {
               key: t('Asian Shoe Size Converter'),
@@ -151,32 +164,32 @@ function Navbar() {
             {
               key: t('Canadian Shoe Size Converter'),
               href: '/country/canadian',
-              icon: '🇮🇳' // Flag of India
+              icon: canada // Flag of India
             },
             {
               key: t('Colombian Shoe Size Converter'),
               href: '/country/colombian',
-              icon: '🇮🇳' // Flag of India
+              icon: columbia // Flag of India
             },
             {
               key: t('France Shoe Size Converter'),
               href: '/country/france',
-              icon: '🇮🇳' // Flag of India
+              icon: france //Flag of france
             },
             {
               key: t('Philippines Shoe Size Converter'),
               href: '/country/philippines',
-              icon: '🇮🇳' // Flag of India
+              icon: Philippines // Flag of India
             },
             {
               key: t('German Shoe Size Converter'),
               href: '/country/german',
-              icon: '🇮🇳' // Flag of India
+              icon: Germany // Flag of India
             },
             {
               key: t('Chinese Shoe Size Converter'),
               href: '/country/chinese',
-              icon: '🇮🇳' // Flag of India
+              icon: Chinese // Flag of India
             },
           ]            
         },
