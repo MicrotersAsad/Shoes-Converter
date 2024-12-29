@@ -10,6 +10,22 @@ import 'flag-icons/css/flag-icons.min.css'; // Import flag-icons CSS
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import logo from '../public/yt icon.png';
+import women from '../public/women.jpg';
+import men from '../public/man.png';
+import kids from '../public/kids.png';
+import adidas from '../public/adidas.png';
+import clarks from '../public/ClarksLogo_Update2.svg';
+import drm from '../public/drm.svg';
+import nike from '../public/nike.png';
+import puma from '../public/puma.png';
+import Timberland from '../public/Timberland.png';
+import alegria from '../public/alegria.png';
+import asics from '../public/asics.webp';
+import ugg from '../public/ugg_Logo.jpg';
+import Merrell from '../public/Merrell.png';
+import shimano from '../public/shimano-2.svg';
+import Shein from '../public/Shein .png';
+import asos from '../public/asos.svg';
 import { FaBookmark } from 'react-icons/fa';
 
 function classNames(...classes) {
@@ -73,9 +89,9 @@ function Navbar() {
         {
           heading: t('Normal Tools'),
           items: [
-            { key: t('Women Shoe Size Converter'), href: '/women', icon: '👠' },
-            { key: t('Men Shoe Size Converter'), href: '/men', icon: '👞' },
-            { key: t('Kids Shoe Size Calculator'), href: '/kids', icon: '🍼' },
+            { key: t('Women Shoe Size Converter'), href: '/women', icon: women },
+            { key: t('Men Shoe Size Converter'), href: '/men', icon: men },
+            { key: t('Kids Shoe Size Calculator'), href: '/kids', icon: kids },
             { key: t('Men to Women Shoe Size Converter'), href: '/men-to-women', icon: '🔁' },
           ],
         },
@@ -167,19 +183,19 @@ function Navbar() {
         {
           heading: 'Brand-Specific Tools',
           items: [
-            { key: t('Clarks Shoe Size Converter'), href: '/brand/clarks', icon: '🪶' },
-            { key: t('Nike Shoe Size Converter'), href: '/brand/nike', icon: '✅' },
-            { key: t('Adidas Shoe Size Converter'), href: '/brand/adidas', icon: 'ad' },
-            { key: t('Dr. Martens Shoe Size Converter'), href: '/brand/dr-martens', icon: '🪶' },
-            { key: t('Puma Shoe Size Converter'), href: '/brand/puma', icon: '✅' },
-            { key: t('Timberland Shoe Size Converter'), href: '/brand/timberland', icon: 'ad' },
-            { key: t('UGG Shoe Size Converter'), href: '/brand/ugg', icon: 'ad' },
-            { key: t('Alegria Shoe Size Converter'), href: '/brand/alegria', icon: 'ad' },
-            { key: t('Asics Shoe Size Converter'), href: '/brand/asics', icon: 'ad' },
-            { key: t('Asos Shoe Size Converter'), href: '/brand/asos', icon: 'ad' },
-            { key: t('Merrell Shoe Size Converter'), href: '/brand/merrell', icon: 'ad' },
-            { key: t('Shein Shoe Size Converter'), href: '/brand/shein', icon: 'ad' },
-            { key: t('Shimano Shoe Size Converter'), href: '/brand/shimano', icon: 'ad' },
+            { key: t('Clarks Shoe Size Converter'), href: '/brand/clarks', icon: clarks },
+            { key: t('Nike Shoe Size Converter'), href: '/brand/nike', icon: nike },
+            { key: t('Adidas Shoe Size Converter'), href: '/brand/adidas', icon: adidas },
+            { key: t('Dr. Martens Shoe Size Converter'), href: '/brand/dr-martens', icon: drm },
+            { key: t('Puma Shoe Size Converter'), href: '/brand/puma', icon: puma },
+            { key: t('Timberland Shoe Size Converter'), href: '/brand/timberland', icon: Timberland },
+            { key: t('UGG Shoe Size Converter'), href: '/brand/ugg', icon: ugg },
+            { key: t('Alegria Shoe Size Converter'), href: '/brand/alegria', icon: alegria },
+            { key: t('Asics Shoe Size Converter'), href: '/brand/asics', icon: asics },
+            { key: t('Asos Shoe Size Converter'), href: '/brand/asos', icon: asos },
+            { key: t('Merrell Shoe Size Converter'), href: '/brand/merrell', icon: Merrell },
+            { key: t('Shein Shoe Size Converter'), href: '/brand/shein', icon: Shein },
+            { key: t('Shimano Shoe Size Converter'), href: '/brand/shimano', icon: shimano },
           ],
         },
       ],
@@ -215,7 +231,7 @@ function Navbar() {
                           <Menu as="div" key={item.key} className="relative">
                           <Menu.Button
                             className={classNames(
-                              router.pathname === item.href // শুধুমাত্র নির্দিষ্ট লিংকের জন্য সক্রিয় চেক করা হবে
+                              router.pathname === item.href
                                 ? 'bg-gray-700 text-white'
                                 : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
                               'flex items-center px-3 py-2 rounded-md text-sm font-medium'
@@ -232,33 +248,47 @@ function Navbar() {
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1"
                           >
-                            <Menu.Items className="absolute z-50 p-3 w-[60rem] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none grid grid-cols-3 gap-4">
-                              {item.children.map((section, idx) => (
-                                <div key={idx} className="p-4 border rounded-md">
-                                  <h6 className="font-semibold text-gray-600 text-lg mb-3">{section.heading}</h6>
-                                  <div className="flex flex-wrap gap-4">
-                                    {section.items.map((subItem, subIdx) => (
-                                      <Menu.Item key={subIdx}>
-                                        {({ active }) => (
-                                          <Link
-                                            href={subItem.href}
-                                            className={classNames(
-                                              active ? 'bg-gray-100' : '',
-                                              'flex items-center p-2 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition w-full sm:w-auto'
-                                            )}
-                                          >
-                                            <span className="mr-3 text-blue-500 text-xl">{subItem.icon}</span>
-                                            <span className="text-gray-800 text-sm">{subItem.key}</span>
-                                          </Link>
-                                        )}
-                                      </Menu.Item>
-                                    ))}
+                            <Menu.Items className="absolute z-50 p-3 w-[50rem] max-h-[20rem] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto">
+                              <div className="grid grid-cols-3 gap-4">
+                                {item.children.map((section, idx) => (
+                                  <div key={idx} className="p-2 border rounded-md bg-gray-50 hover:shadow-md transition">
+                                    <h6 className="font-semibold text-gray-700 text-sm mb-2">{section.heading}</h6>
+                                    <div className="flex flex-wrap gap-2">
+                                      {section.items.map((subItem, subIdx) => (
+                                      <Menu.Item key={subItem.key}>
+                                      {({ active }) => (
+                                        <Link
+                                          href={subItem.href}
+                                          className={classNames(
+                                            active ? 'bg-gray-100' : '',
+                                            'block px-4 py-2 text-sm text-gray-800 rounded-md'
+                                          )}
+                                        >
+                                          {typeof subItem.icon === 'object' ? (
+                                            <Image
+                                              src={subItem.icon}
+                                              alt={subItem.key}
+                                              width={20}
+                                              height={20}
+                                              className="inline-block mr-2"
+                                            />
+                                          ) : (
+                                            <span className="mr-2">{subItem.icon}</span>
+                                          )}
+                                          {subItem.key}
+                                        </Link>
+                                      )}
+                                    </Menu.Item>
+                                      ))}
+                                    </div>
                                   </div>
-                                </div>
-                              ))}
+                                ))}
+                              </div>
                             </Menu.Items>
                           </Transition>
                         </Menu>
+                        
+                        
                         
                         ) : (
                           <Link

@@ -25,7 +25,7 @@ const Footer = () => {
                 /> 
               </Link>
               <p className="mt-5 text-gray-400">
-                {t('Welcome to YtubeTools, your creative marketing partner. We turn vision into measurable success with innovative strategies and data-driven solutions.')}
+                {t('Welcome to Shoe Conversation, your creative marketing partner. We turn vision into measurable success with innovative strategies and data-driven solutions.')}
               </p>
               <div className="flex mt-4 space-x-2">
                 <FaFacebook className="fs-3 hover:text-blue-800 transition duration-300 transform hover:scale-110" />
@@ -77,32 +77,32 @@ const Footer = () => {
               <h5 className="text-sm font-semibold uppercase text-white">Our Tools</h5>
               <ul className="mt-4 space-y-2">
                 <li>
-                  <Link href="/tools/men-to-women-shoe-size-converter" className="text-gray-300 hover:text-white">
+                  <Link href="/men-to-women" className="text-gray-300 hover:text-white">
                     {t('Men to Women shoe size converter')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools/european-shoe-size-converter" className="text-gray-300 hover:text-white">
+                  <Link href="country/european" className="text-gray-300 hover:text-white">
                     {t('European shoe size converter')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools/kids-shoe-size-calculator" className="text-gray-300 hover:text-white">
+                  <Link href="/kids" className="text-gray-300 hover:text-white">
                     {t('Kids Shoe Size Calculator')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools/men-shoe-size-converter" className="text-gray-300 hover:text-white">
+                  <Link href="/men" className="text-gray-300 hover:text-white">
                     {t('Men Shoe Size Converter')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools/men-shoe-size-converter" className="text-gray-300 hover:text-white">
-                    {t('Men Shoe Size Converter')}
+                  <Link href="/brand/puma" className="text-gray-300 hover:text-white">
+                    {t('Puma Shoe Size Converter')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="tools/women-shoe-size-converter" className="text-gray-300 hover:text-white">
+                  <Link href="/women" className="text-gray-300 hover:text-white">
                     {t('Women Shoe Size Converter')}
                   </Link>
                 </li>
@@ -139,25 +139,7 @@ const Footer = () => {
              
             </div>
           </div>
-          <div className="border-t border-gray-700 pt-3">
-          <div className="">
-                <small className="uppercase flex justify-center  text-white mb-2">
-                  {t('We accept the following payment methods:')}
-                </small>
-               
-                <div className="flex justify-center  space-x-2">
-                  <FaPaypal className="fs-1 paypal-blue cursor-pointer" />
-                  <FaCcMastercard className="fs-1 mastercard-red cursor-pointer" />
-                  <FaStripe className="fs-1 stripe-blue cursor-pointer" />
-                </div>
-                <small className="text-gray-400 flex justify-center ">
-                  {t('All transactions are secure and encrypted.')}
-                </small>
-              </div>
-            <p className="text-base text-gray-400 xl:text-center">
-              {t('© 2024 YtubeTools, Inc. All rights reserved.')}
-            </p>
-          </div>
+          
         </div>
       </footer>
     </div>
