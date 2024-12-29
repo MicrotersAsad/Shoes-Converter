@@ -332,194 +332,81 @@ function Navbar() {
                 >
                   <FaBookmark className="mr-2 fs-3 text-yellow-300" />
                 </Link>
-                {/* Language Selector */}
-                <div className="flex items-center inset-y-0 right-0 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <Menu as="div" className="relative">
-                    <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-800 text-sm font-medium text-white hover:bg-gray-700">
-                      <span className={`fi fi-${availableLanguages.find((l) => l.code === selectedLanguage)?.flag}`} />
-                      <span className="ml-2">{availableLanguages.find((l) => l.code === selectedLanguage)?.name}</span>
-                      <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
-                    </Menu.Button>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 scale-95"
-                      enterTo="opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="opacity-100 scale-100"
-                      leaveTo="opacity-0 scale-95"
-                    >
-                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <div className="py-1">
-                          {availableLanguages.map((lang) => (
-                            <Menu.Item key={lang.code}>
-                              {({ active }) => (
-                                <button
-                                  onClick={() => changeLanguage(lang.code)}
-                                  className={classNames(
-                                    active ? 'bg-gray-100' : '',
-                                    'block w-full text-left px-4 py-2 text-sm'
-                                  )}
-                                >
-                                  <span className={`fi fi-${lang.flag} mr-2`}></span>
-                                  {lang.name}
-                                </button>
-                              )}
-                            </Menu.Item>
-                          ))}
-                        </div>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                  {/* User Menu */}
-                  {user ? (
-                    <Menu as="div" className="relative ml-3">
-                      <Menu.Button className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                        <span className="sr-only">Open user menu</span>
-                        {user.profileImage ? (
-                          <Image
-                            src={user.profileImage}
-                            alt="User profile image"
-                            className="w-8 h-8 rounded-full"
-                            width={32}
-                            height={32}
-                            priority
-                          />
-                        ) : (
-                          <span className="text-gray-500">No Image</span>
-                        )}
-                      </Menu.Button>
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-200"
-                        enterFrom="opacity-0 scale-95"
-                        enterTo="opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="opacity-100 scale-100"
-                        leaveTo="opacity-0 scale-95"
-                      >
-                        <Menu.Items className="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                href="/user/profile"
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                {t('Profile')}
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                href="/dashboard/dashboard"
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                {t('Dashboard')}
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <button
-                                onClick={logout}
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                {t('Logout')}
-                              </button>
-                            )}
-                          </Menu.Item>
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
-                  ) : (
-                    <Link href="/login">
-                      <button className="text-gray-300 bg-red-700 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
-                        {t('Login')}
-                      </button>
-                    </Link>
-                  )}
-                </div>
+               
               </div>
             </div>
             <Disclosure.Panel className="sm:hidden">
-              <div className="px-2 pt-2 pb-3 space-y-1">
-                {navigation.map((item) =>
-                  item.dropdown ? (
-                    <Menu as="div" key={item.key} className="px-2 py-3 space-y-1">
-                      <Menu.Button className="w-full text-left flex items-center text-gray-300 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">
-                        {t(item.key)} <ChevronDownIcon className="ml-auto h-5 w-5" aria-hidden="true" />
-                      </Menu.Button>
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-200"
-                        enterFrom="opacity-0 scale-95"
-                        enterTo="opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="opacity-100 scale-100"
-                        leaveTo="opacity-0 scale-95"
-                      >
-                        <Menu.Items className="flex flex-col pl-4 space-y-1">
-                          {item.children.map((section) => (
-                            <div key={section.heading}>
-                              <h4 className="font-semibold text-white">{t(section.heading)}</h4>
-                              {section.items.map((subItem) => (
-                                 <Menu.Item key={subItem.key}>
-                                 {({ active }) => (
-                                   <Link
-                                     href={subItem.href}
-                                     className={classNames(
-                                       active ? 'bg-gray-100' : '',
-                                       'block px-4 py-2 text-sm text-white rounded-md'
-                                     )}
-                                   >
-                                     {typeof subItem.icon === 'object' ? (
-                                       <Image
-                                         src={subItem.icon}
-                                         alt={subItem.key}
-                                         width={20}
-                                         height={20}
-                                         className="inline-block mr-2"
-                                       />
-                                     ) : (
-                                       <span className="mr-2">{subItem.icon}</span>
-                                     )}
-                                     {subItem.key}
-                                   </Link>
-                                 )}
-                               </Menu.Item>
-                              ))}
-                            </div>
-                          ))}
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
-                  ) : (
-                    <Link
-                      key={item.key}
-                      href={item.href}
-                      className={classNames(
-                        router.pathname === item.href
-                          ? 'bg-gray-700 text-white'
-                          : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
-                        'block px-3 py-2 rounded-md text-base font-medium'
+  <div className="px-2 pt-2 pb-3 space-y-1 overflow-y-auto max-h-[75vh]">
+    {navigation.map((item) =>
+      item.dropdown ? (
+        <Menu as="div" key={item.key} className="space-y-1">
+          <Menu.Button className="w-full text-left flex items-center text-gray-300 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">
+            {t(item.key)} <ChevronDownIcon className="ml-auto h-5 w-5" aria-hidden="true" />
+          </Menu.Button>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-200"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Menu.Items className="flex flex-col pl-4 space-y-1 bg-gray-700 p-2 rounded-md overflow-y-auto max-h-[50vh]">
+              {item.children.map((section) => (
+                <div key={section.heading}>
+                  <h4 className="font-semibold text-white">{t(section.heading)}</h4>
+                  {section.items.map((subItem) => (
+                    <Menu.Item key={subItem.key}>
+                      {({ active }) => (
+                        <Link
+                          href={subItem.href}
+                          className={classNames(
+                            active
+                              ? 'bg-gray-100 text-gray-700'
+                              : 'text-gray-300 hover:bg-gray-600 hover:text-white',
+                            'block px-4 py-2 rounded-md'
+                          )}
+                        >
+                          {typeof subItem.icon === 'object' ? (
+                            <Image
+                              src={subItem.icon}
+                              alt={subItem.key}
+                              width={20}
+                              height={20}
+                              className="inline-block mr-2"
+                            />
+                          ) : (
+                            <span className="mr-2">{subItem.icon}</span>
+                          )}
+                          {subItem.key}
+                        </Link>
                       )}
-                    >
-                      {t(item.key)}
-                    </Link>
-                  )
-                )}
-              </div>
-            </Disclosure.Panel>
+                    </Menu.Item>
+                  ))}
+                </div>
+              ))}
+            </Menu.Items>
+          </Transition>
+        </Menu>
+      ) : (
+        <Link
+          key={item.key}
+          href={item.href}
+          className={classNames(
+            router.pathname === item.href
+              ? 'bg-gray-700 text-white'
+              : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
+            'block px-3 py-2 rounded-md text-base font-medium'
+          )}
+        >
+          {t(item.key)}
+        </Link>
+      )
+    )}
+  </div>
+</Disclosure.Panel>
+
           </>
         )}
       </Disclosure>
