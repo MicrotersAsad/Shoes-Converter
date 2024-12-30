@@ -436,3 +436,12 @@ export async function getStaticProps({ locale }) {
 }
 
 export default ShoeSizeCalculator;
+
+
+
+
+
+
+
+
+

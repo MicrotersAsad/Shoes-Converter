@@ -25,7 +25,7 @@ const Footer = () => {
                 /> 
               </Link>
               <p className="mt-5 text-gray-400">
-                {t('Welcome to Shoe Conversation, your creative marketing partner. We turn vision into measurable success with innovative strategies and data-driven solutions.')}
+                {t('Welcome to Shoe Size Convert – Your trusted guide for easily converting men’s, women’s, and kids’ shoe sizes across different countries!')}
               </p>
               <div className="flex mt-4 space-x-2">
                 <FaFacebook className="fs-3 hover:text-blue-800 transition duration-300 transform hover:scale-110" />
@@ -147,3 +147,13 @@ const Footer = () => {
 };
 
 export default Footer;
+
+
+
+
+
+
+
+
+
+

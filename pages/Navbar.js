@@ -222,7 +222,7 @@ function Navbar() {
 
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800">
+          <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -235,13 +235,19 @@ function Navbar() {
                 </div>
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex-shrink-0 flex items-center">
-                    <Link href="/">
-                      <Image src={logo} alt="YouTube Tools Logo" height="70" width="150" priority />
+                    <Link href='/'>
+                      <Image
+                        src={logo}
+                        alt="YouTube Tools Logo"
+                        height="70"
+                        width="150"
+                        priority 
+                      />
                     </Link>
                   </div>
                   <div className="hidden sm:block sm:ml-6 mx-auto">
                     <div className="flex space-x-4">
-                      {navigation.map((item) =>
+                    {navigation.map((item) =>
                         item.dropdown ? (
                           <Menu as="div" key={item.key} className="relative">
                           <Menu.Button
@@ -322,37 +328,142 @@ function Navbar() {
                   </div>
                 </div>
                 <Link
-                  href="/saved-channels"
-                  className={classNames(
-                    router.pathname === '/saved-channels'
-                      ? 'bg-gray-700 text-white'
-                      : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
-                    'px-3 py-2 rounded-md text-sm font-medium flex items-center'
+  href="/saved-channels"
+  className={classNames(
+    router.pathname === '/saved-channels' ? 'bg-gray-700 text-white' : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
+    'px-3 py-2 rounded-md text-sm font-medium flex items-center'
+  )}
+>
+  <FaBookmark className="mr-2 fs-3 text-yellow-300" /> {/* This adds an icon */}
+  {/* Adjust this to the correct key for translation */}
+</Link>
+
+
+                <div className=" flex items-center inset-y-0 right-0 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  <div className="relative inline-block text-left lan mr-4 hidden sm:flex block">
+                    <Menu as="div" className="relative">
+                      <div>
+                        <Menu.Button className="inline-flex lan justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-800 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                          <span className={`fi fi-${availableLanguages.find(l => l.code === selectedLanguage)?.flag}`} />
+                          <span className="ml-2">{availableLanguages.find(l => l.code === selectedLanguage)?.name}</span>
+                          <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
+                        </Menu.Button>
+                      </div>
+
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                      >
+                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <div className="py-1">
+                            {availableLanguages.map(lang => (
+                              <Menu.Item key={lang.code}>
+                                {({ active }) => (
+                                  <button
+                                    onClick={() => changeLanguage(lang.code)}
+                                    className={classNames(active ? 'bg-gray-100' : '', 'block w-full text-left px-4 py-2 text-sm')}
+                                  >
+                                    <span className={`fi fi-${lang.flag} mr-2`}></span>
+                                    {lang.name}
+                                  </button>
+                                )}
+                              </Menu.Item>
+                            ))}
+                          </div>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  </div>
+                  
+                  {user ? (
+                    <Menu as="div" className="relative ml-3">
+                      <div>
+                        <Menu.Button className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                          <span className="sr-only">Open user menu</span>
+                          {user.profileImage ? (
+                            <Image
+                              src={`${user.profileImage}`}
+                              alt="User profile image"
+                              className="w-8 h-8 rounded-full"
+                              width={32}
+                              height={32}
+                              priority 
+                            />
+                          ) : (
+                            <span className="text-gray-500">No Image</span>
+                          )}
+                            
+                        </Menu.Button>
+                        
+                      </div>
+                     
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                      >
+                        <Menu.Items className="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link href="/user/profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                                {t('Profile')}
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link href="/dashboard/dashboard" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                                {t('Dashboard')}
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button onClick={logout} className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                                {t('Logout')}
+                              </button>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  ) : (
+                    <Link href="/login">
+                      <button className="text-gray-300 bg-red-700 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                        {t('Login')}
+                      </button>
+                    </Link>
                   )}
-                >
-                  <FaBookmark className="mr-2 fs-3 text-yellow-300" />
-                </Link>
-               
+                </div>
               </div>
             </div>
             <Disclosure.Panel className="sm:hidden">
-  <div className="px-2 pt-2 pb-3 space-y-1 overflow-y-auto max-h-[75vh]">
-    {navigation.map((item) =>
-      item.dropdown ? (
-        <Menu as="div" key={item.key} className="space-y-1">
-          <Menu.Button className="w-full text-left flex items-center text-gray-300 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">
-            {t(item.key)} <ChevronDownIcon className="ml-auto h-5 w-5" aria-hidden="true" />
-          </Menu.Button>
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-200"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
-          >
-            <Menu.Items className="flex flex-col pl-4 space-y-1 bg-gray-700 p-2 rounded-md overflow-y-auto max-h-[50vh]">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+              {navigation.map((item) => (
+                  item.dropdown ? (
+                    <Menu as="div" key={item.key} className="px-2 py-3 space-y-1">
+                      <Menu.Button className="w-full text-left flex items-center text-gray-300 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">
+                        {t(item.key)} <ChevronDownIcon className="ml-auto h-5 w-5" aria-hidden="true" />
+                      </Menu.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                      >
+                        <Menu.Items className="flex flex-col pl-4 space-y-1 bg-gray-700 p-2 rounded-md overflow-y-auto max-h-[50vh]">
               {item.children.map((section) => (
                 <div key={section.heading}>
                   <h4 className="font-semibold text-white">{t(section.heading)}</h4>
@@ -387,26 +498,58 @@ function Navbar() {
                 </div>
               ))}
             </Menu.Items>
-          </Transition>
-        </Menu>
-      ) : (
-        <Link
-          key={item.key}
-          href={item.href}
-          className={classNames(
-            router.pathname === item.href
-              ? 'bg-gray-700 text-white'
-              : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
-            'block px-3 py-2 rounded-md text-base font-medium'
-          )}
-        >
-          {t(item.key)}
-        </Link>
-      )
-    )}
-  </div>
-</Disclosure.Panel>
+                      </Transition>
+                    </Menu>
+                  ) : (
+                    <Link key={item.key} href={item.href} className={classNames(
+                      router.pathname === item.href ? 'bg-gray-700 text-white' : 'text-gray-300 hover:text-red-500 hover:bg-gray-700',
+                      'block px-3 py-2 rounded-md text-base font-medium'
+                    )}>
+                      {t(item.key)}
+                    </Link>
+                  )
+                ))}
+                <div className="flex lan items-center justify-center lan mt-4 space-x-4">
+                  <Menu as="div" className="relative inline-block lan text-left">
+                    <div>
+                      <Menu.Button className="inline-flex lan justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-800 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span className={`fi fi-${availableLanguages.find(l => l.code === selectedLanguage)?.flag}`} />
+                        <span className="ml-2">{availableLanguages.find(l => l.code === selectedLanguage)?.name}</span>
+                        <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
+                      </Menu.Button>
+                    </div>
 
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-200"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="py-1">
+                          {availableLanguages.map(lang => (
+                            <Menu.Item key={lang.code}>
+                              {({ active }) => (
+                                <button
+                                  onClick={() => changeLanguage(lang.code)}
+                                  className={classNames(active ? 'bg-gray-100' : '', 'block w-full text-left px-4 py-2 text-sm')}
+                                >
+                                  <span className={`fi fi-${lang.flag} mr-2`}></span>
+                                  {lang.name}
+                                </button>
+                              )}
+                            </Menu.Item>
+                          ))}
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                </div>
+              </div>
+            </Disclosure.Panel>
           </>
         )}
       </Disclosure>
