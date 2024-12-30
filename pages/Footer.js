@@ -40,11 +40,7 @@ const Footer = () => {
                 {t('Help & Support')}
               </h5>
               <ul className="mt-4 space-y-2">
-                <li>
-                  <Link href="/pricing" className="text-gray-300 hover:text-white">
-                    {t('Pricing')}
-                  </Link>
-                </li>
+               
                 <li>
                   <Link href="/refund" className="text-gray-300 hover:text-white">
                     {'Refund Policy'}
