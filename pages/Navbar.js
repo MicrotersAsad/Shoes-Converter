@@ -97,7 +97,7 @@ function Navbar() {
   const navigation = [
     { key: 'Home', href: '/', dropdown: false },
     {
-      key: t('Shoe Converter Tools'),
+      key: t('Regular Shoe Converter'),
       href: '#',
       dropdown: true,
       children: [
@@ -110,93 +110,43 @@ function Navbar() {
             { key: t('Men to Women Shoe Size Converter'), href: '/men-to-women', icon: '🔁' },
           ],
         },
+      ],
+    },
+    {
+      key: t('Country Shoe Converter'),
+      href: '#',
+      dropdown: true,
+      children: [
         {
           heading: t('Country-Specific Tools'),
           items: [
-            {
-              key: t('European Shoe Size Converter'),
-              href: '/country/european',
-              icon: '🌍' // Globe for Europe
-            },
-            {
-              key: t('Brazilian Shoe Size Converter'),
-              href: '/country/brazilian',
-              icon: brazil // Flag of Brazil
-            },
-            {
-              key: t('Mexican Shoe Size Converter'),
-              href: '/country/mexican',
-              icon: mexico // Flag of Mexico
-            },
-            {
-              key: t('Australian Shoe Size Converter'),
-              href: '/country/australian',
-              icon: australia // Flag of Australia
-            },
-            {
-              key: t('Italian Shoe Size Converter'),
-              href: '/country/italian',
-              icon: Italian // Flag of Italy
-            },
-            {
-              key: t('Japanese Shoe Size Converter'),
-              href: '/country/japanese',
-              icon: japan // Flag of Japan
-            },
-            {
-              key: t('Korean Shoe Size Converter'),
-              href: '/country/korean',
-              icon: korian // Flag of South Korea
-            },
-            {
-              key: t('Spanish Shoe Size Converter'),
-              href: '/country/spanish',
-              icon: spain // Flag of Spain
-            },
-            {
-              key: t('Indian Shoe Size Converter'),
-              href: '/country/indian',
-              icon: india // Flag of India
-            },
-            {
-              key: t('Asian Shoe Size Converter'),
-              href: '/country/asian',
-              icon: asian // Flag of India
-            },
-            {
-              key: t('Canadian Shoe Size Converter'),
-              href: '/country/canadian',
-              icon: canada // Flag of India
-            },
-            {
-              key: t('Colombian Shoe Size Converter'),
-              href: '/country/colombian',
-              icon: columbia // Flag of India
-            },
-            {
-              key: t('France Shoe Size Converter'),
-              href: '/country/france',
-              icon: france //Flag of france
-            },
-            {
-              key: t('Philippines Shoe Size Converter'),
-              href: '/country/philippines',
-              icon: Philippines // Flag of India
-            },
-            {
-              key: t('German Shoe Size Converter'),
-              href: '/country/german',
-              icon: Germany // Flag of India
-            },
-            {
-              key: t('Chinese Shoe Size Converter'),
-              href: '/country/chinese',
-              icon: Chinese // Flag of India
-            },
-          ]            
+            { key: t('European Shoe Size Converter'), href: '/country/european', icon: '🌍' },
+            { key: t('Brazilian Shoe Size Converter'), href: '/country/brazilian', icon: brazil },
+            { key: t('Mexican Shoe Size Converter'), href: '/country/mexican', icon: mexico },
+            { key: t('Australian Shoe Size Converter'), href: '/country/australian', icon: australia },
+            { key: t('Italian Shoe Size Converter'), href: '/country/italian', icon: Italian },
+            { key: t('Japanese Shoe Size Converter'), href: '/country/japanese', icon: japan },
+            { key: t('Korean Shoe Size Converter'), href: '/country/korean', icon: korian },
+            { key: t('Spanish Shoe Size Converter'), href: '/country/spanish', icon: spain },
+            { key: t('Indian Shoe Size Converter'), href: '/country/indian', icon: india },
+            { key: t('Asian Shoe Size Converter'), href: '/country/asian', icon: asian },
+            { key: t('Canadian Shoe Size Converter'), href: '/country/canadian', icon: canada },
+            { key: t('Colombian Shoe Size Converter'), href: '/country/colombian', icon: columbia },
+            { key: t('France Shoe Size Converter'), href: '/country/france', icon: france },
+            { key: t('Philippines Shoe Size Converter'), href: '/country/philippines', icon: Philippines },
+            { key: t('German Shoe Size Converter'), href: '/country/german', icon: Germany },
+            { key: t('Chinese Shoe Size Converter'), href: '/country/chinese', icon: Chinese },
+          ],
         },
+      ],
+    },
+    {
+      key: t('Brand Shoe Converter'),
+      href: '#',
+      dropdown: true,
+      children: [
         {
-          heading: 'Brand-Specific Tools',
+          heading: t('Brand-Specific Tools'),
           items: [
             { key: t('Clarks Shoe Size Converter'), href: '/brand/clarks', icon: clarks },
             { key: t('Nike Shoe Size Converter'), href: '/brand/nike', icon: nike },
@@ -215,10 +165,12 @@ function Navbar() {
         },
       ],
     },
-    { key: 'Blog', href: '/blog', dropdown: false },
-    { key: 'About Us', href: '/about', dropdown: false },
-    { key: 'Contact Us', href: '/contact', dropdown: false },
+  
+    // { key: 'Blog', href: '/blog', dropdown: false },
+    // { key: 'About Us', href: '/about', dropdown: false },
+    // { key: 'Contact Us', href: '/contact', dropdown: false },
   ];
+  
 
   return (
     <>
@@ -269,43 +221,44 @@ function Navbar() {
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1"
                           >
-                            <Menu.Items className="absolute z-50 p-3 w-[50rem] max-h-[20rem] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto">
-                              <div className="grid grid-cols-3 gap-4">
-                                {item.children.map((section, idx) => (
-                                  <div key={idx} className="p-2 border rounded-md bg-gray-50 hover:shadow-md transition">
-                                    <h6 className="font-semibold text-gray-700 text-sm mb-2">{section.heading}</h6>
-                                    <div className="flex flex-wrap gap-2">
-                                      {section.items.map((subItem, subIdx) => (
-                                      <Menu.Item key={subItem.key}>
-                                      {({ active }) => (
-                                        <Link
-                                          href={subItem.href}
-                                          className={classNames(
-                                            active ? 'bg-gray-100' : '',
-                                            'block px-4 py-2 text-sm text-gray-800 rounded-md'
-                                          )}
-                                        >
-                                          {typeof subItem.icon === 'object' ? (
-                                            <Image
-                                              src={subItem.icon}
-                                              alt={subItem.key}
-                                              width={20}
-                                              height={20}
-                                              className="inline-block mr-2"
-                                            />
-                                          ) : (
-                                            <span className="mr-2">{subItem.icon}</span>
-                                          )}
-                                          {subItem.key}
-                                        </Link>
-                                      )}
-                                    </Menu.Item>
-                                      ))}
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </Menu.Items>
+                          <Menu.Items className="absolute z-50 p-3 w-[50rem] max-h-[40rem] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto">
+  <div className="grid grid-cols-1 gap-4"> {/* 2 কলামের জন্য grid-cols-2 */}
+    {item.children.map((section, idx) => (
+      <div key={idx} className="p-2 border rounded-md bg-gray-50 hover:shadow-md transition">
+        <h6 className="font-semibold text-gray-700 text-sm mb-2 text-center">{section.heading}</h6>
+        <div className="grid grid-cols-2 gap-2"> {/* টুলসের জন্য 2 কলাম */}
+          {section.items.map((subItem, subIdx) => (
+            <Menu.Item key={subItem.key}>
+              {({ active }) => (
+                <Link
+                  href={subItem.href}
+                  className={classNames(
+                    active ? 'bg-gray-100' : '',
+                    'block px-4 py-2 text-sm text-gray-800 rounded-md'
+                  )}
+                >
+                  {typeof subItem.icon === 'object' ? (
+                    <Image
+                      src={subItem.icon}
+                      alt={subItem.key}
+                      width={20}
+                      height={20}
+                      className="inline-block mr-2"
+                    />
+                  ) : (
+                    <span className="mr-2">{subItem.icon}</span>
+                  )}
+                  {subItem.key}
+                </Link>
+              )}
+            </Menu.Item>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</Menu.Items>
+
                           </Transition>
                         </Menu>
                         
@@ -379,8 +332,13 @@ function Navbar() {
                       </Transition>
                     </Menu>
                   </div>
+                  <Link href="/contact">
+                      <button className="text-gray-300 bg-red-700 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                        {t('Contact')}
+                      </button>
+                    </Link>
                   
-                  {user ? (
+                  {/* {user ? (
                     <Menu as="div" className="relative ml-3">
                       <div>
                         <Menu.Button className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -437,12 +395,8 @@ function Navbar() {
                       </Transition>
                     </Menu>
                   ) : (
-                    <Link href="/login">
-                      <button className="text-gray-300 bg-red-700 hover:text-red-500 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
-                        {t('Login')}
-                      </button>
-                    </Link>
-                  )}
+                   
+                  )} */}
                 </div>
               </div>
             </div>

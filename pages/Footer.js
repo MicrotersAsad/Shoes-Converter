@@ -66,6 +66,11 @@ const Footer = () => {
                     {t('Blog')}
                   </Link>
                 </li>
+                <li>
+                  <Link href="/about" className="text-gray-300 hover:text-white">
+                    {t('About')}
+                  </Link>
+                </li>
               </ul>
             </div>
             {/* <!-- Company Column --> */}
