@@ -222,41 +222,49 @@ function Navbar() {
                             leaveTo="opacity-0 translate-y-1"
                           >
                           <Menu.Items className="absolute z-50 p-3 w-[50rem] max-h-[40rem] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto">
-  <div className="grid grid-cols-1 gap-4"> {/* 2 কলামের জন্য grid-cols-2 */}
-    {item.children.map((section, idx) => (
-      <div key={idx} className="p-2 border rounded-md bg-gray-50 hover:shadow-md transition">
-        <h6 className="font-semibold text-gray-700 text-sm mb-2 text-center">{section.heading}</h6>
-        <div className="grid grid-cols-2 gap-2"> {/* টুলসের জন্য 2 কলাম */}
-          {section.items.map((subItem, subIdx) => (
-            <Menu.Item key={subItem.key}>
-              {({ active }) => (
-                <Link
-                  href={subItem.href}
-                  className={classNames(
-                    active ? 'bg-gray-100' : '',
-                    'block px-4 py-2 text-sm text-gray-800 rounded-md'
-                  )}
-                >
-                  {typeof subItem.icon === 'object' ? (
-                    <Image
-                      src={subItem.icon}
-                      alt={subItem.key}
-                      width={20}
-                      height={20}
-                      className="inline-block mr-2"
-                    />
-                  ) : (
-                    <span className="mr-2">{subItem.icon}</span>
-                  )}
-                  {subItem.key}
-                </Link>
-              )}
-            </Menu.Item>
-          ))}
-        </div>
+                          <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+  {item.children.map((section, idx) => (
+    <div
+      key={idx}
+      className={classNames(
+        "p-2 border rounded-md bg-gray-50 hover:shadow-md transition",
+        idx % 2 === 0 && item.children.length > 1 ? "md:border-r md:border-gray-300" : "" 
+      )}
+    >
+      <h6 className="font-semibold text-gray-700 text-sm mb-2 text-center">{section.heading}</h6>
+      <div className="grid grid-cols-2 gap-2">
+        {section.items.map((subItem, subIdx) => (
+          <Menu.Item key={subItem.key}>
+            {({ active }) => (
+              <Link
+                href={subItem.href}
+                className={classNames(
+                  active ? 'bg-gray-100' : '',
+                  'block px-4 py-2 text-sm text-gray-800 rounded-md'
+                )}
+              >
+                {typeof subItem.icon === 'object' ? (
+                  <Image
+                    src={subItem.icon}
+                    alt={subItem.key}
+                    width={20}
+                    height={20}
+                    className="inline-block mr-2"
+                  />
+                ) : (
+                  <span className="mr-2">{subItem.icon}</span>
+                )}
+                {subItem.key}
+              </Link>
+            )}
+          </Menu.Item>
+        ))}
       </div>
-    ))}
-  </div>
+    </div>
+  ))}
+</div>
+
+
 </Menu.Items>
 
                           </Transition>

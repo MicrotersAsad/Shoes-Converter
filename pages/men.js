@@ -7,6 +7,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getContentProps } from '../utils/getContentProps';
 import { i18n } from 'next-i18next';
+import Link from 'next/link';
+import Image from 'next/image';
 const ShoeSizeCalculator =({ meta,
   content,
   relatedTools,
@@ -20,7 +22,10 @@ const ShoeSizeCalculator =({ meta,
   const [size, setSize] = useState(''); // Selected size
   const [convertedSize, setConvertedSize] = useState('');
   const [highlightIndex, setHighlightIndex] = useState(null); // Index to highlight
-
+  const [openIndex, setOpenIndex] = useState(null);
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   // Shoe size data for Men's category
   const shoeSizeData = {
@@ -168,7 +173,7 @@ const ShoeSizeCalculator =({ meta,
               })),
             })}
           </Script>
-      <div className="flex flex-col max-w-6xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
+      <div className="flex flex-col max-w-7xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
         {/* Title */}
         <h2 className="text-2xl font-bold text-gray-800 text-center">{t("Men's Shoe Size Calculator")}</h2>
 
@@ -340,7 +345,88 @@ const ShoeSizeCalculator =({ meta,
           style={{ listStyleType: "none" }}
         ></article>
       </div>
-    
+      <div className="accordion  p-5">
+          <h2 className="faq-title">{t("Frequently Asked Questions")}</h2>
+          <p className="faq-subtitle">{t("Answered All FAQs")}</p>
+          <div className="faq-grid">
+            {faqs?.map((faq, index) => (
+              <div key={index} className="faq-item">
+                <span id={`accordion-${index}`} className="target-fix"></span>
+                <a
+                  href={`#accordion-${index}`}
+                  id={`open-accordion-${index}`}
+                  className="accordion-header"
+                  onClick={() => toggleFAQ(index)}
+                >
+                  {faq.question}
+                </a>
+                <a
+                  href={`#accordion-${index}`}
+                  id={`close-accordion-${index}`}
+                  className="accordion-header"
+                  onClick={() => toggleFAQ(index)}
+                >
+                  {faq.question}
+                </a>
+                <div
+                  className={`accordion-content ${
+                    openIndex === index ? "open" : ""
+                  }`}
+                >
+                  <p>{faq.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+       
+      <div>
+        <p>{t("Our chart offers a simple way to compare shoe sizes across countries, based on international standards and our fitting expertise. Keep in mind, shoe sizes can vary between styles and brands, even from the same manufacturer.")}</p>
+<p>
+  {t("This chart is meant as a helpful guide, not a guarantee. For the best fit, refer to our expert fitting tools if you're unsure about your size.")}
+</p>
+<p>
+  {t("Since feet are three-dimensional, tools like rulers or Brannock devices® can only provide an estimate. Additionally, manufacturers use different designs, so sizing may differ.")}
+</p>
+
+<p>{t("Pro Tip: Stand up and wear the socks you’ll use with your new shoes when measuring. Use the chart to convert your measurement in inches or centimeters to U.S. or Euro sizes.")}</p>
+      </div>
+  
+      {/* Related Tools Section */}
+      <div className="bg-indigo-50 p-5">
+          <h2 className="text-2xl font-bold mb-5 pt-5 text-center">
+            {t("Related Tools")}
+          </h2>
+  
+          <ul role="list" className="mx-auto gap-3 grid max-w-7xl grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4">
+  {relatedTools.map((tool, index) => (
+    <li key={index} className="cursor-pointer bg-white rounded-xl list-none p-4 shadow transition duration-200 ease-in-out hover:scale-[101%] hover:bg-gray-50 hover:shadow-lg hover:ring-1 hover:ring-indigo-500">
+                  <Link
+                key={index}
+                href={tool.link}
+                className="flex items-center transition"
+              >
+        <div className="flex items-center">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border hover:shadow lg:h-12 lg:w-12">
+              <Image
+                                         alt={tool?.name}
+                                         className="rounded-full"
+                                         src={tool?.logo}
+                                         height={28}
+                                         width={28} // Add width for proper optimization
+                                         quality={50} // reduce quality if needed
+                           loading="lazy" // lazy load
+                                       />
+          </div>
+          <span className="ml-4 text-base font-medium text-gray-900 hover:text-indigo-600">{tool.name}</span>
+        </div>
+      </Link>
+    </li>
+  ))}
+</ul>
+
+</div>
+  
     </div>
   );
 };

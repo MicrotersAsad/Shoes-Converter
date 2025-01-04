@@ -1,12 +1,14 @@
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ShoeSizeCalculator =({ content }) => {
+const ShoeSizeCalculator =({ content,faqs,relatedTools }) => {
 
   const { t } = useTranslation('home'); // Correct namespace
   const [category, setCategory] = useState(''); // Default category
@@ -15,12 +17,16 @@ const ShoeSizeCalculator =({ content }) => {
   const [size, setSize] = useState(''); // Selected size
   const [convertedSize, setConvertedSize] = useState('');
   const [highlightIndex, setHighlightIndex] = useState(null); // Index to highlight
-
+  const [openIndex, setOpenIndex] = useState(null);
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
  
   
   const shoeSizeData = {
     women: {
       title: t("Women's Shoe Size Conversion"),
+      link:"/women",
       data: [
         { unit: 'US & Canada', sizes: [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12] },
         { unit: 'UK', sizes: [2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10] },
@@ -31,6 +37,7 @@ const ShoeSizeCalculator =({ content }) => {
     },
     men: {
       title: t("Men's Shoe Size Conversion"),
+      link:"/men",
       data: [
         { unit: 'US & Canada', sizes: [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 13, 14, 15, 16] },
         { unit: 'UK', sizes: [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12.5, 13.5, 14.5, 15.5] },
@@ -41,6 +48,7 @@ const ShoeSizeCalculator =({ content }) => {
     },
     bigKids: {
         title: t("Big Kids' Shoe Size Conversion (7–12 Years)"),
+        link:"/kids",
         data: [
           { unit: 'US & Canada', sizes: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7] },
           { unit: 'UK', sizes: [2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6] },
@@ -51,6 +59,7 @@ const ShoeSizeCalculator =({ content }) => {
       },
       littleKids: {
         title: t("Little Kids' Shoe Size Conversion (4–7 Years)"),
+        link:"/kids",
         data: [
           { unit: 'US & Canada', sizes: [10.5, 11, 11.5, 12, 12.5, 13, 13.5, 1, 1.5, 2, 2.5, 3] },
           { unit: 'UK', sizes: [9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 14, 1, 1.5, 2] },
@@ -61,6 +70,7 @@ const ShoeSizeCalculator =({ content }) => {
       },
       toddlers: {
         title: t( "Toddlers' Shoe Size Conversion (9 Months - 4 Years)"),
+        link:"/kids",
         data: [
           { unit: 'US & Canada', sizes: [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10] },
           { unit: 'UK', sizes: [19, 19, 20, 20, 21, 22, 22, 23, 23, 24, 25, 25, 26, 27] },
@@ -71,6 +81,7 @@ const ShoeSizeCalculator =({ content }) => {
       },
       infants: {
         title: t("Infants' Shoe Size Conversion (0–9 Months)"),
+        link:"/kids",
         data: [
           { unit: 'US & Canada', sizes: [0, 1, 1.5, 2, 2.5, 3] },
           { unit: 'UK', sizes: [0, 0.5, 1, 1, 1.5, 2] },
@@ -116,7 +127,7 @@ const ShoeSizeCalculator =({ content }) => {
   const title="Shoe Size Converter"
   return (
 
-    <div className='max-w-7xl mx-auto pb-5'> 
+    <div className='max-w-7xl mx-auto pb-5 ps-3 pe-3'> 
     <Head>
           {/* SEO Meta Tags */}
           <title>Shoe Size Converter</title>
@@ -167,8 +178,8 @@ const ShoeSizeCalculator =({ content }) => {
         <link rel="alternate" href="https://www.ytubetools.com/ru" hreflang="ru" />
           
         </Head>
-        <h1>Shoe Size Conversion</h1>
-        <p>Quickly find the right shoe size across different countries and measurements. Use our simple guide to ensure the perfect fit!</p>
+        <h1>{t("Shoe Size Conversion")}</h1>
+        <p>{t("Quickly find the right shoe size across different countries and measurements. Use our simple guide to ensure the perfect fit!")}</p>
 <div className="flex flex-col max-w-7xl mx-auto p-6 mt-6 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
   {/* Title */}
   <h2 className="text-2xl font-bold text-gray-800 text-center">{t("Shoe Size Calculator")}</h2>
@@ -348,15 +359,25 @@ const ShoeSizeCalculator =({ content }) => {
   {category ? (
     <div>
       {/* Selected Category Table */}
-      <h3 className="text-lg font-semibold mt-6 text-gray-700">{shoeSizeData[category]?.title}</h3>
+      <div className='d-flex'>
+     <div>
+     <h3 className="text-lg font-bold mt-6 text-gray-700">{shoeSizeData[category]?.title}</h3>
+     </div>
+     <div className='ms-auto mt-6'>
+     <Link className='underline text-gray-700' href={shoeSizeData[category]?.link || "#"}>
+  {shoeSizeData[category]?.title || "Default Title"}
+</Link>
+
+     </div>
+      </div>
       <table className="w-full min-w-[500px] border border-gray-200 rounded-lg shadow-sm">
         <thead>
-          <tr className="bg-gray-50">
-            <th className="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">Unit</th>
+          <tr className="bg-black text-white">
+            <th className="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-white">Unit</th>
             {shoeSizeData[category]?.data[0]?.sizes.map((_, index) => (
               <th
                 key={index}
-                className="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700"
+                className="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-white"
               >
                 Size {index + 1}
               </th>
@@ -386,17 +407,29 @@ const ShoeSizeCalculator =({ content }) => {
     // Show all categories if no category is selected
     Object.keys(shoeSizeData).map((key) => (
       <div key={key} className="mb-8">
-        <h3 className="text-lg font-semibold mt-6 text-gray-700">{shoeSizeData[key]?.title}</h3>
+
+<div className='d-flex'>
+     <div>
+     <h3 className="text-lg font-bold mt-6 text-gray-700">{shoeSizeData[key]?.title}</h3>
+     </div>
+     <div className='ms-auto mt-6'>
+     <Link className='underline text-gray-700' href={shoeSizeData[key]?.link || "#"}>
+  {shoeSizeData[key]?.title || "Default Title"}
+</Link>
+
+     </div>
+      </div>
+        
         <table className="w-full min-w-[500px] border border-gray-200 rounded-lg shadow-sm">
           <thead>
-            <tr className="bg-gray-50">
-              <th className="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">Unit</th>
+            <tr className="bg-[#090708] text-[#fff]">
+              <th className="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-white">Unit</th>
               {shoeSizeData[key]?.data[0]?.sizes.map((_, index) => (
                 <th
                   key={index}
-                  className="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700"
+                  className="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-white"
                 >
-                  Size {index + 1}
+                  {t("Size")} {index + 1}
                 </th>
               ))}
             </tr>
@@ -434,70 +467,168 @@ const ShoeSizeCalculator =({ content }) => {
           <p>{t("No content available.")}</p>
         )}
       </div>
+      <div className="accordion  p-5">
+          <h2 className="faq-title">{t("Frequently Asked Questions")}</h2>
+          <p className="faq-subtitle">{t("Answered All FAQs")}</p>
+          <div className="faq-grid">
+            {faqs?.map((faq, index) => (
+              <div key={index} className="faq-item">
+                <span id={`accordion-${index}`} className="target-fix"></span>
+                <a
+                  href={`#accordion-${index}`}
+                  id={`open-accordion-${index}`}
+                  className="accordion-header"
+                  onClick={() => toggleFAQ(index)}
+                >
+                  {faq.question}
+                </a>
+                <a
+                  href={`#accordion-${index}`}
+                  id={`close-accordion-${index}`}
+                  className="accordion-header"
+                  onClick={() => toggleFAQ(index)}
+                >
+                  {faq.question}
+                </a>
+                <div
+                  className={`accordion-content ${
+                    openIndex === index ? "open" : ""
+                  }`}
+                >
+                  <p>{faq.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+       
+      <div>
+        <p>{t("Our chart offers a simple way to compare shoe sizes across countries, based on international standards and our fitting expertise. Keep in mind, shoe sizes can vary between styles and brands, even from the same manufacturer.")}</p>
+<p>
+  {t("This chart is meant as a helpful guide, not a guarantee. For the best fit, refer to our expert fitting tools if you're unsure about your size.")}
+</p>
+<p>
+  {t("Since feet are three-dimensional, tools like rulers or Brannock devices® can only provide an estimate. Additionally, manufacturers use different designs, so sizing may differ.")}
+</p>
+
+<p>{t("Pro Tip: Stand up and wear the socks you’ll use with your new shoes when measuring. Use the chart to convert your measurement in inches or centimeters to U.S. or Euro sizes.")}</p>
+      </div>
+  
+      {/* Related Tools Section */}
+      <div className="bg-indigo-50 p-5">
+          <h2 className="text-2xl font-bold mb-5 pt-5 text-center">
+            {t("Related Tools")}
+          </h2>
+  
+          <ul role="list" className="mx-auto gap-3 grid max-w-7xl grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4">
+  {relatedTools.map((tool, index) => (
+    <li key={index} className="cursor-pointer bg-white rounded-xl list-none p-4 shadow transition duration-200 ease-in-out hover:scale-[101%] hover:bg-gray-50 hover:shadow-lg hover:ring-1 hover:ring-indigo-500">
+                  <Link
+                key={index}
+                href={tool.link}
+                className="flex items-center transition"
+              >
+        <div className="flex items-center">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border hover:shadow lg:h-12 lg:w-12">
+              <Image
+                                         alt={tool?.name}
+                                         className="rounded-full"
+                                         src={tool?.logo}
+                                         height={28}
+                                         width={28} // Add width for proper optimization
+                                         quality={50} // reduce quality if needed
+                           loading="lazy" // lazy load
+                                       />
+          </div>
+          <span className="ml-4 text-base font-medium text-gray-900 hover:text-indigo-600">{tool.name}</span>
+        </div>
+      </Link>
+    </li>
+  ))}
+</ul>
+
+</div>
   
 
 
     </div>
   );
 };
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale, req }) {
   try {
-    // Define the authorization token (you can replace this with an actual token)
-    const AUTH_TOKEN = 'AZ-fc905a5a5ae08609ba38b046ecc8ef00'; // Replace with your token or fetch from an env variable
+    // Fetch protocol and host dynamically
+    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+    const host = req?.headers?.host || 'localhost:3000'; // Adjust for your environment
+
+    // Define the authorization token
+    const AUTH_TOKEN = process.env.AUTH_TOKEN || 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
 
     // Fetch the content data with authorization header
     const contentResponse = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/content?category=shoe-conversation&language=${locale}`,
       {
-        method: 'GET', // You can also specify POST, PUT, etc. if needed
+        method: 'GET',
         headers: {
-          Authorization: `Bearer ${AUTH_TOKEN}`, // Add Authorization header
-          'Content-Type': 'application/json', // Set Content-Type to JSON
+          Authorization: `Bearer ${AUTH_TOKEN}`,
+          'Content-Type': 'application/json',
         },
       }
     );
 
-    // Check if the response is successful (status 200)
     if (!contentResponse.ok) {
-      throw new Error('Failed to fetch content');
+      const errorDetails = await contentResponse.text();
+      throw new Error(
+        `Failed to fetch content: ${contentResponse.status} ${contentResponse.statusText}. ${errorDetails}`
+      );
     }
 
     const contentData = await contentResponse.json();
 
-    // Extract title and description from the content data
-   
-    
-    // Fetch translations (static)
-    const translations = await serverSideTranslations(locale, [
-      'home',
-      'navbar',
-    ]);
+    // Fetch translations
+    const translations = await serverSideTranslations(locale, ['home', 'navbar', 'footer']);
+
+    // Construct hreflangs
+    const hreflangs = [
+      { rel: 'alternate', hreflang: 'x-default', href: `${protocol}://${host}` },
+      { rel: 'alternate', hreflang: 'en', href: `${protocol}://${host}` },
+    ];
 
     return {
       props: {
         content: contentData?.translations?.[locale] || {},
-       
+        faqs: contentData?.translations?.[locale]?.faqs || [],
+        relatedTools: contentData?.translations?.[locale]?.relatedTools || [],
+        hreflangs,
         ...translations,
       },
-      revalidate: 60 * 60 * 24, // 24 hours revalidation
+      revalidate: 60 * 60 * 24, // Revalidate every 24 hours
     };
   } catch (error) {
-    console.error('Error fetching content:', error);
+    console.error('Error in getStaticProps:', error.message);
 
-    // Return default content in case of error
+    // Construct fallback hreflangs
+    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+    const host = 'localhost:3000'; // Fallback to localhost
+    const hreflangs = [
+      { rel: 'alternate', hreflang: 'x-default', href: `${protocol}://${host}` },
+      { rel: 'alternate', hreflang: 'en', href: `${protocol}://${host}` },
+    ];
+
     return {
       props: {
         content: {
           categoryLabel: 'Shoe Size Converter',
           sizeLabel: 'Select Shoe Size',
-          // Add default values for other fields...
         },
-        
+        faqs: [],
+        relatedTools: [],
+        hreflangs,
         ...(await serverSideTranslations(locale, ['home', 'navbar', 'footer'])),
       },
     };
   }
 }
+
 
 export default ShoeSizeCalculator;
 
