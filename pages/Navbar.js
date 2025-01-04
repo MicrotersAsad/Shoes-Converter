@@ -231,10 +231,10 @@ function Navbar() {
         idx % 2 === 0 && item.children.length > 1 ? "md:border-r md:border-gray-300" : "" 
       )}
     >
-      <h6 className="font-semibold text-gray-700 text-sm mb-2 text-center">{section.heading}</h6>
+     
       <div className="grid grid-cols-2 gap-2">
         {section.items.map((subItem, subIdx) => (
-          <Menu.Item key={subItem.key}>
+          <Menu.Item key={subItem.key} className="border">
             {({ active }) => (
               <Link
                 href={subItem.href}

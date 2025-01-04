@@ -8,7 +8,7 @@ module.exports = withBundleAnalyzer({
   i18n, // i18n configuration for language support
   swcMinify: true, // Enables minification using SWC (faster and more optimized)
   trailingSlash: false, // Ensures URL's trailing slashes are not included by default
-
+ 
   async rewrites() {
     // Dynamic rewrites for countries and brands
     const countries = [
@@ -64,6 +64,7 @@ module.exports = withBundleAnalyzer({
       'yt3.googleusercontent.com',
       'i.ytimg.com',
       'ytubetools.s3.eu-north-1.amazonaws.com',
+      'ytubetools.com',
     ],
   },
 

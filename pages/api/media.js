@@ -55,14 +55,25 @@ export const config = {
 // Upload File to S3
 const uploadFileToS3 = async (filePath, filename) => {
   const fileContent = fs.readFileSync(filePath);
+  const uniqueFilename = `${Date.now()}-${filename}`;
   const params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
-    Key: `uploads/${Date.now()}-${filename}`,
+    Key: `uploads/${uniqueFilename}`,
     Body: fileContent,
-    ContentType: 'image/jpeg', // or any other content type
+    ContentType: 'image/jpeg', // Adjust as needed for different file types
   };
-  return s3.upload(params).promise();
+
+  const uploadResult = await s3.upload(params).promise();
+
+  // Replace the S3 URL with your custom domain
+  const customUrl = `https://ytubetools.com/uploads/${uniqueFilename}`;
+  
+  return {
+    ...uploadResult,
+    Location: customUrl, // Custom domain URL
+  };
 };
+
 
 const handler = async (req, res) => {
   const { db } = await connectToDatabase();

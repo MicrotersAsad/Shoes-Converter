@@ -59,7 +59,7 @@ function LoginOrResetPassword() {
       toast.success("Login successful!");
 
       // Navigate to the homepage
-      router.push("/");
+      router.push("/dashboard/dashboard");
 
       // Reload the page to update the login status
       router.events.on("routeChangeComplete", () => {

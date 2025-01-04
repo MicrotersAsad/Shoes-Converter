@@ -1114,9 +1114,9 @@ const Layout = React.memo(({ children }) => {
                   {user?.profileImage ? (
                     <Image
                       src={user?.profileImage}
-                      width={30}
-                      height={30}
-                      className="rounded-full border"
+                      width={60}
+                      height={60}
+                    
                       alt="Profile Image"
                       unoptimized
                     />
@@ -1127,10 +1127,7 @@ const Layout = React.memo(({ children }) => {
                       </span>
                     </div>
                   )}
-                  <p className="text-white text-sm font-semibold">
-                    {" "}
-                    {user?.username}
-                  </p>
+                 
                   {profileDropdown ? (
                     <FiChevronDown className="text-white" />
                   ) : (
