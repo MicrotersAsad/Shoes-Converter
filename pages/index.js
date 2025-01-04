@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ShoeSizeCalculator =({ content,faqs,relatedTools }) => {
+const ShoeSizeCalculator =({ content,faqs,relatedTools,hreflangs,meta }) => {
+
 
   const { t } = useTranslation('home'); // Correct namespace
   const [category, setCategory] = useState(''); // Default category
@@ -130,8 +131,8 @@ const ShoeSizeCalculator =({ content,faqs,relatedTools }) => {
     <div className='max-w-7xl mx-auto pb-5 ps-3 pe-3'> 
     <Head>
           {/* SEO Meta Tags */}
-          <title>Shoe Size Converter</title>
-          <meta name="description" content={description} />
+          <title>{meta?.title}</title>
+          <meta name="description" content={meta?.description} />
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0"
@@ -139,43 +140,37 @@ const ShoeSizeCalculator =({ content,faqs,relatedTools }) => {
           <meta name="robots" content="index, follow" />
 
           {/* Canonical URL */}
-          <link rel="canonical" href="https://ytubetools.com/" />
+          <link rel="canonical" href={meta?.url} />
 
           {/* Open Graph Meta Tags */}
           <meta property="og:type" content="website" />
-          <meta property="og:url"  content="https://ytubetools.com/"/>
+          <meta property="og:url"  content={meta?.url}/>
           <meta property="og:title" content={title} />
-          <meta property="og:description" content={description} />
-          <meta property="og:image" content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733308755615-ytubetools-homepage.png" />
-          <meta property="og:image:secure_url" content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733308755615-ytubetools-homepage.png" />
+          <meta property="og:description" content={meta?.description} />
+          <meta property="og:image" content={meta?.image}/>
+          <meta property="og:image:secure_url" content={meta?.image}/>
           <meta property="og:site_name" content="Ytubetools" />
           <meta property="og:locale" content="en_US" />
 
           {/* Twitter Meta Tags */}
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:domain" content="https://ytubetools.com/" />
-          <meta property="twitter:url" content="https://ytubetools.com/"/>
+          <meta name="twitter:domain" content={meta?.url} />
+          <meta property="twitter:url" content={meta?.url}/>
           <meta name="twitter:title" content={title} />
-          <meta name="twitter:description" content={description} />
+          <meta name="twitter:description" content={meta?.description} />
           <meta name="twitter:image" content="" />
-          <meta name="twitter:site" content="@ytubetools" />
-          <meta name="twitter:image:alt" content="https://ytubetools.s3.eu-north-1.amazonaws.com/uploads/1733308755615-ytubetools-homepage.png" />
-   {/* Hreflang Meta Tags (for multilingual SEO) */}
-   <link rel="alternate" hreflang="x-default" href="https://www.ytubetools.com"></link>
-   <link rel="alternate" href="https://www.ytubetools.com" hreflang="en" />
-        <link rel="alternate" href="https://www.ytubetools.com/fr" hreflang="fr" />
-        <link rel="alternate" href="https://www.ytubetools.com/es" hreflang="es" />
-        <link rel="alternate" href="https://www.ytubetools.com/zh-HANS" hreflang="zh-HANS" />
-        <link rel="alternate" href="https://www.ytubetools.com/zh-HANT" hreflang="zh-HANT" />
-        <link rel="alternate" href="https://www.ytubetools.com/de" hreflang="de" />
-        <link rel="alternate" href="https://www.ytubetools.com/gu" hreflang="gu" />
-        <link rel="alternate" href="https://www.ytubetools.com/hi" hreflang="hi" />
-        <link rel="alternate" href="https://www.ytubetools.com/it" hreflang="it" />
-        <link rel="alternate" href="https://www.ytubetools.com/ja" hreflang="ja" />
-        <link rel="alternate" href="https://www.ytubetools.com/ko" hreflang="ko" />
-        <link rel="alternate" href="https://www.ytubetools.com/nl" hreflang="nl" />
-        <link rel="alternate" href="https://www.ytubetools.com/pl" hreflang="pl" />
-        <link rel="alternate" href="https://www.ytubetools.com/ru" hreflang="ru" />
+          <meta name="twitter:site" content="@shoesconverter" />
+          <meta name="twitter:image:alt" content={meta?.image}/>
+   {/* Alternate hreflang Tags for SEO */}
+   {hreflangs &&
+              hreflangs.map((hreflang, index) => (
+                <link
+                  key={index}
+                  rel={hreflang.rel}
+                  hreflang={hreflang.hreflang}
+                  href={`${hreflang.href}`}
+                />
+              ))}
           
         </Head>
         <h1>{t("Shoe Size Conversion")}</h1>
@@ -559,6 +554,7 @@ export async function getStaticProps({ locale, req }) {
     // Fetch protocol and host dynamically
     const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
     const host = req?.headers?.host || 'localhost:3000'; // Adjust for your environment
+    const canonicalUrl = `${protocol}://${host}`;
 
     // Define the authorization token
     const AUTH_TOKEN = process.env.AUTH_TOKEN || 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
@@ -589,9 +585,18 @@ export async function getStaticProps({ locale, req }) {
 
     // Construct hreflangs
     const hreflangs = [
-      { rel: 'alternate', hreflang: 'x-default', href: `${protocol}://${host}` },
-      { rel: 'alternate', hreflang: 'en', href: `${protocol}://${host}` },
+      { rel: 'alternate', hreflang: 'x-default', href: canonicalUrl },
+      { rel: 'alternate', hreflang: 'en', href: `${canonicalUrl}/en` },
+      // Add other hreflangs dynamically based on locale data, if available
     ];
+
+    // Construct meta data
+    const meta = {
+      title: contentData.translations?.[locale]?.title || 'Shoe Size Converter',
+      description: contentData.translations?.[locale]?.description || 'Quickly convert shoe sizes with our easy-to-use tool.',
+      image: contentData.translations?.[locale]?.image || `${canonicalUrl}/default-image.png`,
+      url: canonicalUrl,
+    };
 
     return {
       props: {
@@ -599,6 +604,7 @@ export async function getStaticProps({ locale, req }) {
         faqs: contentData?.translations?.[locale]?.faqs || [],
         relatedTools: contentData?.translations?.[locale]?.relatedTools || [],
         hreflangs,
+        meta,
         ...translations,
       },
       revalidate: 60 * 60 * 24, // Revalidate every 24 hours
@@ -609,10 +615,19 @@ export async function getStaticProps({ locale, req }) {
     // Construct fallback hreflangs
     const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
     const host = 'localhost:3000'; // Fallback to localhost
+    const canonicalUrl = `${protocol}://${host}`;
     const hreflangs = [
-      { rel: 'alternate', hreflang: 'x-default', href: `${protocol}://${host}` },
-      { rel: 'alternate', hreflang: 'en', href: `${protocol}://${host}` },
+      { rel: 'alternate', hreflang: 'x-default', href: canonicalUrl },
+      { rel: 'alternate', hreflang: 'en', href: `${canonicalUrl}/en` },
     ];
+
+    // Fallback meta data
+    const meta = {
+      title: 'Shoe Size Converter',
+      description: 'Quickly convert shoe sizes with our easy-to-use tool.',
+      image: `${canonicalUrl}/default-image.png`,
+      url: canonicalUrl,
+    };
 
     return {
       props: {
@@ -620,6 +635,7 @@ export async function getStaticProps({ locale, req }) {
           categoryLabel: 'Shoe Size Converter',
           sizeLabel: 'Select Shoe Size',
         },
+        meta,
         faqs: [],
         relatedTools: [],
         hreflangs,
@@ -628,6 +644,7 @@ export async function getStaticProps({ locale, req }) {
     };
   }
 }
+
 
 
 export default ShoeSizeCalculator;
