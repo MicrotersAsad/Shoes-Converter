@@ -4,21 +4,7 @@ import Layout from "./layout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
-import TagGenerator from "../../public/tagGenerator.png";
-import TagExtractor from "../../public/youtube-tag-extractor.png";
-import TitleGenerator from "../../public/title-bar.png";
-import DescriptionGenerator from "../../public/description.png";
-import TitleDescriptionExtractor from "../../public/title-and-description-extractor.png";
-import BannerDownloader from "../../public/youtube-channel-banner-download.png";
-import LogoDownloader from "../../public/Youtube-channel-logo-downloader.png";
-import ThumbnailDownloader from "../../public/Youtube-thumbnail-downloader.png";
-import ChannelIDFinder from "../../public/Channel-ID-Finder.png";
-import VideoDataViewer from "../../public/Video-Data-Viewer.png";
-import MonetizationChecker from "../../public/Monetization-Checker.png";
-import ChannelSearch from "../../public/Youtube-channel-search.png";
-import SummaryGenerator from "../../public/Youtube-Video-Summary-generator.png";
-import TrendingVideos from "../../public/youtube-trending-videos.png";
-import Hashtag from "../../public/youtube-hastag-generator.png";
+
 
 // Dynamically import the QuillWrapper component with SSR disabled
 const QuillWrapper = dynamic(() => import("../../components/EditorWrapper"), {
@@ -46,190 +32,190 @@ function Content() {
     {
       name: "Shoes Conversation",
       link: "http://www.ytubetools.com/",
-      logo: TagGenerator,
+      logo: "TagGenerator",
     },
     {
       name: "Women Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/tag-extractor",
-      logo: TagExtractor,
+      logo:  "TagGenerator",
     },
     {
       name: "Men Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/title-generator",
-      logo: TitleGenerator,
+      logo: "TagGenerator",
     },
     {
       name: "Kids Shoe Size Calculator",
       link: "http://www.ytubetools.com/tools/description-generator",
-      logo: DescriptionGenerator,
+      logo:  "TagGenerator",
     },
     {
       name: "Men to Women Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/description-generator",
-      logo: DescriptionGenerator,
+      logo:  "TagGenerator",
     },
     {
       name: "European Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/youtube-title-and-description-extractor",
-      logo: TitleDescriptionExtractor,
+      logo:  "TagGenerator",
     },
     {
       name: "Brazilian Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/youtube-channel-banner-downloader",
-      logo: BannerDownloader,
+      logo:  "TagGenerator",
     },
     {
       name: "Mexican Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/youtube-hashtag-generator",
-      logo: Hashtag,
+      logo:  "TagGenerator",
     },
     {
       name: "Australian Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/youtube-channel-logo-downloader",
-      logo: LogoDownloader,
+      logo:  "TagGenerator",
     },
     {
       name: "Clarks Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/youtube-thumbnail",
-      logo: ThumbnailDownloader,
+      logo:  "TagGenerator",
     },
     {
       name: "Nike Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/channel-id-finder",
-      logo: ChannelIDFinder,
+      logo:  "TagGenerator",
     },
     {
       name: "Adidas Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/video-data-viewer",
-      logo: VideoDataViewer,
+      logo:  "TagGenerator",
     },
     {
       name: "Dr. Martens Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/monetization-checker",
-      logo: MonetizationChecker,
+      logo: "TagGenerator",
     },
     {
       name: "Puma Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/youtube-channel-search",
-      logo: ChannelSearch,
+      logo:  "TagGenerator",
     },
     {
       name: "Timberland Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/youtube-video-summary-generator",
-      logo: SummaryGenerator,
+      logo:  "TagGenerator",
     },
     {
       name: "Ugg Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
-      logo: TrendingVideos,
+      logo: "TagGenerator",
     },
     {
       name: "Italian Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Spanish Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Korean Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Japanese Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Indian Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Asian Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Canadian Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
   
     {
       name: "Colombian Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
   
     {
       name: "France Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Philippines Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "German Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
   
     {
       name: "Chinese Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Alegria Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Asics Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Asos Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Merrell Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Shein Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
     {
       name: "Shimano Shoe Size Converter",
       link: "http://www.ytubetools.com/tools/trending-videos",
       
-      logo: TrendingVideos,
+      logo:  "TagGenerator",
     },
   
    
