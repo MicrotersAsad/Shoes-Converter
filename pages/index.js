@@ -147,8 +147,8 @@ const ShoeSizeCalculator =({ content,faqs,relatedTools,hreflangs,meta }) => {
           <meta property="og:url"  content={meta?.url}/>
           <meta property="og:title" content={title} />
           <meta property="og:description" content={meta?.description} />
-          <meta property="og:image" content={meta?.image}/>
-          <meta property="og:image:secure_url" content={meta?.image}/>
+          <meta property="og:image" content="https://shoesizeconvert.s3.amazonaws.com/uploads/1736055123112-shoesize.png"/>
+          <meta property="og:image:secure_url" content="https://shoesizeconvert.s3.amazonaws.com/uploads/1736055123112-shoesize.png"/>
           <meta property="og:site_name" content="Ytubetools" />
           <meta property="og:locale" content="en_US" />
 
@@ -160,7 +160,7 @@ const ShoeSizeCalculator =({ content,faqs,relatedTools,hreflangs,meta }) => {
           <meta name="twitter:description" content={meta?.description} />
           <meta name="twitter:image" content="" />
           <meta name="twitter:site" content="@shoesconverter" />
-          <meta name="twitter:image:alt" content={meta?.image}/>
+          <meta name="twitter:image:alt" content="https://shoesizeconvert.s3.amazonaws.com/uploads/1736055123112-shoesize.png"/>
    {/* Alternate hreflang Tags for SEO */}
    {hreflangs &&
               hreflangs.map((hreflang, index) => (
