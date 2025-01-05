@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAuth } from "../../contexts/AuthContext";
-import logo from "../../public/yt icon.png";
 import {
   FaTachometerAlt,
   FaBlog,
@@ -288,7 +287,7 @@ const Layout = React.memo(({ children }) => {
     <div className="flex items-center text-white justify-center mt-8">
       <Link href="dashboard">
         <Image
-          src={logo}
+          src="https://shoesizeconvert.s3.amazonaws.com/uploads/1736054485727-yticon.png"
           width={206} // Full size when not collapsed
           height={80}
           alt="Logo"

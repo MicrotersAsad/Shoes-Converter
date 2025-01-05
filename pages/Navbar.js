@@ -9,38 +9,7 @@ import { useTranslation } from 'next-i18next';
 import 'flag-icons/css/flag-icons.min.css'; // Import flag-icons CSS
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import logo from '../public/yt icon.png';
-import women from '../public/women.jpg';
-import men from '../public/man.png';
-import kids from '../public/kids.png';
-import adidas from '../public/adidas.png';
-import clarks from '../public/ClarksLogo_Update2.svg';
-import drm from '../public/drm.svg';
-import nike from '../public/nike.png';
-import puma from '../public/puma.png';
-import Timberland from '../public/Timberland.png';
-import alegria from '../public/alegria.png';
-import asics from '../public/asics.webp';
-import ugg from '../public/ugg_Logo.jpg';
-import Merrell from '../public/Merrell.png';
-import shimano from '../public/shimano-2.svg';
-import Shein from '../public/Shein .png';
-import asos from '../public/asos.svg';
-import australia from '../public/australia.png';
-import brazil from '../public/brazil-flag.png';
-import columbia from '../public/british-columbia.png';
-import canada from '../public/canada.png';
-import Chinese from '../public/Chinese.png';
-import Germany from '../public/Flag_of_Germany.svg.webp';
-import france from '../public/france.png';
-import india from '../public/india.png';
-import japan from '../public/japan.png';
-import korian from '../public/koran.png';
-import mexico from '../public/mexico.png';
-import Philippines from '../public/Philippines.png';
-import Italian from '../public/circle.png';
-import spain from '../public/spain.png';
-import asian from '../public/asian.jpg';
+
 import { FaBookmark } from 'react-icons/fa';
 
 function classNames(...classes) {
@@ -104,10 +73,10 @@ function Navbar() {
         {
           heading: t('Normal Tools'),
           items: [
-            { key: t('Women Shoe Size Converter'), href: '/women', icon: women },
-            { key: t('Men Shoe Size Converter'), href: '/men', icon: men },
-            { key: t('Kids Shoe Size Calculator'), href: '/kids', icon: kids },
-            { key: t('Men to Women Shoe Size Converter'), href: '/men-to-women', icon: '🔁' },
+            { key: t('Women Shoe Size Converter'), href: '/women', icon: "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993310808-women.jpg" },
+            { key: t('Men Shoe Size Converter'), href: '/men', icon: "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993351686-man.png" },
+            { key: t('Kids Shoe Size Calculator'), href: '/kids', icon: "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993379478-kids.png" },
+            { key: t('Men to Women Shoe Size Converter'), href: '/men-to-women', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736052036888-mentowoemn.png' },
           ],
         },
       ],
@@ -120,22 +89,22 @@ function Navbar() {
         {
           heading: t('Country-Specific Tools'),
           items: [
-            { key: t('European Shoe Size Converter'), href: '/country/european', icon: '🌍' },
-            { key: t('Brazilian Shoe Size Converter'), href: '/country/brazilian', icon: brazil },
-            { key: t('Mexican Shoe Size Converter'), href: '/country/mexican', icon: mexico },
-            { key: t('Australian Shoe Size Converter'), href: '/country/australian', icon: australia },
-            { key: t('Italian Shoe Size Converter'), href: '/country/italian', icon: Italian },
-            { key: t('Japanese Shoe Size Converter'), href: '/country/japanese', icon: japan },
-            { key: t('Korean Shoe Size Converter'), href: '/country/korean', icon: korian },
-            { key: t('Spanish Shoe Size Converter'), href: '/country/spanish', icon: spain },
-            { key: t('Indian Shoe Size Converter'), href: '/country/indian', icon: india },
-            { key: t('Asian Shoe Size Converter'), href: '/country/asian', icon: asian },
-            { key: t('Canadian Shoe Size Converter'), href: '/country/canadian', icon: canada },
-            { key: t('Colombian Shoe Size Converter'), href: '/country/colombian', icon: columbia },
-            { key: t('France Shoe Size Converter'), href: '/country/france', icon: france },
-            { key: t('Philippines Shoe Size Converter'), href: '/country/philippines', icon: Philippines },
-            { key: t('German Shoe Size Converter'), href: '/country/german', icon: Germany },
-            { key: t('Chinese Shoe Size Converter'), href: '/country/chinese', icon: Chinese },
+            { key: t('European Shoe Size Converter'), href: '/country/european', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735993411517-british-columbia.png' },
+            { key: t('Brazilian Shoe Size Converter'), href: '/country/brazilian', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735993441038-brazil-flag.png' },
+            { key: t('Mexican Shoe Size Converter'), href: '/country/mexican', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735993473789-mexico.png' },
+            { key: t('Australian Shoe Size Converter'), href: '/country/australian', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735993501926-australia.png' },
+            { key: t('Italian Shoe Size Converter'), href: '/country/italian', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735994226645-circle.png' },
+            { key: t('Japanese Shoe Size Converter'), href: '/country/japanese', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736050753553-japan.png' },
+            { key: t('Korean Shoe Size Converter'), href: '/country/korean', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736050730760-koran.png' },
+            { key: t('Spanish Shoe Size Converter'), href: '/country/spanish', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736050686812-spain.png' },
+            { key: t('Indian Shoe Size Converter'), href: '/country/indian', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736050818894-india.png' },
+            { key: t('Asian Shoe Size Converter'), href: '/country/asian', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736050842364-asian.jpg' },
+            { key: t('Canadian Shoe Size Converter'), href: '/country/canadian', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736050880197-canada.png' },
+            { key: t('Colombian Shoe Size Converter'), href: '/country/colombian', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051000305-british-columbia.png' },
+            { key: t('France Shoe Size Converter'), href: '/country/france', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051029872-france.png' },
+            { key: t('Philippines Shoe Size Converter'), href: '/country/philippines', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051093184-philippines.png' },
+            { key: t('German Shoe Size Converter'), href: '/country/german', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051117519-flagofgermanysvg.webp' },
+            { key: t('Chinese Shoe Size Converter'), href: '/country/chinese', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051151368-chinese.png' },
           ],
         },
       ],
@@ -148,27 +117,25 @@ function Navbar() {
         {
           heading: t('Brand-Specific Tools'),
           items: [
-            { key: t('Clarks Shoe Size Converter'), href: '/brand/clarks', icon: clarks },
-            { key: t('Nike Shoe Size Converter'), href: '/brand/nike', icon: nike },
-            { key: t('Adidas Shoe Size Converter'), href: '/brand/adidas', icon: adidas },
-            { key: t('Dr. Martens Shoe Size Converter'), href: '/brand/dr-martens', icon: drm },
-            { key: t('Puma Shoe Size Converter'), href: '/brand/puma', icon: puma },
-            { key: t('Timberland Shoe Size Converter'), href: '/brand/timberland', icon: Timberland },
-            { key: t('UGG Shoe Size Converter'), href: '/brand/ugg', icon: ugg },
-            { key: t('Alegria Shoe Size Converter'), href: '/brand/alegria', icon: alegria },
-            { key: t('Asics Shoe Size Converter'), href: '/brand/asics', icon: asics },
-            { key: t('Asos Shoe Size Converter'), href: '/brand/asos', icon: asos },
-            { key: t('Merrell Shoe Size Converter'), href: '/brand/merrell', icon: Merrell },
-            { key: t('Shein Shoe Size Converter'), href: '/brand/shein', icon: Shein },
-            { key: t('Shimano Shoe Size Converter'), href: '/brand/shimano', icon: shimano },
+            { key: t('Clarks Shoe Size Converter'), href: '/brand/clarks', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051578848-clarkslogoupdate.png' },
+            { key: t('Nike Shoe Size Converter'), href: '/brand/nike', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735993992406-nike.png' },
+            { key: t('Adidas Shoe Size Converter'), href: '/brand/adidas', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735994015844-adidas.png' },
+            { key: t('Dr. Martens Shoe Size Converter'), href: '/brand/dr-martens', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051616462-drm.png' },
+            { key: t('Puma Shoe Size Converter'), href: '/brand/puma', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735994077148-puma.png' },
+            { key: t('Timberland Shoe Size Converter'), href: '/brand/timberland', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735994118639-timberland.png' },
+            { key: t('UGG Shoe Size Converter'), href: '/brand/ugg', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1735994172516-ugglogo.jpg' },
+            { key: t('Alegria Shoe Size Converter'), href: '/brand/alegria', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051182559-alegria.png' },
+            { key: t('Asics Shoe Size Converter'), href: '/brand/asics', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051205190-asics.webp' },
+            { key: t('Asos Shoe Size Converter'), href: '/brand/asos', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051665079-asos.png' },
+            { key: t('Merrell Shoe Size Converter'), href: '/brand/merrell', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051245007-merrell.png' },
+            { key: t('Shein Shoe Size Converter'), href: '/brand/shein', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051290380-shein.png' },
+            { key: t('Shimano Shoe Size Converter'), href: '/brand/shimano', icon: 'https://shoesizeconvert.s3.amazonaws.com/uploads/1736051698920-shimano.png' },
           ],
         },
       ],
     },
   
-    // { key: 'Blog', href: '/blog', dropdown: false },
-    // { key: 'About Us', href: '/about', dropdown: false },
-    // { key: 'Contact Us', href: '/contact', dropdown: false },
+    
   ];
   
 
@@ -189,8 +156,8 @@ function Navbar() {
                   <div className="flex-shrink-0 flex items-center">
                     <Link href='/'>
                       <Image
-                        src={logo}
-                        alt="YouTube Tools Logo"
+                        src='https://shoesizeconvert.s3.amazonaws.com/uploads/1736054485727-yticon.png'
+                        alt="ShoeSize Conversation Logo"
                         height="70"
                         width="150"
                         priority 
@@ -232,34 +199,42 @@ function Navbar() {
       )}
     >
      
-      <div className="grid grid-cols-2 gap-2">
-        {section.items.map((subItem, subIdx) => (
-          <Menu.Item key={subItem.key} className="border">
-            {({ active }) => (
-              <Link
-                href={subItem.href}
-                className={classNames(
-                  active ? 'bg-gray-100' : '',
-                  'block px-4 py-2 text-sm text-gray-800 rounded-md'
-                )}
-              >
-                {typeof subItem.icon === 'object' ? (
-                  <Image
-                    src={subItem.icon}
-                    alt={subItem.key}
-                    width={20}
-                    height={20}
-                    className="inline-block mr-2"
-                  />
-                ) : (
-                  <span className="mr-2">{subItem.icon}</span>
-                )}
-                {subItem.key}
-              </Link>
-            )}
-          </Menu.Item>
-        ))}
-      </div>
+     <div className="grid grid-cols-2 gap-2">
+  {section.items.map((subItem, subIdx) => (
+    <Menu.Item key={subItem.key} className="border">
+      {({ active }) => (
+        <Link
+        href={subItem.href}
+        className={classNames(
+          active ? 'bg-gray-100' : '',
+          'block px-4 py-2 text-sm text-gray-800 rounded-md'
+        )}
+      >
+        {subItem.icon &&
+          (typeof subItem.icon === 'string' && subItem.icon.startsWith('/') ? (
+            <Image
+              src={subItem.icon}
+              alt={subItem.key}
+              width={20}
+              height={20}
+              className="inline-block mr-2"
+            />
+          ) : (
+            <Image
+              src={subItem.icon}
+              alt={subItem.key}
+              width={20}
+              height={20}
+              className="inline-block mr-2"
+            />
+          ))}
+        {subItem.key}
+      </Link>
+      )}
+    </Menu.Item>
+  ))}
+</div>
+
     </div>
   ))}
 </div>

@@ -1,8 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import React from "react";
-import { FaCcMastercard, FaFacebook, FaInstagram, FaLinkedin, FaPaypal, FaStripe, FaTwitter } from "react-icons/fa";
-import logo from "../public/yt icon.png";
+import { FaFacebook, FaInstagram, FaLinkedin,FaTwitter } from "react-icons/fa";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
@@ -18,7 +17,7 @@ const Footer = () => {
             <div>
               <Link href="/"> 
                 <Image 
-                  src={logo}
+                  src="https://shoesizeconvert.s3.amazonaws.com/uploads/1736054485727-yticon.png"
                   alt="GFG logo served with static path of public directory"
                   height="150"
                   width="250"
