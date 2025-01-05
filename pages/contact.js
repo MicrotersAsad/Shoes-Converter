@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaUser, FaEnvelope, FaRegFileAlt, FaPaperPlane } from 'react-icons/fa';
-import contact from "../public/login.svg";
+import contact from "../public/login.jpg";
 import Image from 'next/image';
 import Head from 'next/head';
 import { useAuth } from "../contexts/AuthContext";
