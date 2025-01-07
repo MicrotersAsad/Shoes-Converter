@@ -341,11 +341,12 @@ const ShoeSizeCalculator = ({ meta,
         </table>
       </div>
       <div className="content pt-6 pb-5">
-        <article
-          dangerouslySetInnerHTML={{ __html: content || "No content available." }}
-          style={{ listStyleType: "none" }}
-        ></article>
-      </div>
+          <article
+            dangerouslySetInnerHTML={{ __html: content }}
+            style={{ listStyleType: "none" }}
+          ></article>
+        </div>
+
       <div className="accordion  p-5">
           <h2 className="faq-title">{t("Frequently Asked Questions")}</h2>
           <p className="faq-subtitle">{t("Answered All FAQs")}</p>

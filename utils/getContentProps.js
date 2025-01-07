@@ -3,15 +3,11 @@ import { fetchContent, fetchReviews } from '../contexts/ContentContext';
 
 export const getContentProps = async (category, locale, req) => {
   // লোকাল এবং প্রোডাকশন হোস্ট ডাইনামিকভাবে সেট করুন
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-  const host =
-    process.env.NODE_ENV === 'production'
-      ? 'shoes-converter.vercel.app'
-      : req?.headers?.host || 'shoes-converter.vercel.app'; // লোকালহোস্ট ব্যবহার
+  const host = process.env.NEXT_PUBLIC_HOST || 'localhost:3000';
+  const protocol = process.env.NEXT_PUBLIC_PROTOCOL || 'http';
 
-  // কনটেন্ট এবং রিভিউ ফেচ
-  const contentProps = await fetchContent(category, locale, host, protocol);
-  const reviews = await fetchReviews(category, host, protocol);
+  const contentProps = await fetchContent(category, locale, host, protocol, () => {});
+  const reviews = await fetchReviews(category, host, protocol, () => {});
 
   return {
     props: {
