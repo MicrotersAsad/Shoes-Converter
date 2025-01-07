@@ -7,7 +7,7 @@ export const getContentProps = async (category, locale, req) => {
   const host =
     process.env.NODE_ENV === 'production'
       ? 'shoes-converter.vercel.app'
-      : req?.headers?.host || 'localhost:3000'; // লোকালহোস্ট ব্যবহার
+      : req?.headers?.host || 'shoes-converter.vercel.app'; // লোকালহোস্ট ব্যবহার
 
   // কনটেন্ট এবং রিভিউ ফেচ
   const contentProps = await fetchContent(category, locale, host, protocol);
