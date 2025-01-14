@@ -131,7 +131,14 @@ export const ContentProvider = ({ children }) => {
   const [reactions, setReactions] = useState([]);
   const [translations, setTranslations] = useState([]);
   const [hreflangs, setHreflangs] = useState([]);
-
+  const fetchAndSetContent = async (category, locale, host, protocol, revalidate = false) => {
+    const data = await fetchContent(category, locale, host, protocol, revalidate);
+    setContent(data.content);
+    setMeta(data.meta);
+    setFaqs(data.faqs);
+    setTranslations(data.translations);
+    setHreflangs(data.hreflangs);
+  };
   return (
     <ContentContext.Provider
       value={{
@@ -141,7 +148,7 @@ export const ContentProvider = ({ children }) => {
         reactions,
         translations,
         reviews,
-        
+        fetchAndSetContent,
         hreflangs,
         setContent,
         setFaqs,

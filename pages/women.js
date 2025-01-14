@@ -435,7 +435,7 @@ const ShoeSizeCalculator = ({ meta,
   );
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("women", context.locale, context.req);
 }
 export default ShoeSizeCalculator;
