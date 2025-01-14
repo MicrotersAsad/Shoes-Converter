@@ -5,8 +5,7 @@ import { format } from 'date-fns';
 const ContentContext = createContext();
 
 export const useContent = () => useContext(ContentContext);
-
-export const fetchContent = async (category, locale, host, protocol) => {
+export const fetchContent = async (category, locale, host, protocol, revalidate = false) => {
   const AUTH_TOKEN = "AZ-fc905a5a5ae08609ba38b046ecc8ef00";
 
   try {
@@ -18,49 +17,18 @@ export const fetchContent = async (category, locale, host, protocol) => {
         'Authorization': `Bearer ${AUTH_TOKEN}`,
         'Content-Type': 'application/json',
       },
+      next: revalidate ? { revalidate: 60 } : undefined, // Add revalidate headers if needed
     });
 
     if (!contentResponse.ok) {
       console.log(`Content not found for category: ${category} and locale: ${locale}`);
-      return {
-        content: 'Not Found',
-        meta: {
-          title: 'Not Found',
-          description: 'The requested content is not available.',
-          image: '',
-          url: `${protocol}://${host}`,
-        },
-        faqs: [],
-        relatedTools: [],
-        reactions: { likes: 0, unlikes: 0, reports: [], users: {} },
-        translations: [],
-        hreflangs: [
-          { rel: "alternate", hreflang: "x-default", href: `${protocol}://${host}` },
-          { rel: "alternate", hreflang: "en", href: `${protocol}://${host}` },
-        ],
-      };
+      return generateNotFoundResponse(protocol, host);
     }
 
     const contentData = await contentResponse.json();
 
     if (!contentData.translations || !contentData.translations[locale]) {
-      return {
-        content: 'Not Found',
-        meta: {
-          title: 'Not Found',
-          description: 'The requested content is not available.',
-          image: '',
-          url: `${protocol}://${host}`,
-        },
-        faqs: [],
-        relatedTools: [],
-        reactions: { likes: 0, unlikes: 0, reports: [], users: {} },
-        translations: [],
-        hreflangs: [
-          { rel: "alternate", hreflang: "x-default", href: `${protocol}://${host}` },
-          { rel: "alternate", hreflang: "en", href: `${protocol}://${host}` },
-        ],
-      };
+      return generateNotFoundResponse(protocol, host);
     }
 
     // Process valid data
@@ -96,25 +64,29 @@ export const fetchContent = async (category, locale, host, protocol) => {
     };
   } catch (error) {
     console.error('Error fetching data:', error);
-    return {
-      content: 'Not Found',
-      meta: {
-        title: 'Not Found',
-        description: 'The requested content is not available.',
-        image: '',
-        url: `${protocol}://${host}`,
-      },
-      faqs: [],
-      relatedTools: [],
-      reactions: { likes: 0, unlikes: 0, reports: [], users: {} },
-      translations: [],
-      hreflangs: [
-        { rel: "alternate", hreflang: "x-default", href: `${protocol}://${host}` },
-        { rel: "alternate", hreflang: "en", href: `${protocol}://${host}` },
-      ],
-    };
+    return generateNotFoundResponse(protocol, host);
   }
 };
+
+// Helper function for generating "Not Found" response
+const generateNotFoundResponse = (protocol, host) => ({
+  content: 'Not Found',
+  meta: {
+    title: 'Not Found',
+    description: 'The requested content is not available.',
+    image: '',
+    url: `${protocol}://${host}`,
+  },
+  faqs: [],
+  relatedTools: [],
+  reactions: { likes: 0, unlikes: 0, reports: [], users: {} },
+  translations: [],
+  hreflangs: [
+    { rel: "alternate", hreflang: "x-default", href: `${protocol}://${host}` },
+    { rel: "alternate", hreflang: "en", href: `${protocol}://${host}` },
+  ],
+});
+
 
 
 export const fetchReviews = async (tool, host, protocol) => {
