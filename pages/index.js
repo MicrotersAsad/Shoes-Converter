@@ -607,7 +607,7 @@ export async function getServerSideProps({ locale, req }) {
         meta,
         ...translations,
       },
-      revalidate: 60 * 60 * 24, // Revalidate every 24 hours
+     
     };
   } catch (error) {
     console.error('Error in getServerSideProps:', error.message);
