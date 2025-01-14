@@ -343,7 +343,7 @@ const ShimanoShoeSizeChart = ({ meta,
         );
         };
         
-        export async function getStaticProps(context) {
+        export async function getServerSideProps(context) {
           return getContentProps("shimano", context.locale, context.req);
         }
         

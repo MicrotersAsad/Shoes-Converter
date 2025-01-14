@@ -466,7 +466,7 @@ const KoreanShoeSizeConverter = ({ meta,
        </div>
      );
    };
-   export async function getStaticProps(context) {
+   export async function getServerSideProps(context) {
     return getContentProps("korean", context.locale, context.req);
   }
 

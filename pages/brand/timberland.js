@@ -420,7 +420,7 @@ const TimberlandShoeSizeConverter = ({ meta,
 );
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("timberland", context.locale, context.req);
 }
 

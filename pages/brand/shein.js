@@ -371,7 +371,7 @@ const SheinShoeSizeChart = ({ meta,
     );
     };
     
-    export async function getStaticProps(context) {
+    export async function getServerSideProps(context) {
       return getContentProps("shein", context.locale, context.req);
     }
     

@@ -441,7 +441,7 @@ const BrazilianShoeSizeConverter = ({ meta,
     
   );
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("brazilian", context.locale, context.req);
 }
 export default BrazilianShoeSizeConverter;

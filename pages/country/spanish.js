@@ -463,7 +463,7 @@ const SpanishShoeSizeConverter =  ({ meta,
         </div>
       );
     };
-    export async function getStaticProps(context) {
+    export async function getServerSideProps(context) {
       return getContentProps("spanish", context.locale, context.req);
     }
 

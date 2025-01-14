@@ -364,7 +364,7 @@ const ChineseShoeSizeConverter = ({ meta,
     
   );
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("chinese", context.locale, context.req);
 }
 export default ChineseShoeSizeConverter;

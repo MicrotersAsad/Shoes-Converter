@@ -468,7 +468,7 @@ const AsianClothingSizeConverter = ({ meta,
   );
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("asian", context.locale, context.req);
 }
 export default AsianClothingSizeConverter;

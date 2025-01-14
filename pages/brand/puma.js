@@ -405,7 +405,7 @@ const PumaShoeSizeConverter =({ meta,
         );
         };
         
-        export async function getStaticProps(context) {
+        export async function getServerSideProps(context) {
           return getContentProps("puma", context.locale, context.req);
         }
         

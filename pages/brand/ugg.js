@@ -463,7 +463,7 @@ const UggShoeSizeConverter =({ meta,
 );
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("ugg", context.locale, context.req);
 }
 

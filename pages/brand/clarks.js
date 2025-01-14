@@ -366,7 +366,7 @@ const ClarksShoeSizeConverter = ({ meta,
     </div>
   );
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("clarks", context.locale, context.req);
 }
 

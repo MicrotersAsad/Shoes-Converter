@@ -549,7 +549,7 @@ const ShoeSizeCalculator =({ content,faqs,relatedTools,hreflangs,meta }) => {
     </div>
   );
 };
-export async function getStaticProps({ locale, req }) {
+export async function getServerSideProps({ locale, req }) {
   try {
     // Fetch protocol and host dynamically
     const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
@@ -610,7 +610,7 @@ export async function getStaticProps({ locale, req }) {
       revalidate: 60 * 60 * 24, // Revalidate every 24 hours
     };
   } catch (error) {
-    console.error('Error in getStaticProps:', error.message);
+    console.error('Error in getServerSideProps:', error.message);
 
     // Construct fallback hreflangs
     const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';

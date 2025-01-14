@@ -386,7 +386,7 @@ const MerrellShoeSizeChart = ({ meta,
     );
     };
     
-    export async function getStaticProps(context) {
+    export async function getServerSideProps(context) {
       return getContentProps("merrell", context.locale, context.req);
     }
     

@@ -436,7 +436,7 @@ const ItalianShoeSizeConverter = ({ meta,
     </div>
   );
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("italian", context.locale, context.req);
 }
 export default ItalianShoeSizeConverter;

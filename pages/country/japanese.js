@@ -479,7 +479,7 @@ const JapaneseShoeSizeConverter = ({ meta,
         </div>
       );
     };
-    export async function getStaticProps(context) {
+    export async function getServerSideProps(context) {
       return getContentProps("japanese", context.locale, context.req);
     }
 export default JapaneseShoeSizeConverter;

@@ -513,7 +513,7 @@ const AustralianShoeSizeConverter = ({ meta,
   );
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("australian", context.locale, context.req);
 }
 

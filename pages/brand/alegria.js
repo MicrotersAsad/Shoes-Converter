@@ -356,7 +356,7 @@ const AlegriaShoeSizeChart = ({ meta,
   );
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("alegria", context.locale, context.req);
 }
 

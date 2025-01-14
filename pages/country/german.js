@@ -365,7 +365,7 @@ const GermanShoeSizeConverter = ({ meta,
     </div>
   );
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("german", context.locale, context.req);
 }
 export default GermanShoeSizeConverter;

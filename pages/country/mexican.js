@@ -373,7 +373,7 @@ const MexicanShoeSizeConverter = ({ meta,
    
   );
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("mexican", context.locale, context.req);
 }
 export default MexicanShoeSizeConverter;

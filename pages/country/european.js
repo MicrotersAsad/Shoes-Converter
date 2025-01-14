@@ -493,7 +493,7 @@ const EuropeanShoeSizeConverter = ({ meta,
     </div>
   );
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("european", context.locale, context.req);
 }
 export default EuropeanShoeSizeConverter;

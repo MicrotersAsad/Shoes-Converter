@@ -370,7 +370,7 @@ const AsicsShoeSizeConverter  = ({ meta,
   );
 };
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   return getContentProps("asics", context.locale, context.req);
 }
 
