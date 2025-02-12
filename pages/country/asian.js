@@ -18,7 +18,7 @@ const AsianClothingSizeConverter = ({ meta,
   const {t}=useTranslation("asian")
   // Data structure
   const sizeData = {
-    category: t("Asian Clothing Size Conversion"),
+    category: t("Asian Shoe Size Conversion"),
     data: [
       {
         unit: 'Asian (int\'l)',
