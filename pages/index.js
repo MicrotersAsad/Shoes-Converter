@@ -9,6 +9,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ShoeSizeCalculator =({ content,faqs,relatedTools,hreflangs,meta }) => {
+console.log(meta);
 
 
   const { t } = useTranslation('home'); // Correct namespace
@@ -597,6 +598,7 @@ export async function getServerSideProps({ locale, req }) {
       image: contentData.translations?.[locale]?.image || `${canonicalUrl}/default-image.png`,
       url: canonicalUrl,
     };
+console.log(meta);
 
     return {
       props: {
