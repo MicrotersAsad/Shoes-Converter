@@ -31,189 +31,189 @@ function Content() {
   const allTools = [
     {
       name: "Shoes Conversation",
-      link: "http://www.ytubetools.com/",
+      link: "https://shoesizeconvert.com/",
       logo: "https://shoesizeconvert.s3.amazonaws.com/uploads/1736052096145-logo-white-red.png",
     },
     {
       name: "Women Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/tag-extractor",
+      link: "https://shoesizeconvert.com/women",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993310808-women.jpg",
     },
     {
       name: "Men Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/title-generator",
+      link: "https://shoesizeconvert.com/men",
       logo: "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993351686-man.png",
     },
     {
       name: "Kids Shoe Size Calculator",
-      link: "http://www.ytubetools.com/tools/description-generator",
+      link: "https://shoesizeconvert.com/kids",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993379478-kids.png",
     },
     {
       name: "Men to Women Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/description-generator",
+      link: "https://shoesizeconvert.com/men-to-women",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736052036888-mentowoemn.png",
     },
     {
       name: "European Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/youtube-title-and-description-extractor",
+      link: "https://shoesizeconvert.com/country/european",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993411517-british-columbia.png",
     },
     {
       name: "Brazilian Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/youtube-channel-banner-downloader",
+      link: "https://shoesizeconvert.com/country/brazilian",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993441038-brazil-flag.png",
     },
     {
       name: "Mexican Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/youtube-hashtag-generator",
+      link: "https://shoesizeconvert.com/country/mexican",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993473789-mexico.png",
     },
     {
       name: "Australian Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/youtube-channel-logo-downloader",
+      link: "https://shoesizeconvert.com/country/australian",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993501926-australia.png",
     },
     {
       name: "Clarks Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/youtube-thumbnail",
+      link: "https://shoesizeconvert.com/brand/clarks",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051578848-clarkslogoupdate.png",
     },
     {
       name: "Nike Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/channel-id-finder",
+      link: "https://shoesizeconvert.com/brand/nike",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735993992406-nike.png",
     },
     {
       name: "Adidas Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/video-data-viewer",
+      link: "https://shoesizeconvert.com/brand/adidas",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735994015844-adidas.png",
     },
     {
       name: "Dr. Martens Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/monetization-checker",
+      link: "https://shoesizeconvert.com/brand/dr-martens",
       logo: "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051616462-drm.png",
     },
     {
       name: "Puma Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/youtube-channel-search",
+      link: "https://shoesizeconvert.com/brand/puma",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735994077148-puma.png",
     },
     {
       name: "Timberland Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/youtube-video-summary-generator",
+      link: "https://shoesizeconvert.com/brand/timberland",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735994118639-timberland.png",
     },
     {
       name: "Ugg Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/brand/ugg",
       logo: "https://shoesizeconvert.s3.amazonaws.com/uploads/1735994172516-ugglogo.jpg",
     },
     {
       name: "Italian Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/italian",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1735994226645-circle.png",
     },
     {
       name: "Spanish Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/spanish",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736050686812-spain.png",
     },
     {
       name: "Korean Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/korean",
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736050730760-koran.png",
     },
     {
       name: "Japanese Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/japanese",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736050753553-japan.png",
     },
     {
       name: "Indian Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/indian",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736050818894-india.png",
     },
     {
       name: "Asian Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/asian",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736050842364-asian.jpg",
     },
     {
       name: "Canadian Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/canadian",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736050880197-canada.png",
     },
   
     {
       name: "Colombian Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/colombian",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051000305-british-columbia.png",
     },
   
     {
       name: "France Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/france",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051029872-france.png",
     },
     {
       name: "Philippines Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/philippines",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051093184-philippines.png",
     },
     {
       name: "German Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/german",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051117519-flagofgermanysvg.webp",
     },
   
     {
       name: "Chinese Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/country/chinese",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051151368-chinese.png",
     },
     {
       name: "Alegria Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/brand/alegria",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051182559-alegria.png",
     },
     {
       name: "Asics Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/brand/asics",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051205190-asics.webp",
     },
     {
       name: "Asos Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/brand/asos",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051665079-asos.png",
     },
     {
       name: "Merrell Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/brand/merrell",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051245007-merrell.png",
     },
     {
       name: "Shein Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/brand/shein",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051290380-shein.png",
     },
     {
       name: "Shimano Shoe Size Converter",
-      link: "http://www.ytubetools.com/tools/trending-videos",
+      link: "https://shoesizeconvert.com/brand/shimano",
       
       logo:  "https://shoesizeconvert.s3.amazonaws.com/uploads/1736051698920-shimano.png",
     },
