@@ -27,10 +27,10 @@ const Footer = () => {
                 {t('Welcome to Shoe Size Convert – Your trusted guide for easily converting men’s, women’s, and kids’ shoe sizes across different countries!')}
               </p>
               <div className="flex mt-4 space-x-2">
-                <FaFacebook className="fs-3 hover:text-blue-800 transition duration-300 transform hover:scale-110" />
+                <Link className="text-white" href="https://www.facebook.com/shoesizeconvert/"><FaFacebook className="fs-3 hover:text-blue-800 transition duration-300 transform hover:scale-110" /></Link>
                 <FaInstagram className="fs-3 ms-2 hover:text-pink-800 transition duration-300 transform hover:scale-110" />
                 <FaTwitter className="fs-3 ms-2 hover:text-blue-600 transition duration-300 transform hover:scale-110" />
-                <FaLinkedin className="fs-3 ms-2 hover:text-blue-900 transition duration-300 transform hover:scale-110" />
+               <Link className="text-white" href="https://www.linkedin.com/company/shoesizeconvert/"> <FaLinkedin className="fs-3 ms-2 hover:text-blue-900 transition duration-300 transform hover:scale-110" /></Link>
               </div>
             </div>
             {/* <!-- Support Column --> */}

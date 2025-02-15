@@ -580,6 +580,7 @@ export async function getServerSideProps({ locale, req }) {
     }
 
     const contentData = await contentResponse.json();
+console.log(contentData);
 
     // Fetch translations
     const translations = await serverSideTranslations(locale, ['home', 'navbar', 'footer']);
