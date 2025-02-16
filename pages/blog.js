@@ -188,9 +188,9 @@ const BlogSection = ({ initialBlogs = [],availableLanguages, metaUrl  }) => {
 
   return (
     <div className=''>
-      <Head>
-        <title>Blog | YtubeTools</title>
-        <meta name="description" content="Explore insightful articles on YtubeTools, where we dive into the world of YouTube creators, share growth strategies, review tools, and provide tips to enhance your YouTube journey. Stay updated and learn more about becoming a successful YouTuber." />
+        <Head>
+        <title>Blog | ShoeSizeConvert</title>
+        <meta name="description" content="Explore insightful articles on ShoeSizeConvert, where we dive into the world of footwear sizing, share expert tips, review conversion tools, and provide guidance to ensure the perfect shoe fit. Stay updated and learn more about finding the right shoe size effortlessly." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="index, follow" /> 
   
@@ -200,21 +200,21 @@ const BlogSection = ({ initialBlogs = [],availableLanguages, metaUrl  }) => {
         {/* Open Graph Meta Tags */}
         <meta property="og:type" content="article" />
         <meta property="og:url" content={metaUrl} />
-        <meta property="og:title" content="Blog | YtubeTools" />
-        <meta property="og:description" content="Explore insightful articles on YtubeTools, where we dive into the world of YouTube creators, share growth strategies, review tools, and provide tips to enhance your YouTube journey. Stay updated and learn more about becoming a successful YouTuber." />
-        <meta property="og:image" content="https://ytubetools.com/static/images/youtubers-og-image.jpg" />
-        <meta property="og:image:secure_url" content="https://ytubetools.com/static/images/youtubers-og-image.jpg" />
-        <meta property="og:site_name" content="YtubeTools" />
+        <meta property="og:title" content="Blog | shoesizeconvert" />
+        <meta property="og:description" content="Explore insightful articles on ShoeSizeConvert, where we dive into the world of shoe sizing, share expert fitting tips, review conversion tools, and provide guidance to help you find the perfect fit. Stay updated and learn more about choosing the right shoe size with ease." />
+        <meta property="og:image" content="https://shoesizeconvert.com/static/images/youtubers-og-image.jpg" />
+        <meta property="og:image:secure_url" content="https://shoesizeconvert.com/static/images/youtubers-og-image.jpg" />
+        <meta property="og:site_name" content="shoesizeconvert" />
         <meta property="og:locale" content="en_US" />
   
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:domain" content="ytubetools.com" />
+        <meta name="twitter:domain" content="shoesizeconvert.com" />
         <meta property="twitter:url" content={metaUrl} />
-        <meta name="twitter:title" content="Blog | YtubeTools" />
-        <meta name="twitter:description" content="Explore insightful articles on YtubeTools, where we dive into the world of YouTube creators, share growth strategies, review tools, and provide tips to enhance your YouTube journey. Stay updated and learn more about becoming a successful YouTuber." />
-        <meta name="twitter:image" content="https://ytubetools.com/static/images/youtubers-twitter-image.jpg" />
-        <meta name="twitter:site" content="@ytubetools" />
+        <meta name="twitter:title" content="Blog | shoesizeconvert" />
+        <meta name="twitter:description" content="Explore insightful articles on ShoeSizeConvert, where we dive into the world of shoe sizing, share tips for finding the perfect fit, review sizing tools, and provide guidance to enhance your shoe shopping experience. Stay updated and learn more about getting the ideal shoe size every time." />
+        <meta name="twitter:image" content="https://shoesizeconvert.com/static/images/youtubers-twitter-image.jpg" />
+        <meta name="twitter:site" content="@shoesizeconvert" />
         <meta name="twitter:image:alt" content="Blog" />
   
         {/* Alternate hreflang Tags for SEO */}
