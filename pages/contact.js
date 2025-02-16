@@ -59,42 +59,42 @@ export default function Contact() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
    <Head>
   {/* SEO Meta Tags for Contact Us Page */}
-  <title>Contact Us | Ytubetools</title>
+  <title>Contact Us | ShoeSizeConvert</title>
   <meta
     name="description"
-    content="Get in touch with the Ytubetools team. Whether you need support, have questions, or want to learn more about our YouTube tools, we're here to help!"
+    content="Get in touch with the ShoeSizeConvert team. Whether you need support, have questions, or want to learn more about our ShoeSizeConvert tools, we're here to help!"
   />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" /> 
 
   {/* Canonical URL */}
-  <link rel="canonical" href="https://ytubetools.com/contact" />
+  <link rel="canonical" href="https://shoesizeconvert.com/contact" />
 
   {/* Open Graph Meta Tags */}
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ytubetools.com/contact" />
-  <meta property="og:title" content="Contact Us | Ytubetools" />
+  <meta property="og:url" content="https://shoesizeconvert.com/contact" />
+  <meta property="og:title" content="Contact Us | ShoeSizeConvert" />
   <meta
     property="og:description"
-    content="Have questions or need assistance? Contact Ytubetools for support, inquiries, and more information about our suite of tools designed for YouTube creators and viewers."
+    content="Need help finding the perfect shoe size? Contact ShoeSizeConvert for support, inquiries, and more information about our tool designed to help buyers measure the perfect shoe size worldwide"
   />
-  <meta property="og:image" content="https://ytubetools.com/static/images/contact-og-image.jpg" />
-  <meta property="og:image:secure_url" content="https://ytubetools.com/static/images/contact-og-image.jpg" />
-  <meta property="og:site_name" content="Ytubetools" />
+  <meta property="og:image" content="https://shoesizeconvert.comstatic/images/contact-og-image.jpg" />
+  <meta property="og:image:secure_url" content="https://shoesizeconvert.comstatic/images/contact-og-image.jpg" />
+  <meta property="og:site_name" content="Shoesizeconvert" />
   <meta property="og:locale" content="en_US" />
 
   {/* Twitter Meta Tags */}
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:domain" content="ytubetools.com" />
-  <meta property="twitter:url" content="https://ytubetools.com/contact" />
-  <meta name="twitter:title" content="Contact Us | Ytubetools" />
+  <meta name="twitter:domain" content="shoesizeconvert.com" />
+  <meta property="twitter:url" content="https://shoesizeconvert.com/contact" />
+  <meta name="twitter:title" content="Contact Us | ShoeSizeConvert" />
   <meta
     name="twitter:description"
-    content="Reach out to Ytubetools for help, support, and more information about our YouTube tools tailored for creators and viewers."
+    content="Reach out to ShoeSizeConvert for help, support, and more information about our ShoeSizeConvert tools designed to help buyers measure the perfect shoe size"
   />
-  <meta name="twitter:image" content="https://ytubetools.com/static/images/contact-twitter-image.jpg" />
-  <meta name="twitter:site" content="@ytubetools" />
-  <meta name="twitter:image:alt" content="Contact Ytubetools" />
+  <meta name="twitter:image" content="https://shoesizeconvert.comstatic/images/contact-twitter-image.jpg" />
+  <meta name="twitter:site" content="@Shoesizeconvert" />
+  <meta name="twitter:image:alt" content="Contact ShoeSizeConvert" />
 </Head>
 
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-lg flex">
