@@ -16,26 +16,43 @@ export default function Sitemap() {
       'en', 'fr', 'zh-HANT', 'zh-HANS', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'
     ];
   
-    // List of tool routes
-    const toolRoutes = [
-      '/tools/tag-extractor',
-      '/tools/description-generator',
-      '/tools/title-generator',
-      '/tools/youtube-title-and-description-extractor',
-      '/tools/youtube-channel-banner-downloader',
-      '/tools/youtube-hashtag-generator',
-      '/tools/youtube-channel-logo-downloader',
-      '/tools/youtube-thumbnail',
-      '/tools/channel-id-finder',
-      '/tools/video-data-viewer',
-      '/tools/monetization-checker',
-      '/tools/youtube-channel-search',
-      '/tools/youtube-video-summary-generator',
-      '/tools/trending-videos',
-      '/tools/youtube-money-calculator',
-      '/tools/youtube-comment-picker',
-      '/tools/keyword-research',
-      '/tools/youtube-embed-code-generator'
+    // List of country routes
+    const countryRoutes = [
+      '/country/european',
+      '/country/brazilian',
+      '/country/mexican',
+      '/country/australian',
+      '/country/italian',
+      '/country/spanish',
+      '/country/korean',
+      '/country/japanese',
+      '/country/indian',
+      '/country/asian',
+      '/country/canadian',
+      '/country/colombian',
+      '/country/france',
+      '/country/philippines',
+      '/country/german',
+      '/country/chinese',
+      
+    ];
+    // List of barnd routes
+    const brandRoutes = [
+      '/brand/clarks',
+      '/brand/nike',
+      '/brand/adidas',
+      '/brand/dr-martens',
+      '/brand/puma',
+      '/brand/timberland',
+      '/brand/ugg',
+      '/brand/alegria',
+      '/brand/asics',
+      '/brand/asos',
+      '/brand/merrell',
+      '/brand/shein',
+      '/brand/shimano',
+      
+      
     ];
   
     // Function to generate language-based routes
@@ -45,10 +62,13 @@ export default function Sitemap() {
       );
     };
   
-    // Static routes (non-tool pages)
+    // Static routes (non-country pages)
     const staticRoutes = [
       '',           // Home page
-      '/pricing',   // Pricing page
+      '/women',
+      '/men',
+      "/kids",
+      "/men-to-women"	,
       '/about',     // About Us page
       '/contact',   // Contact Us page
       '/terms',     // Terms page
@@ -58,8 +78,10 @@ export default function Sitemap() {
     // Combine static routes with language variations
     const languageBasedStaticRoutes = generateLanguageRoutes(staticRoutes);
   
-    // Combine tool routes with language variations
-    const languageBasedToolRoutes = generateLanguageRoutes(toolRoutes);
+    // Combine country routes with language variations
+    const languageBasedcountryRoutes = generateLanguageRoutes(countryRoutes);
+    // Combine barnd routes with language variations
+    const languageBasedbrandRoutes = generateLanguageRoutes(brandRoutes);
   
     try {
       // Fetch dynamic routes for blogs with authorization header
@@ -83,35 +105,16 @@ export default function Sitemap() {
         });
       });
   
-      // Fetch dynamic routes for YouTube articles with authorization header
-      const youtubeArticles = await fetch(`${baseUrl}/api/youtube`, {
-        headers: {
-          Authorization: `Bearer ${authToken}`, // Adding the Authorization header
-        }
-      }).then(res => res.json());
-  
-      // Check if youtubeArticles is an object with a data array
-      if (!youtubeArticles || !Array.isArray(youtubeArticles.data)) {
-        console.error('Expected youtubeArticles to have a "data" array, but got:', youtubeArticles);
-        return { props: {} };
-      }
-  
-      // Map over YouTube articles to create routes
-      const youtubeRoutes = youtubeArticles.data.flatMap(article => {
-        return Object.keys(article.translations).map(lang => {
-          const slug = article.translations[lang].slug;
-          return lang === 'en' ? `/youtube/${slug}` : `/${lang}/youtube/${slug}`;
-        });
-      });
-  
+   
       // Combine all routes
       const allRoutes = [
         ...staticRoutes.map(route => `${baseUrl}${route}`),       // Default static routes
         ...languageBasedStaticRoutes.map(route => `${baseUrl}${route}`), // Language variations of static routes
-        ...toolRoutes.map(route => `${baseUrl}${route}`),         // Default tool routes
-        ...languageBasedToolRoutes.map(route => `${baseUrl}${route}`),   // Language variations of tool routes
+        ...countryRoutes.map(route => `${baseUrl}${route}`),         // Default country routes
+        ...languageBasedcountryRoutes.map(route => `${baseUrl}${route}`),   // Language variations of country routes
+        ...languageBasedbrandRoutes.map(route => `${baseUrl}${route}`),   // Language variations of country routes
         ...blogRoutes.map(route => `${baseUrl}${route}`),         // Blog routes
-        ...youtubeRoutes.map(route => `${baseUrl}${route}`)       // YouTube article routes
+       
       ];
   
       console.log('Sitemap generated with the following routes:', allRoutes);  // Debugging output
