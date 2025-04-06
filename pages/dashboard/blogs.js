@@ -1,49 +1,49 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import dynamic from 'next/dynamic';
-import Layout from './layout';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Image from 'next/image';
-import QuillWrapper from '../../components/EditorWrapper';
+import React, { useState, useEffect, useCallback } from "react";
+import dynamic from "next/dynamic";
+import Layout from "./layout";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
+import QuillWrapper from "../../components/EditorWrapper";
 
 function Blogs() {
-  const [quillContent, setQuillContent] = useState('');
+  const [quillContent, setQuillContent] = useState("");
   const [existingContents, setExistingContents] = useState([]);
   const [error, setError] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
-  const [slug, setSlug] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [slug, setSlug] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState('');
-  const [metaTitle, setMetaTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [metaDescription, setMetaDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
   const [image, setImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [categories, setCategories] = useState([]);
   const [authors, setAuthors] = useState([]);
-  const [selectedAuthor, setSelectedAuthor] = useState('');
-  const [selectedEditor, setSelectedEditor] = useState('');
-  const [selectedDeveloper, setSelectedDeveloper] = useState('');
+  const [selectedAuthor, setSelectedAuthor] = useState("");
+  const [selectedEditor, setSelectedEditor] = useState("");
+  const [selectedDeveloper, setSelectedDeveloper] = useState("");
   const [isSlugEditable, setIsSlugEditable] = useState(false);
 
   useEffect(() => {
     fetchCategories();
     fetchAuthors();
-    const savedState = JSON.parse(localStorage.getItem('blogFormState'));
+    const savedState = JSON.parse(localStorage.getItem("blogFormState"));
     if (savedState) {
-      setQuillContent(savedState.quillContent || '');
-      setSelectedCategory(savedState.selectedCategory || '');
-      setSelectedLanguage(savedState.selectedLanguage || 'en');
-      setSlug(savedState.slug || '');
-      setTitle(savedState.title || '');
-      setMetaTitle(savedState.metaTitle || '');
-      setDescription(savedState.description || '');
-      setMetaDescription(savedState.metaDescription || '');
+      setQuillContent(savedState.quillContent || "");
+      setSelectedCategory(savedState.selectedCategory || "");
+      setSelectedLanguage(savedState.selectedLanguage || "en");
+      setSlug(savedState.slug || "");
+      setTitle(savedState.title || "");
+      setMetaTitle(savedState.metaTitle || "");
+      setDescription(savedState.description || "");
+      setMetaDescription(savedState.metaDescription || "");
       setImage(savedState.image || null);
-      setSelectedAuthor(savedState.selectedAuthor || '');
-      setSelectedEditor(savedState.selectedEditor || '');
-      setSelectedDeveloper(savedState.selectedDeveloper || '');
+      setSelectedAuthor(savedState.selectedAuthor || "");
+      setSelectedEditor(savedState.selectedEditor || "");
+      setSelectedDeveloper(savedState.selectedDeveloper || "");
     }
   }, []);
 
@@ -66,128 +66,154 @@ function Blogs() {
       image,
       selectedAuthor,
       selectedEditor,
-      selectedDeveloper
+      selectedDeveloper,
     };
-    localStorage.setItem('blogFormState', JSON.stringify(formState));
-  }, [quillContent, selectedCategory, selectedLanguage, slug, title, metaTitle, description, metaDescription, image, selectedAuthor, selectedEditor, selectedDeveloper]);
+    localStorage.setItem("blogFormState", JSON.stringify(formState));
+  }, [
+    quillContent,
+    selectedCategory,
+    selectedLanguage,
+    slug,
+    title,
+    metaTitle,
+    description,
+    metaDescription,
+    image,
+    selectedAuthor,
+    selectedEditor,
+    selectedDeveloper,
+  ]);
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('/api/categories');
+      const response = await fetch("/api/categories");
       if (!response.ok) {
-        throw new Error('Failed to fetch categories');
+        throw new Error("Failed to fetch categories");
       }
       const data = await response.json();
       setCategories(data);
     } catch (error) {
-      console.error('Error fetching categories:', error.message);
+      console.error("Error fetching categories:", error.message);
     }
   };
 
   const fetchAuthors = async () => {
     try {
-      const response = await fetch('/api/authors');
+      const response = await fetch("/api/authors");
       if (!response.ok) {
-        throw new Error('Failed to fetch authors');
+        throw new Error("Failed to fetch authors");
       }
       const data = await response.json();
       setAuthors(data);
     } catch (error) {
-      console.error('Error fetching authors:', error.message);
+      console.error("Error fetching authors:", error.message);
     }
   };
 
   const fetchContent = async () => {
     try {
       // Retrieve the token from localStorage (or cookie, or wherever it is stored)
-      const token ='AZ-fc905a5a5ae08609ba38b046ecc8ef00'; // Replace with your actual token storage method
-  
+      const token = "AZ-fc905a5a5ae08609ba38b046ecc8ef00"; // Replace with your actual token storage method
+
       if (!token) {
-        throw new Error('Authorization token is missing');
+        throw new Error("Authorization token is missing");
       }
-  
+
       // Make the fetch request with Authorization header
-      const response = await fetch(`/api/blogs?category=${selectedCategory}&language=${selectedLanguage}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`, // Add Authorization header with token
-          'Content-Type': 'application/json',  // Set the content type to JSON (optional)
-        },
-      });
-  
+      const response = await fetch(
+        `/api/blogs?category=${selectedCategory}&language=${selectedLanguage}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Add Authorization header with token
+            "Content-Type": "application/json", // Set the content type to JSON (optional)
+          },
+        }
+      );
+
       if (!response.ok) {
-        throw new Error('Failed to fetch content');
+        throw new Error("Failed to fetch content");
       }
-  
+
       const data = await response.json();
       setExistingContents(data);
       setIsEditing(false);
     } catch (error) {
-      console.error('Error fetching content:', error.message);
+      console.error("Error fetching content:", error.message);
       setError(error.message);
     }
   };
-  
+
   const handleSubmit = async () => {
-    if (!title || !quillContent || !metaDescription || !metaTitle || !description || !selectedCategory || !selectedLanguage || !selectedAuthor || !selectedEditor || !selectedDeveloper) {
-      setError('Please fill in all the fields.');
+    if (
+      !title ||
+      !quillContent ||
+      !metaDescription ||
+      !metaTitle ||
+      !description ||
+      !selectedCategory ||
+      !selectedLanguage ||
+      !selectedAuthor ||
+      !selectedEditor ||
+      !selectedDeveloper
+    ) {
+      setError("Please fill in all the fields.");
       return;
     }
-  
+
     try {
-      const method = isEditing ? 'PUT' : 'POST';
-  
+      const method = isEditing ? "PUT" : "POST";
+
       const formData = new FormData();
-      formData.append('content', quillContent);
-      formData.append('title', title);
-      formData.append('metaTitle', metaTitle);
-      formData.append('description', description);
-      formData.append('metaDescription', metaDescription);
-      formData.append('language', selectedLanguage);
-      formData.append('category', selectedCategory);
+      formData.append("content", quillContent);
+      formData.append("title", title);
+      formData.append("metaTitle", metaTitle);
+      formData.append("description", description);
+      formData.append("metaDescription", metaDescription);
+      formData.append("language", selectedLanguage);
+      formData.append("category", selectedCategory);
       if (imageFile) {
-        formData.append('image', imageFile);
+        formData.append("image", imageFile);
       }
-      formData.append('author', selectedAuthor);
-      formData.append('editor', selectedEditor);
-      formData.append('developer', selectedDeveloper);
-      formData.append('slug', slug);
-      formData.append('createdAt', new Date().toISOString());
-      formData.append('isDraft', JSON.stringify(false));
-  
+      formData.append("author", selectedAuthor);
+      formData.append("editor", selectedEditor);
+      formData.append("developer", selectedDeveloper);
+      formData.append("slug", slug);
+      formData.append("createdAt", new Date().toISOString());
+      formData.append("isDraft", JSON.stringify(false));
+
       // Retrieve the token from localStorage (or wherever you're storing it)
-      const token ='AZ-fc905a5a5ae08609ba38b046ecc8ef00'; // Replace this with your actual token retrieval method
-  
+      const token = "AZ-fc905a5a5ae08609ba38b046ecc8ef00"; // Replace this with your actual token retrieval method
+
       if (!token) {
-        throw new Error('Authorization token is missing');
+        throw new Error("Authorization token is missing");
       }
-  
+
       // Make the fetch request with Authorization header
-      const response = await fetch('/api/blogs', {
+      const response = await fetch("/api/blogs", {
         method,
         body: formData,
         headers: {
-          'Authorization': `Bearer ${token}`, // Add Authorization header with token
+          Authorization: `Bearer ${token}`, // Add Authorization header with token
           // Optional: You can also add Content-Type, though it's not necessary with FormData
-          // 'Content-Type': 'multipart/form-data', 
+          // 'Content-Type': 'multipart/form-data',
         },
       });
-  
+
       if (!response.ok) {
         const errorMessage = await response.text();
         throw new Error(`Failed to post content: ${errorMessage}`);
       }
-  
+
       setError(null);
-      fetchContent();  // Optionally refresh the list of blogs
-      toast.success('Blog uploaded successfully!');
-      localStorage.removeItem('blogFormState'); // Remove form state after successful submit
+      fetchContent(); // Optionally refresh the list of blogs
+      toast.success("Blog uploaded successfully!");
+      localStorage.removeItem("blogFormState"); // Remove form state after successful submit
     } catch (error) {
-      console.error('Error posting content:', error.message);
+      console.error("Error posting content:", error.message);
       setError(error.message);
     }
   };
-  
 
   const handleQuillChange = useCallback((newContent) => {
     setQuillContent(newContent);
@@ -199,7 +225,7 @@ function Blogs() {
 
   const handleLanguageChange = (e) => {
     setSelectedLanguage(e.target.value);
-    setSelectedCategory('');
+    setSelectedCategory("");
   };
 
   const handleImageChange = (e) => {
@@ -213,8 +239,8 @@ function Blogs() {
   useEffect(() => {
     if (!isSlugEditable) {
       const generateSlug = (str) => {
-        const cleanedTitle = str.replace(/[^\w\s]/gi, '');
-        return cleanedTitle.toLowerCase().split(' ').join('-');
+        const cleanedTitle = str.replace(/[^\w\s]/gi, "");
+        return cleanedTitle.toLowerCase().split(" ").join("-");
       };
 
       setSlug(generateSlug(title));
@@ -228,11 +254,18 @@ function Blogs() {
   return (
     <Layout>
       <div className="container mx-auto p-5">
-        <h2 className="text-3xl font-semibold mb-6">Add Post - {selectedCategory ? selectedCategory : 'Select a category'}</h2>
+        <h2 className="text-3xl font-semibold mb-6">
+          Add Post - {selectedCategory ? selectedCategory : "Select a category"}
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="col-span-2">
             <div className="mb-6">
-              <label htmlFor="language" className="block mb-2 text-lg font-medium">Language*</label>
+              <label
+                htmlFor="language"
+                className="block mb-2 text-lg font-medium"
+              >
+                Language*
+              </label>
               <select
                 id="language"
                 value={selectedLanguage}
@@ -241,8 +274,7 @@ function Blogs() {
               >
                 <option value="en">English</option>
                 <option value="fr">French</option>
-                <option value="zh-HANT">中国传统的</option>
-                <option value="zh-HANS">简体中文</option>
+
                 <option value="nl">Nederlands</option>
                 <option value="gu">ગુજરાતી</option>
                 <option value="hi">हिंदी</option>
@@ -257,7 +289,12 @@ function Blogs() {
               </select>
             </div>
             <div className="mb-6">
-              <label htmlFor="metaTitle" className="block mb-2 text-lg font-medium">Meta Title</label>
+              <label
+                htmlFor="metaTitle"
+                className="block mb-2 text-lg font-medium"
+              >
+                Meta Title
+              </label>
               <input
                 id="metaTitle"
                 type="text"
@@ -267,7 +304,12 @@ function Blogs() {
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="metaDescription" className="block mb-2 text-lg font-medium">Meta Description</label>
+              <label
+                htmlFor="metaDescription"
+                className="block mb-2 text-lg font-medium"
+              >
+                Meta Description
+              </label>
               <textarea
                 id="metaDescription"
                 value={metaDescription}
@@ -276,7 +318,9 @@ function Blogs() {
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="title" className="block mb-2 text-lg font-medium">Title*</label>
+              <label htmlFor="title" className="block mb-2 text-lg font-medium">
+                Title*
+              </label>
               <input
                 id="title"
                 type="text"
@@ -286,14 +330,18 @@ function Blogs() {
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="slug" className="block mb-2 text-lg font-medium">Slug</label>
+              <label htmlFor="slug" className="block mb-2 text-lg font-medium">
+                Slug
+              </label>
               <input
                 id="slug"
                 type="text"
                 value={slug}
                 onChange={handleSlugChange}
                 readOnly={!isSlugEditable}
-                className={`w-full border border-gray-300 rounded-lg p-3 ${!isSlugEditable ? 'bg-gray-100' : 'bg-white'} shadow-sm`}
+                className={`w-full border border-gray-300 rounded-lg p-3 ${
+                  !isSlugEditable ? "bg-gray-100" : "bg-white"
+                } shadow-sm`}
               />
               <div className="flex items-center mt-2">
                 <input
@@ -303,95 +351,155 @@ function Blogs() {
                   onChange={(e) => setIsSlugEditable(e.target.checked)}
                   className="mr-2"
                 />
-                <label htmlFor="editSlug" className="text-gray-700">Edit Slug</label>
+                <label htmlFor="editSlug" className="text-gray-700">
+                  Edit Slug
+                </label>
               </div>
             </div>
             <div className="mb-6">
-              <label htmlFor="description" className="block mb-2 text-lg font-medium">Description*</label>
+              <label
+                htmlFor="description"
+                className="block mb-2 text-lg font-medium"
+              >
+                Description*
+              </label>
               <textarea
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg p-3 shadow-sm"
               />
-              <p className="text-gray-600 text-sm mt-1">Description max 200 characters</p>
+              <p className="text-gray-600 text-sm mt-1">
+                Description max 200 characters
+              </p>
             </div>
             <div className="mb-6">
-              <label htmlFor="content" className="block mb-2 text-lg font-medium">Content*</label>
+              <label
+                htmlFor="content"
+                className="block mb-2 text-lg font-medium"
+              >
+                Content*
+              </label>
               <div className="border border-gray-300 rounded-lg shadow-sm p-3">
-                <QuillWrapper initialContent={quillContent} onChange={handleQuillChange} />
+                <QuillWrapper
+                  initialContent={quillContent}
+                  onChange={handleQuillChange}
+                />
               </div>
             </div>
           </div>
           <div>
             <div className="mb-6">
-              <label htmlFor="category" className="block mb-2 text-lg font-medium">Categories*</label>
+              <label
+                htmlFor="category"
+                className="block mb-2 text-lg font-medium"
+              >
+                Categories*
+              </label>
               <select
                 id="category"
                 value={selectedCategory}
                 onChange={handleCategoryChange}
                 className="w-full border border-gray-300 rounded-lg p-3 shadow-sm"
               >
-                <option value="" disabled>Select a category</option>
+                <option value="" disabled>
+                  Select a category
+                </option>
                 {categories
-                  .filter((category) => category.translations && category.translations[selectedLanguage])
+                  .filter(
+                    (category) =>
+                      category.translations &&
+                      category.translations[selectedLanguage]
+                  )
                   .map((category) => (
-                    <option key={category._id} value={category.translations[selectedLanguage].name}>
+                    <option
+                      key={category._id}
+                      value={category.translations[selectedLanguage].name}
+                    >
                       {category.translations[selectedLanguage].name}
                     </option>
                   ))}
               </select>
             </div>
             <div className="mb-6">
-              <label htmlFor="author" className="block mb-2 text-lg font-medium">Author*</label>
+              <label
+                htmlFor="author"
+                className="block mb-2 text-lg font-medium"
+              >
+                Author*
+              </label>
               <select
                 id="author"
                 value={selectedAuthor}
                 onChange={(e) => setSelectedAuthor(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg p-3 shadow-sm"
               >
-                <option value="" disabled>Select an author</option>
+                <option value="" disabled>
+                  Select an author
+                </option>
                 {authors
-                  .filter((author) => author.role === 'Author')
+                  .filter((author) => author.role === "Author")
                   .map((author) => (
-                    <option key={author._id} value={author.name}>{author.name}</option>
+                    <option key={author._id} value={author.name}>
+                      {author.name}
+                    </option>
                   ))}
               </select>
             </div>
             <div className="mb-6">
-              <label htmlFor="editor" className="block mb-2 text-lg font-medium">Editor*</label>
+              <label
+                htmlFor="editor"
+                className="block mb-2 text-lg font-medium"
+              >
+                Editor*
+              </label>
               <select
                 id="editor"
                 value={selectedEditor}
                 onChange={(e) => setSelectedEditor(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg p-3 shadow-sm"
               >
-                <option value="" disabled>Select an editor</option>
+                <option value="" disabled>
+                  Select an editor
+                </option>
                 {authors
-                  .filter((author) => author.role === 'Editor')
+                  .filter((author) => author.role === "Editor")
                   .map((author) => (
-                    <option key={author._id} value={author.name}>{author.name}</option>
+                    <option key={author._id} value={author.name}>
+                      {author.name}
+                    </option>
                   ))}
               </select>
             </div>
             <div className="mb-6">
-              <label htmlFor="developer" className="block mb-2 text-lg font-medium">Developer*</label>
+              <label
+                htmlFor="developer"
+                className="block mb-2 text-lg font-medium"
+              >
+                Developer*
+              </label>
               <select
                 id="developer"
                 value={selectedDeveloper}
                 onChange={(e) => setSelectedDeveloper(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg p-3 shadow-sm"
               >
-                <option value="" disabled>Select a developer</option>
+                <option value="" disabled>
+                  Select a developer
+                </option>
                 {authors
-                  .filter((author) => author.role === 'Developer')
+                  .filter((author) => author.role === "Developer")
                   .map((author) => (
-                    <option key={author._id} value={author.name}>{author.name}</option>
+                    <option key={author._id} value={author.name}>
+                      {author.name}
+                    </option>
                   ))}
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="image" className="block mb-2 text-lg font-medium">Image</label>
+              <label htmlFor="image" className="block mb-2 text-lg font-medium">
+                Image
+              </label>
               <input
                 type="file"
                 id="image"
@@ -400,10 +508,18 @@ function Blogs() {
               />
               {image && (
                 <div className="mt-4">
-                  <Image src={image} alt="Preview" width={100} height={100} className="rounded-lg shadow-md" />
+                  <Image
+                    src={image}
+                    alt="Preview"
+                    width={100}
+                    height={100}
+                    className="rounded-lg shadow-md"
+                  />
                 </div>
               )}
-              <p className="text-gray-600 text-sm mt-1">Valid image size: 400 * 270 px </p>
+              <p className="text-gray-600 text-sm mt-1">
+                Valid image size: 400 * 270 px{" "}
+              </p>
             </div>
             <button
               className="bg-blue-500 text-white p-3 rounded-lg w-full mb-4 shadow-md"

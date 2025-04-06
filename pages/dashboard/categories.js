@@ -6,8 +6,6 @@ import Layout from './layout';
 const availableLanguages = [
   { code: 'en', name: 'English' },
   { code: 'fr', name: 'Français' },
-  { code: 'zhHANT', name: '中国传统的 (Traditional Chinese)' },
-  { code: 'zhHANS', name: '简体中文 (Simplified Chinese)' },
   { code: 'nl', name: 'Nederlands' },
   { code: 'gu', name: 'ગુજરાતી' },
   { code: 'hi', name: 'हिंदी' },
