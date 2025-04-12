@@ -113,7 +113,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <meta name="twitter:image" content={pageProps.meta?.image || ""} />
         <link rel="icon" href="/favicon.ico" />
-     
+        <meta name="google-site-verification" content="xqhJiEhCt05WF21Ut9ITvc6q--e9UyJJjBjuBJDcits" />
      
       </Head>
 
