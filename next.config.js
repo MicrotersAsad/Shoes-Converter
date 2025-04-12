@@ -10,51 +10,39 @@ module.exports = withBundleAnalyzer({
   trailingSlash: false, // Ensures URL's trailing slashes are not included by default
  
   async rewrites() {
-    // Dynamic rewrites for countries and brands
     const countries = [
-      'japanese',
-      'korean',
-      'spanish',
-      'french',
-      'german',
-      'italian',
-      'russian',
-      'chinese',
-    ]; // List of countries
-
+      'japanese', 'korean', 'spanish', 'french', 'german', 'italian', 'russian', 'chinese',
+    ];
     const brands = [
-      'adidas',
-      'nike',
-      'puma',
-      'clarks',
-      'asos',
-      'merrell',
-      'shein',
-    ]; // List of brands
-
+      'adidas', 'nike', 'puma', 'clarks', 'asos', 'merrell', 'shein',
+    ];
+    const locales = [
+      'en', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de',
+    ];
+  
     // Generate country rewrites
-    const countryRewrites = countries.flatMap((country) => [
-      { source: `/country/${country}`, destination: `/en/country/${country}` },
-      { source: `/country/${country}`, destination: `/fr/country/${country}` },
-      { source: `/country/${country}`, destination: `/de/country/${country}` },
-    ]);
-
+    const countryRewrites = countries.flatMap((country) =>
+      locales.map((locale) => ({
+        source: `/country/${country}`,
+        destination: `/${locale}/country/${country}`,
+      }))
+    );
+  
     // Generate brand rewrites
-    const brandRewrites = brands.flatMap((brand) => [
-      { source: `/brand/${brand}`, destination: `/en/brand/${brand}` },
-      { source: `/brand/${brand}`, destination: `/fr/brand/${brand}` },
-      { source: `/brand/${brand}`, destination: `/de/brand/${brand}` },
-    ]);
-
-    // Include any existing rewrites
+    const brandRewrites = brands.flatMap((brand) =>
+      locales.map((locale) => ({
+        source: `/brand/${brand}`,
+        destination: `/${locale}/brand/${brand}`,
+      }))
+    );
+  
     const existingRewrites = [
       {
         source: '/uploads/:path*',
-        destination: '/uploads/:path*', // Directly serve from public folder
+        destination: '/uploads/:path*',
       },
     ];
-
-    // Combine all rewrites
+  
     return [...existingRewrites, ...countryRewrites, ...brandRewrites];
   },
 

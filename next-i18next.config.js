@@ -6,5 +6,7 @@ module.exports = {
     defaultLocale: "en",
     localeDetection: true,
   },
- 
+  ns: ['adidas'], // নেমস্পেস সংজ্ঞায়িত করুন
+  defaultNS: 'adidas',
+  localePath: './public/locales', // স্পষ্টভাবে পাথ দিন
 };
