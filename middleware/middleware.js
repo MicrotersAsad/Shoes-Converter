@@ -2,7 +2,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const proxy = createProxyMiddleware({
-  target: 'http://localhost:3000',
+  target: 'https://shoesizeconvert.com',
   changeOrigin: true,
   onProxyReq: (proxyReq, req, res) => {
     // Modify the request headers here

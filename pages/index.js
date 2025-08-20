@@ -554,8 +554,9 @@ export async function getServerSideProps({ locale, req }) {
   try {
     // Fetch protocol and host dynamically
     const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-    const host = req?.headers?.host || 'localhost:3000'; // Adjust for your environment
+    const host = req?.headers?.host || 'shoesizeconvert.com'; // Adjust for your environment
     const canonicalUrl = `${protocol}://${host}`;
+console.log(canonicalUrl);
 
     // Define the authorization token
     const AUTH_TOKEN = process.env.AUTH_TOKEN || 'AZ-fc905a5a5ae08609ba38b046ecc8ef00';
@@ -617,7 +618,7 @@ console.log(meta);
 
     // Construct fallback hreflangs
     const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-    const host = 'localhost:3000'; // Fallback to localhost
+    const host = 'shoesizeconvert.com'; // Fallback to localhost
     const canonicalUrl = `${protocol}://${host}`;
     const hreflangs = [
       { rel: 'alternate', hreflang: 'x-default', href: canonicalUrl },
