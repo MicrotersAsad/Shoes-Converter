@@ -34,6 +34,7 @@ export const fetchContent = async (category, locale, host, protocol, revalidate 
     // Process valid data
     const basePath = `${protocol}://${host}`;
     const canonicalUrl = locale === "en" ? basePath : `${protocol}://${host}/${locale}`;
+    console.log(canonicalUrl)
     const translations = contentData.translations || {};
 
     const hreflangs = [
