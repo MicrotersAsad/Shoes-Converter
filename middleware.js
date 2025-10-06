@@ -1,20 +1,35 @@
-// middleware.js
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 
-export function middleware() {
-  const url = req.nextUrl.clone();
+// সব লোকেল যেগুলো ব্যবহার করছো
+const LOCALES = ['en','bn','fr','nl','gu','hi','it','ja','ko','pl','pt','ru','es','de'];
 
-  // যদি URL /en দিয়ে শুরু হয়, তাহলে /en সরিয়ে rewrite করো
-  if (url.pathname.startsWith("/en")) {
-    url.pathname = url.pathname.replace(/^\/en/, "") || "/";
-    return NextResponse.rewrite(url); // ✅ rewrite, redirect নয়
+export function middleware(req) {
+  const { pathname } = req.nextUrl;
+
+  // static, api বা asset পাথ বাদ
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.includes('.')
+  ) {
+    return NextResponse.next();
+  }
+
+  // যদি /en বা /en/... থাকে → / থেকে /en মুছে rewrite করো
+  for (const locale of LOCALES) {
+    if (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)) {
+      if (locale === 'en') {
+        const url = req.nextUrl.clone();
+        url.pathname = pathname.replace(`/${locale}`, '') || '/';
+        return NextResponse.rewrite(url);
+      }
+    }
   }
 
   return NextResponse.next();
 }
 
-// কেবল /en/* path গুলোর জন্য কাজ করবে
 export const config = {
-  matcher: ["/en/:path*"],
+  matcher: ['/((?!_next|api|.*\\..*).*)'], // সব রুটে প্রযোজ্য, স্ট্যাটিক বাদ
 };
