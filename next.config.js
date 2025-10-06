@@ -1,3 +1,5 @@
+// next.config.js
+const { i18n } = require('./next-i18next.config');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -8,13 +10,10 @@ module.exports = withBundleAnalyzer({
   swcMinify: true,
   trailingSlash: false,
 
-  // i18n config — এখানে en prefix disable করা হয়েছে
-  i18n: {
-    locales: ['en', 'fr', 'de', 'es', 'bn'], // যেসব ভাষা সাপোর্ট করবে
-    defaultLocale: 'en', // কিন্তু URL-এ prefix হবে না
-    localeDetection: false,
-  },
+  // i18n (localeDetection আবারও false)
+  i18n: { ...i18n, localeDetection: false },
 
+  // ⛔️ এখানে কোনো redirects দেবে না (middleware-ই হ্যান্ডেল করবে)
   async rewrites() {
     return [
       { source: '/uploads/:path*', destination: '/uploads/:path*' },
