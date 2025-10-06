@@ -1,3 +1,4 @@
+// next.config.js
 const { i18n } = require('./next-i18next.config');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -8,9 +9,11 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   swcMinify: true,
   trailingSlash: false,
+
+  // i18n (localeDetection আবারও false)
   i18n: { ...i18n, localeDetection: false },
 
-  // Redirects বাদ (middleware-এ সব হ্যান্ডেল হচ্ছে)
+  // ⛔️ এখানে কোনো redirects দেবে না (middleware-ই হ্যান্ডেল করবে)
   async rewrites() {
     return [
       { source: '/uploads/:path*', destination: '/uploads/:path*' },

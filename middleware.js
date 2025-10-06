@@ -1,35 +1,33 @@
+// middleware.js
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
+// public files (images, css, js) match হলে middleware বাদ
+const PUBLIC_FILE = /\.(.*)$/;
 
-// সব লোকেল যেগুলো ব্যবহার করছো
-const LOCALES = ['en','bn','fr','nl','gu','hi','it','ja','ko','pl','pt','ru','es','de'];
+export function middleware(req /** @type {NextRequest} */) {
+  const { pathname, search, origin } = req.nextUrl;
 
-export function middleware(req) {
-  const { pathname } = req.nextUrl;
-
-  // static, api বা asset পাথ বাদ
+  // _next, api, public assets বাদ
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
-    pathname.includes('.')
+    PUBLIC_FILE.test(pathname)
   ) {
     return NextResponse.next();
   }
 
-  // যদি /en বা /en/... থাকে → / থেকে /en মুছে rewrite করো
-  for (const locale of LOCALES) {
-    if (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)) {
-      if (locale === 'en') {
-        const url = req.nextUrl.clone();
-        url.pathname = pathname.replace(`/${locale}`, '') || '/';
-        return NextResponse.rewrite(url);
-      }
-    }
+  // যদি /en বা /en/... থাকে → /en সরিয়ে **redirect** (URL বদলাবে)
+  if (pathname === '/en' || pathname.startsWith('/en/')) {
+    const newPath = pathname.replace(/^\/en(\/?)/, '/');
+    const url = new URL(newPath + search, origin);
+    return NextResponse.redirect(url, 308); // permanent redirect
   }
 
   return NextResponse.next();
 }
 
+// সব রুটে চালাও, কিন্তু static/API বাদ
 export const config = {
-  matcher: ['/((?!_next|api|.*\\..*).*)'], // সব রুটে প্রযোজ্য, স্ট্যাটিক বাদ
+  matcher: ['/((?!_next|api|.*\\..*).*)'],
 };
