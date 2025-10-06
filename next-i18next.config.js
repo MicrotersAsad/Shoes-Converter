@@ -3,9 +3,10 @@ const path = require('path');
 
 module.exports = {
   i18n: {
-    locales: ['en','bn','fr','nl','gu','hi','it','ja','ko','pl','pt','ru','es','de'],
-    defaultLocale: 'en',
-    localeDetection: false, // / -> /en অটো না যাওয়ার জন্য
+    // 'en' এর বদলে 'default' ব্যবহার করুন
+    locales: ['default', 'bn', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'],
+    defaultLocale: 'default',
+    localeDetection: false,
   },
   ns: ['common'],
   defaultNS: 'common',

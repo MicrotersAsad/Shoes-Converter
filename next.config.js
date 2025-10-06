@@ -10,10 +10,29 @@ module.exports = withBundleAnalyzer({
   swcMinify: true,
   trailingSlash: false,
 
-  // i18n (localeDetection আবারও false)
-  i18n: { ...i18n, localeDetection: false },
+  // i18n config রাখতে হবে next-i18next এর জন্য
+  i18n: {
+    locales: ['default', 'bn', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'],
+    defaultLocale: 'default',
+    localeDetection: false,
+  },
 
-  // ⛔️ এখানে কোনো redirects দেবে না (middleware-ই হ্যান্ডেল করবে)
+  // /en redirect
+  async redirects() {
+    return [
+      {
+        source: '/en',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/en/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
+    ];
+  },
+
   async rewrites() {
     return [
       { source: '/uploads/:path*', destination: '/uploads/:path*' },
