@@ -15,10 +15,11 @@ export function middleware(req) {
     return NextResponse.next();
   }
 
-  // যদি /en বা /en/... থাকে → /en সরিয়ে redirect
-  if (pathname === '/en' || pathname.startsWith('/en/')) {
-    // /en সরিয়ে নতুন path তৈরি করুন
-    const newPath = pathname.replace(/^\/en(\/?)/, '/');
+  // যদি /en বা /en/... অথবা /default বা /default/... থাকে → redirect
+  if (pathname === '/en' || pathname.startsWith('/en/') || 
+      pathname === '/default' || pathname.startsWith('/default/')) {
+    // /en বা /default সরিয়ে নতুন path তৈরি করুন
+    const newPath = pathname.replace(/^\/(en|default)(\/?)/, '/');
     
     // req.nextUrl clone করে সরাসরি pathname পরিবর্তন করুন
     const url = req.nextUrl.clone();

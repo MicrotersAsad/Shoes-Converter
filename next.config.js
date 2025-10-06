@@ -17,7 +17,7 @@ module.exports = withBundleAnalyzer({
     localeDetection: false,
   },
 
-  // /en redirect
+  // /en এবং /default redirect
   async redirects() {
     return [
       {
@@ -27,6 +27,16 @@ module.exports = withBundleAnalyzer({
       },
       {
         source: '/en/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
+      {
+        source: '/default',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/default/:path*',
         destination: '/:path*',
         permanent: true,
       },
