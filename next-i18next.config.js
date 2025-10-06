@@ -1,12 +1,17 @@
+// next-i18next.config.js
+const path = require('path');
+
 module.exports = {
   i18n: {
     locales: [
-      "en", "fr", "nl", "gu", "hi", "it", "ja", "ko", "pl", "pt", "ru", "es", "de"
+      "en", "bn", "fr", "nl", "gu", "hi", "it", "ja", "ko",
+      "pl", "pt", "ru", "es", "de"
     ],
     defaultLocale: "en",
-    localeDetection: true,
+    localeDetection: false, // ❌ auto / -> /en redirect বন্ধ
   },
-  ns: ['adidas'], // নেমস্পেস সংজ্ঞায়িত করুন
-  defaultNS: 'adidas',
-  localePath: './public/locales', // স্পষ্টভাবে পাথ দিন
+  ns: ["common"],
+  defaultNS: "common",
+  localePath: path.resolve("./public/locales"),
+  reloadOnPrerender: process.env.NODE_ENV === "development",
 };

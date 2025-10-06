@@ -622,7 +622,7 @@ console.log(meta);
     const canonicalUrl = `${protocol}://${host}`;
     const hreflangs = [
       { rel: 'alternate', hreflang: 'x-default', href: canonicalUrl },
-      { rel: 'alternate', hreflang: 'en', href: `${canonicalUrl}/en` },
+      { rel: 'alternate', hreflang: 'en', href: `${canonicalUrl}` },
     ];
 
     // Fallback meta data
