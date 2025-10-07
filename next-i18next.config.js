@@ -4,8 +4,8 @@ const path = require('path');
 module.exports = {
   i18n: {
     // 'en' এর বদলে 'default' ব্যবহার করুন
-    locales: ['default', 'bn', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'],
-    defaultLocale: 'default',
+    locales: ['en', 'bn', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'],
+    defaultLocale: 'en',
     localeDetection: false,
   },
   ns: ['common'],
