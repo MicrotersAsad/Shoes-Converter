@@ -5,15 +5,11 @@ import { format } from 'date-fns';
 const ContentContext = createContext();
 
 export const useContent = () => useContext(ContentContext);
-
 export const fetchContent = async (category, locale, host, protocol, revalidate = false) => {
   const AUTH_TOKEN = "AZ-fc905a5a5ae08609ba38b046ecc8ef00";
 
-  // 'default' locale কে 'en' এ convert করুন
-  const actualLocale = locale === 'default' ? 'en' : locale;
-
   try {
-    const apiUrl = `${protocol}://${host}/api/content?category=${category}&language=${actualLocale}`;
+    const apiUrl = `${protocol}://${host}/api/content?category=${category}&language=${locale}`;
     console.log(apiUrl);
 
     const contentResponse = await fetch(apiUrl, {
@@ -21,24 +17,24 @@ export const fetchContent = async (category, locale, host, protocol, revalidate 
         'Authorization': `Bearer ${AUTH_TOKEN}`,
         'Content-Type': 'application/json',
       },
-      next: revalidate ? { revalidate: 60 } : undefined,
+      next: revalidate ? { revalidate: 60 } : undefined, // Add revalidate headers if needed
     });
 
     if (!contentResponse.ok) {
-      console.log(`Content not found for category: ${category} and locale: ${actualLocale}`);
+      console.log(`Content not found for category: ${category} and locale: ${locale}`);
       return generateNotFoundResponse(protocol, host);
     }
 
     const contentData = await contentResponse.json();
 
-    if (!contentData.translations || !contentData.translations[actualLocale]) {
+    if (!contentData.translations || !contentData.translations[locale]) {
       return generateNotFoundResponse(protocol, host);
     }
 
     // Process valid data
     const basePath = `${protocol}://${host}`;
-    const canonicalUrl = actualLocale === "en" ? basePath : `${protocol}://${host}/${locale}`;
-    console.log(canonicalUrl);
+    const canonicalUrl = locale === "en" ? basePath : `${protocol}://${host}/${locale}`;
+    console.log(canonicalUrl)
     const translations = contentData.translations || {};
 
     const hreflangs = [
@@ -54,16 +50,16 @@ export const fetchContent = async (category, locale, host, protocol, revalidate 
     ];
 
     return {
-      content: contentData.translations[actualLocale]?.content || '',
+      content: contentData.translations[locale]?.content || '',
       meta: {
-        title: contentData.translations[actualLocale]?.title || 'Default Title',
-        description: contentData.translations[actualLocale]?.description || 'Default Description',
-        image: contentData.translations[actualLocale]?.image || '',
+        title: contentData.translations[locale]?.title || 'Default Title',
+        description: contentData.translations[locale]?.description || 'Default Description',
+        image: contentData.translations[locale]?.image || '',
         url: canonicalUrl,
       },
-      faqs: contentData.translations[actualLocale]?.faqs || [],
-      relatedTools: contentData.translations[actualLocale]?.relatedTools || [],
-      reactions: contentData.translations[actualLocale]?.reactions || { likes: 0, unlikes: 0, reports: [], users: {} },
+      faqs: contentData.translations[locale]?.faqs || [],
+      relatedTools: contentData.translations[locale]?.relatedTools || [],
+      reactions: contentData.translations[locale]?.reactions || { likes: 0, unlikes: 0, reports: [], users: {} },
       translations: contentData.translations,
       hreflangs,
     };
@@ -92,6 +88,8 @@ const generateNotFoundResponse = (protocol, host) => ({
   ],
 });
 
+
+
 export const fetchReviews = async (tool, host, protocol) => {
   const AUTH_TOKEN = "AZ-fc905a5a5ae08609ba38b046ecc8ef00";
 
@@ -106,7 +104,7 @@ export const fetchReviews = async (tool, host, protocol) => {
 
     if (!response.ok) {
       console.log(`Reviews not found for tool: ${tool}`);
-      return [];
+      return []; // খালি অ্যারে রিটার্ন
     }
 
     const data = await response.json();
@@ -119,6 +117,7 @@ export const fetchReviews = async (tool, host, protocol) => {
     return [];
   }
 };
+
 
 export const ContentProvider = ({ children }) => {
   const [content, setContent] = useState('');
@@ -133,7 +132,6 @@ export const ContentProvider = ({ children }) => {
   const [reactions, setReactions] = useState([]);
   const [translations, setTranslations] = useState([]);
   const [hreflangs, setHreflangs] = useState([]);
-  
   const fetchAndSetContent = async (category, locale, host, protocol, revalidate = false) => {
     const data = await fetchContent(category, locale, host, protocol, revalidate);
     setContent(data.content);
@@ -142,7 +140,6 @@ export const ContentProvider = ({ children }) => {
     setTranslations(data.translations);
     setHreflangs(data.hreflangs);
   };
-  
   return (
     <ContentContext.Provider
       value={{
