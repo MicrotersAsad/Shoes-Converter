@@ -12,8 +12,8 @@ module.exports = withBundleAnalyzer({
 
   // i18n config রাখতে হবে next-i18next এর জন্য
   i18n: {
-    locales: ['default', 'bn', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'],
-    defaultLocale: 'default',
+    locales: ['en', 'bn', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'],
+    defaultLocale: 'en',
     localeDetection: false,
   },
 
@@ -30,16 +30,7 @@ module.exports = withBundleAnalyzer({
         destination: '/:path*',
         permanent: true,
       },
-      {
-        source: '/default',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/default/:path*',
-        destination: '/:path*',
-        permanent: true,
-      },
+      
     ];
   },
 
