@@ -2,8 +2,8 @@
 const path = require('path');
 
 module.exports = {
+   // i18n config রাখতে হবে next-i18next এর জন্য
   i18n: {
-    // 'en' এর বদলে 'default' ব্যবহার করুন
     locales: ['en', 'bn', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'],
     defaultLocale: 'en',
     localeDetection: false,

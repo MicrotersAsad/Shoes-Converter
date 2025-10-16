@@ -1,27 +1,25 @@
-// middleware.js
-import { NextResponse } from 'next/server';
-
-const PUBLIC_FILE = /\.(.*)$/;
+import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  const { pathname, search } = req.nextUrl;
+  const { pathname } = req.nextUrl;
+
+  console.log('Requested Path:', pathname);  // লগ করুন
 
   // _next, api, public assets বাদ
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
-    PUBLIC_FILE.test(pathname)
+   
+    pathname === "/favicon.ico"
   ) {
     return NextResponse.next();
   }
 
-  // যদি /en বা /en/... অথবা /default বা /default/... থাকে → redirect
+  // যদি /en বা /default থাকে → রিডিরেক্ট
   if (pathname === '/en' || pathname.startsWith('/en/') || 
       pathname === '/default' || pathname.startsWith('/default/')) {
-    // /en বা /default সরিয়ে নতুন path তৈরি করুন
     const newPath = pathname.replace(/^\/(en|default)(\/?)/, '/');
-    
-    // req.nextUrl clone করে সরাসরি pathname পরিবর্তন করুন
+    console.log('Redirecting to:', newPath); // লগ করুন
     const url = req.nextUrl.clone();
     url.pathname = newPath;
     
@@ -31,16 +29,3 @@ export function middleware(req) {
 
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public files (images, etc)
-     */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\..*|api).*)',
-  ],
-};

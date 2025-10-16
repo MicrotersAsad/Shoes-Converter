@@ -1,45 +1,41 @@
-// next.config.js
-const { i18n } = require('./next-i18next.config');
+const { i18n } = require('./next-i18next.config');  // next-i18next কনফিগারেশনটি আমদানি করা হচ্ছে
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-/** @type {import('next').NextConfig} */
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   swcMinify: true,
-  trailingSlash: false,
 
-  // i18n config রাখতে হবে next-i18next এর জন্য
+  // i18n কনফিগারেশনটি এখানে ব্যবহার করা হচ্ছে
   i18n: {
-    locales: ['en' ,'bn', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'],
+    locales: ['en', 'bn', 'fr', 'nl', 'gu', 'hi', 'it', 'ja', 'ko', 'pl', 'pt', 'ru', 'es', 'de'],
     defaultLocale: 'en',
     localeDetection: false,
   },
 
-  // /en এবং /default redirect
+  // trailingSlash কনফিগারেশনটি এখানে থাকতে হবে
+  trailingSlash: true,  // এটি এখানে ঠিক আছে
+
+  // রিডিরেক্ট কনফিগারেশন
   async redirects() {
     return [
-      {
-        source: '/en',
-        destination: '/',
-        permanent: true,
-      },
       {
         source: '/en/:path*',
         destination: '/:path*',
         permanent: true,
       },
-     
     ];
   },
 
+  // রাইট কনফিগারেশন
   async rewrites() {
     return [
       { source: '/uploads/:path*', destination: '/uploads/:path*' },
     ];
   },
 
+  // চিত্রের জন্য ডোমেইন কনফিগারেশন
   images: {
     domains: [
       'yt3.ggpht.com',
@@ -51,6 +47,7 @@ module.exports = withBundleAnalyzer({
     ],
   },
 
+  // Webpack কনফিগারেশন
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.cache = {
