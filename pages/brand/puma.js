@@ -116,7 +116,7 @@ const PumaShoeSizeConverter =({ meta,
             <meta name="robots" content="index, follow" />
 
             {/* Canonical URL */}
-            <link rel="canonical" href={`${meta?.url}/brand/puma`}  />
+            <link rel="canonical" href={`${meta?.url}/brand/puma/`}  />
 
             {/* Open Graph Meta Tags */}
             <meta property="og:type" content="website" />
@@ -154,7 +154,7 @@ const PumaShoeSizeConverter =({ meta,
                   key={index}
                   rel={hreflang.rel}
                   hreflang={hreflang.hreflang}
-                  href={`${hreflang.href}/brand/puma`}
+                  href={`${hreflang.href}/brand/puma/`}
                 />
               ))}
             {/* <link
@@ -173,7 +173,7 @@ const PumaShoeSizeConverter =({ meta,
       i18n.language !== "en" && !meta?.url.includes(`/${i18n.language}`)
         ? `/${i18n.language}`
         : ""
-    }/brand/puma`,
+    }/brand/puma/`,
     description: meta?.description || "Default description for the webpage.",
     breadcrumb: {
       "@id": `${meta?.url || "https://defaulturl.com"}#breadcrumb`,

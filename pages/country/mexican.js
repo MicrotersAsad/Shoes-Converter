@@ -71,11 +71,11 @@ const MexicanShoeSizeConverter = ({ meta,
             <meta name="robots" content="index, follow" />
 
             {/* Canonical URL */}
-            <link rel="canonical" href={`${meta?.url}/country/mexican`}  />
+            <link rel="canonical" href={`${meta?.url}/country/mexican/`}  />
 
             {/* Open Graph Meta Tags */}
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${meta?.url}/country/mexican`} />
+            <meta property="og:url" content={`${meta?.url}/country/mexican/`} />
             <meta property="og:title" content={meta?.title} />
             <meta property="og:description" content={meta?.description} />
             <meta
@@ -91,8 +91,8 @@ const MexicanShoeSizeConverter = ({ meta,
 
             {/* Twitter Meta Tags */}
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:domain" content={`${meta?.url}/country/mexican`} />
-            <meta property="twitter:url" content={`${`${meta?.url}/country/mexican`}`} />
+            <meta name="twitter:domain" content={`${meta?.url}/country/mexican/`} />
+            <meta property="twitter:url" content={`${`${meta?.url}/country/mexican/`}`} />
             <meta name="twitter:title" content={meta?.title} />
             <meta name="twitter:description" content={meta?.description} />
             <meta
@@ -109,7 +109,7 @@ const MexicanShoeSizeConverter = ({ meta,
                   key={index}
                   rel={hreflang.rel}
                   hreflang={hreflang.hreflang}
-                  href={`${hreflang.href}/country/mexican`}
+                  href={`${hreflang.href}/country/mexican/`}
                 />
               ))}
             {/* <link
@@ -128,7 +128,7 @@ const MexicanShoeSizeConverter = ({ meta,
       i18n.language !== "en" && !meta?.url.includes(`/${i18n.language}`)
         ? `/${i18n.language}`
         : ""
-    }/country/mexican`,
+    }/country/mexican/`,
     description: meta?.description || "Default description for the webpage.",
     breadcrumb: {
       "@id": `${meta?.url || "https://defaulturl.com"}#breadcrumb`,

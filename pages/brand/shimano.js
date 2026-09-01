@@ -81,11 +81,11 @@ const ShimanoShoeSizeChart = ({ meta,
             <meta name="robots" content="index, follow" />
 
             {/* Canonical URL */}
-            <link rel="canonical" href={`${meta?.url}/brand/shimano`}  />
+            <link rel="canonical" href={`${meta?.url}/brand/shimano/`}  />
 
             {/* Open Graph Meta Tags */}
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${meta?.url}/brand/shimano`} />
+            <meta property="og:url" content={`${meta?.url}/brand/shimano/`} />
             <meta property="og:title" content={meta?.title} />
             <meta property="og:description" content={meta?.description} />
             <meta
@@ -101,8 +101,8 @@ const ShimanoShoeSizeChart = ({ meta,
 
             {/* Twitter Meta Tags */}
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:domain" content={`${meta?.url}/brand/shimano`} />
-            <meta property="twitter:url" content={`${`${meta?.url}/brand/shimano`}`} />
+            <meta name="twitter:domain" content={`${meta?.url}/brand/shimano/`} />
+            <meta property="twitter:url" content={`${`${meta?.url}/brand/shimano/`}`} />
             <meta name="twitter:title" content={meta?.title} />
             <meta name="twitter:description" content={meta?.description} />
             <meta
@@ -119,7 +119,7 @@ const ShimanoShoeSizeChart = ({ meta,
                   key={index}
                   rel={hreflang.rel}
                   hreflang={hreflang.hreflang}
-                  href={`${hreflang.href}/brand/shimano`}
+                  href={`${hreflang.href}/brand/shimano/`}
                 />
               ))}
             {/* <link
@@ -138,7 +138,7 @@ const ShimanoShoeSizeChart = ({ meta,
       i18n.language !== "en" && !meta?.url.includes(`/${i18n.language}`)
         ? `/${i18n.language}`
         : ""
-    }/brand/shimano`,
+    }/brand/shimano/`,
     description: meta?.description || "Default description for the webpage.",
     breadcrumb: {
       "@id": `${meta?.url || "https://defaulturl.com"}#breadcrumb`,

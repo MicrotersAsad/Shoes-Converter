@@ -105,11 +105,11 @@ const AsicsShoeSizeConverter  = ({ meta,
             <meta name="robots" content="index, follow" />
 
             {/* Canonical URL */}
-            <link rel="canonical" href={`${meta?.url}/brand/asics`}  />
+            <link rel="canonical" href={`${meta?.url}/brand/asics/`}  />
 
             {/* Open Graph Meta Tags */}
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${meta?.url}/brand/asics`} />
+            <meta property="og:url" content={`${meta?.url}/brand/asics/`} />
             <meta property="og:title" content={meta?.title} />
             <meta property="og:description" content={meta?.description} />
             <meta
@@ -125,8 +125,8 @@ const AsicsShoeSizeConverter  = ({ meta,
 
             {/* Twitter Meta Tags */}
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:domain" content={`${meta?.url}/brand/asics`} />
-            <meta property="twitter:url" content={`${`${meta?.url}/brand/asics`}`} />
+            <meta name="twitter:domain" content={`${meta?.url}/brand/asics/`} />
+            <meta property="twitter:url" content={`${`${meta?.url}/brand/asics/`}`} />
             <meta name="twitter:title" content={meta?.title} />
             <meta name="twitter:description" content={meta?.description} />
             <meta
@@ -143,7 +143,7 @@ const AsicsShoeSizeConverter  = ({ meta,
                   key={index}
                   rel={hreflang.rel}
                   hreflang={hreflang.hreflang}
-                  href={`${hreflang.href}/brand/asics`}
+                  href={`${hreflang.href}/brand/asics/`}
                 />
               ))}
             {/* <link
@@ -162,7 +162,7 @@ const AsicsShoeSizeConverter  = ({ meta,
       i18n.language !== "en" && !meta?.url.includes(`/${i18n.language}`)
         ? `/${i18n.language}`
         : ""
-    }/brand/asics`,
+    }/brand/asics/`,
     description: meta?.description || "Default description for the webpage.",
     breadcrumb: {
       "@id": `${meta?.url || "https://defaulturl.com"}#breadcrumb`,
