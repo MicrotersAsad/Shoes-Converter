@@ -18,39 +18,39 @@ export default function Sitemap() {
   
     // List of country routes
     const countryRoutes = [
-      '/country/european',
-      '/country/brazilian',
-      '/country/mexican',
-      '/country/australian',
-      '/country/italian',
-      '/country/spanish',
-      '/country/korean',
-      '/country/japanese',
-      '/country/indian',
-      '/country/asian',
-      '/country/canadian',
-      '/country/colombian',
-      '/country/france',
-      '/country/philippines',
-      '/country/german',
-      '/country/chinese',
+      '/country/european/',
+      '/country/brazilian/',
+      '/country/mexican/',
+      '/country/australian/',
+      '/country/italian/',
+      '/country/spanish/',
+      '/country/korean/',
+      '/country/japanese/',
+      '/country/indian/',
+      '/country/asian/',
+      '/country/canadian/',
+      '/country/colombian/',
+      '/country/france/',
+      '/country/philippines/',
+      '/country/german/',
+      '/country/chinese/',
       
     ];
     // List of barnd routes
     const brandRoutes = [
-      '/brand/clarks',
-      '/brand/nike',
-      '/brand/adidas',
-      '/brand/dr-martens',
-      '/brand/puma',
-      '/brand/timberland',
-      '/brand/ugg',
-      '/brand/alegria',
-      '/brand/asics',
-      '/brand/asos',
-      '/brand/merrell',
-      '/brand/shein',
-      '/brand/shimano',
+      '/brand/clarks/',
+      '/brand/nike/',
+      '/brand/adidas/',
+      '/brand/dr-martens/',
+      '/brand/puma/',
+      '/brand/timberland/',
+      '/brand/ugg/',
+      '/brand/alegria/',
+      '/brand/asics/',
+      '/brand/asos/',
+      '/brand/merrell/',
+      '/brand/shein/',
+      '/brand/shimano/',
       
       
     ];
@@ -65,14 +65,14 @@ export default function Sitemap() {
     // Static routes (non-country pages)
     const staticRoutes = [
       '',           // Home page
-      '/women',
-      '/men',
-      "/kids",
-      "/men-to-women"	,
-      '/about',     // About Us page
-      '/contact',   // Contact Us page
-      '/terms',     // Terms page
-      '/privacy',   // Privacy page
+      '/women/',
+      '/men/',
+      "/kids/",
+      "/men-to-women/"	,
+      '/about/',     // About Us page
+      '/contact/',   // Contact Us page
+      '/terms/',     // Terms page
+      '/privacy/',   // Privacy page
     ];
   
     // Combine static routes with language variations
