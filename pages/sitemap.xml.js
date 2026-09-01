@@ -64,7 +64,7 @@ export default function Sitemap() {
   
     // Static routes (non-country pages)
     const staticRoutes = [
-      '',           // Home page
+      '/',           // Home page
       '/women/',
       '/men/',
       "/kids/",
